@@ -1,0 +1,14 @@
+*.bat
+*.sh
+/*/
+LICENSE.txt
+CHANGELOG
+UniversalElectricity
+
+!/src/
+/src/minecraft/*
+
+!/src/minecraft/SBFP
+!/resources/
+!/modversion.txt
+!/README.md
