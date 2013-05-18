@@ -1,5 +1,5 @@
 package SBFP;
 
-public class SBFP {
+public class SBFP{
 
 }
