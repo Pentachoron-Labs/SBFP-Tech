@@ -8,7 +8,7 @@ UniversalElectricity
 !/src/
 /src/minecraft/*
 
-!/src/minecraft/SBFP
+!/src/minecraft/sbfp
 !/resources/
 !/modversion.txt
 !/README.md
