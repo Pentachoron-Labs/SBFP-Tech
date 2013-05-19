@@ -5,6 +5,7 @@ import java.io.File;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.Property;
 import sbfp.world.BlockOre;
+import sbfp.world.ItemBlockOre;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.Mod.Instance;
@@ -12,10 +13,9 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
 
 @Mod(modid = sbfp.modid, name = sbfp.shortname, version = sbfp.version)
-@NetworkMod(clientSideRequired=true,serverSideRequired=false)
+@NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class sbfp{
 
 	// name constants
@@ -31,19 +31,11 @@ public class sbfp{
 	public static SBCommonProxy proxy;
 
 	// blocks and items
-	//public static final BlockOre blockOre = new BlockOre(0, getBlockID("blockOreID", 0x4c0));
-	public static final BlockOre blockThoriumOre = new BlockOre(0,getBlockID("blockThoriumOre",0x4c0));
-	public static final BlockOre blockFluoriteOre = new BlockOre(1,getBlockID("blockFluoriteOre",0x4c1));
-	public static final BlockOre blockMolybdeniteOre = new BlockOre(2,getBlockID("blockMolybdeniteOre",0x4c2));
+	public static final BlockOre blockOre = new BlockOre(0,getBlockID("blockOreID",0x4c0));
 
 	@Init
 	public void init(FMLInitializationEvent event){
-		GameRegistry.registerBlock(blockThoriumOre,"blockThoriumOre");
-		LanguageRegistry.addName(blockThoriumOre, "Thorium Ore");
-		GameRegistry.registerBlock(blockFluoriteOre,"blockFluoriteOre");
-		LanguageRegistry.addName(blockFluoriteOre, "Fluorite Ore");
-		GameRegistry.registerBlock(blockMolybdeniteOre,"blockMolybdeniteOre");
-		LanguageRegistry.addName(blockMolybdeniteOre, "Molybdenite Ore");
+		GameRegistry.registerBlock(blockOre,ItemBlockOre.class,"blockOre");
 	}
 
 	private static int getBlockID(String name, int defaultid){

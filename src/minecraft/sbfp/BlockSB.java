@@ -12,7 +12,7 @@ public abstract class BlockSB extends Block{
 		super(id,material);
 		this.setUnlocalizedName(name);
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister i){
