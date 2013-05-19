@@ -31,6 +31,7 @@ public class sbfp{
 	public static SBCommonProxy proxy;
 
 	// blocks and items
+	//public static final BlockOre blockOre = new BlockOre(0, getBlockID("blockOreID", 0x4c0));
 	public static final BlockOre blockThoriumOre = new BlockOre(0,getBlockID("blockThoriumOre",0x4c0));
 	public static final BlockOre blockFluoriteOre = new BlockOre(1,getBlockID("blockFluoriteOre",0x4c1));
 	public static final BlockOre blockMolybdeniteOre = new BlockOre(2,getBlockID("blockMolybdeniteOre",0x4c2));

@@ -23,9 +23,9 @@ public class BlockOre extends BlockSB{
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister register)
 	{
-		icons[0] = register.registerIcon("sbfp:"+this.icons[0]);
-		icons[1] = register.registerIcon("sbfp:"+this.icons[1]);
-		icons[2] = register.registerIcon("sbfp:"+this.icons[2]);
+		icons[0] = register.registerIcon("sbfp:"+this.names[0]);
+		icons[1] = register.registerIcon("sbfp:"+this.names[1]);
+		icons[2] = register.registerIcon("sbfp:"+this.names[2]);
 	}
 	
 	@Override
