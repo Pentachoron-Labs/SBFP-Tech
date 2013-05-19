@@ -12,6 +12,7 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.LanguageRegistry;
 
 @Mod(modid = sbfp.modid, name = sbfp.shortname, version = sbfp.version)
 @NetworkMod(clientSideRequired=true,serverSideRequired=false)
@@ -31,12 +32,17 @@ public class sbfp{
 
 	// blocks and items
 	public static final BlockOre blockThoriumOre = new BlockOre(0,getBlockID("blockThoriumOre",0x4c0));
-	public static final BlockOre blockFluoriteOre = new BlockOre(1,getBlockID("blockThoriumOre",0x4c1));
-	public static final BlockOre blockMolybdeniteOre = new BlockOre(2,getBlockID("blockThoriumOre",0x4c2));
+	public static final BlockOre blockFluoriteOre = new BlockOre(1,getBlockID("blockFluoriteOre",0x4c1));
+	public static final BlockOre blockMolybdeniteOre = new BlockOre(2,getBlockID("blockMolybdeniteOre",0x4c2));
 
 	@Init
 	public void init(FMLInitializationEvent event){
 		GameRegistry.registerBlock(blockThoriumOre,"blockThoriumOre");
+		LanguageRegistry.addName(blockThoriumOre, "Thorium Ore");
+		GameRegistry.registerBlock(blockFluoriteOre,"blockFluoriteOre");
+		LanguageRegistry.addName(blockFluoriteOre, "Fluorite Ore");
+		GameRegistry.registerBlock(blockMolybdeniteOre,"blockMolybdeniteOre");
+		LanguageRegistry.addName(blockMolybdeniteOre, "Molybdenite Ore");
 	}
 
 	private static int getBlockID(String name, int defaultid){
