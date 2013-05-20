@@ -18,6 +18,6 @@ public class ItemBlockOre extends ItemBlock{
 
 	@Override
 	public String getUnlocalizedName(ItemStack is){
-		return new String[]{"oreThorium","oreFluorite","oreMoS2"}[is.getItemDamage()];
+		return BlockOre.names[is.getItemDamage()];
 	}
 }

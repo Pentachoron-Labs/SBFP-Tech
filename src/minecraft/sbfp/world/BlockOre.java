@@ -19,7 +19,7 @@ public class BlockOre extends BlockSB{
 	public static final String[] names = {"oreThorium","oreFluorite","oreMoS2"};
 
 	public BlockOre(int type, int id){
-		super(id,Material.rock,names[type]);
+		super(id,Material.rock,"ore");
 		this.setCreativeTab(CreativeTabs.tabBlock);
 	}
 

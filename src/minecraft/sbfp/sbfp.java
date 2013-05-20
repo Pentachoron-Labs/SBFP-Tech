@@ -2,6 +2,7 @@ package sbfp;
 
 import java.io.File;
 
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.Property;
 import sbfp.world.BlockOre;
@@ -13,6 +14,7 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.LanguageRegistry;
 
 @Mod(modid = sbfp.modid, name = sbfp.shortname, version = sbfp.version)
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
@@ -36,6 +38,9 @@ public class sbfp{
 	@Init
 	public void init(FMLInitializationEvent event){
 		GameRegistry.registerBlock(blockOre,ItemBlockOre.class,"blockOre");
+		for(int i=0;i<BlockOre.names.length;i++){
+			LanguageRegistry.addName(new ItemStack(blockOre.blockID,1,i),BlockOre.names[i]); //Yes, I know it's unlocalized… but we can add l10n later.
+		}
 	}
 
 	private static int getBlockID(String name, int defaultid){
