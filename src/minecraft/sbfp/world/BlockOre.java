@@ -53,6 +53,7 @@ public class BlockOre extends BlockSB{
 	public ArrayList<ItemStack> getBlockDropped(World w, int x, int y, int z, int metadata, int fortune){
 		ArrayList<ItemStack> q = new ArrayList<ItemStack>();
 		// maybe put pick code here? I'm not sure...
+		//atrain: What is pick code?
 		q.add(new ItemStack(this.blockID,1,metadata));
 		return q;
 	}
