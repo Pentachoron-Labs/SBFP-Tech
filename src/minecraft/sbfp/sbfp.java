@@ -21,8 +21,8 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class sbfp{
 
-	//Logger
-	public static Logger logger = Logger.getLogger("Minecraft");
+	// Logger
+	public static final Logger logger = Logger.getLogger("Minecraft");
 	// name constants
 	public static final String modid = "sbfp";
 	public static final String shortname = "SBFP Tech";
@@ -41,10 +41,20 @@ public class sbfp{
 	@Init
 	public void init(FMLInitializationEvent event){
 		GameRegistry.registerBlock(blockOre,ItemBlockOre.class,"blockOre");
-		for(int i=0;i<BlockOre.names.length;i++){
-			LanguageRegistry.addName(new ItemStack(blockOre.blockID,1,i),BlockOre.names[i]); //Yes, I know it's unlocalized¦ but we can add l10n later.
+		for(int i = 0; i<BlockOre.names.length; i++){
+			LanguageRegistry.addName(new ItemStack(blockOre.blockID,1,i),BlockOre.names[i]); // Yes,
+																								// I
+																								// know
+																								// it's
+																								// unlocalizedï¿½
+																								// but
+																								// we
+																								// can
+																								// add
+																								// l10n
+																								// later.
 		}
-		LanguageRegistry.instance().addStringLocalization("oreThorium", "Thorium Ore");
+		LanguageRegistry.instance().addStringLocalization("oreThorium","Thorium Ore");
 	}
 
 	private static int getBlockID(String name, int defaultid){

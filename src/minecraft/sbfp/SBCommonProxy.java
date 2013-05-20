@@ -6,7 +6,9 @@ import cpw.mods.fml.common.network.IGuiHandler;
 
 public class SBCommonProxy implements IGuiHandler{
 
-	public void init(){}
+	public void init(){
+		sbfp.logger.fine("SBFP Common Proxy loading");
+	}
 
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z){
