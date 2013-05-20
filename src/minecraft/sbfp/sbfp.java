@@ -42,17 +42,7 @@ public class sbfp{
 	public void init(FMLInitializationEvent event){
 		GameRegistry.registerBlock(blockOre,ItemBlockOre.class,"blockOre");
 		for(int i = 0; i<BlockOre.names.length; i++){
-			LanguageRegistry.addName(new ItemStack(blockOre.blockID,1,i),BlockOre.names[i]); // Yes,
-																								// I
-																								// know
-																								// it's
-																								// unlocalized�
-																								// but
-																								// we
-																								// can
-																								// add
-																								// l10n
-																								// later.
+			LanguageRegistry.addName(new ItemStack(blockOre.blockID,1,i),BlockOre.names[i]);
 		}
 		LanguageRegistry.instance().addStringLocalization("oreThorium","Thorium Ore");
 	}
