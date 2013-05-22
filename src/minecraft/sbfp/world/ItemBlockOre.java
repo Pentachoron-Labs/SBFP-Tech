@@ -2,13 +2,13 @@ package sbfp.world;
 
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import sbfp.modsbfp;
 
 public class ItemBlockOre extends ItemBlock{
 
 	public ItemBlockOre(int id){
 		super(id);
 		this.setHasSubtypes(true);
-		this.setMaxDamage(0);
 	}
 
 	@Override
@@ -18,6 +18,6 @@ public class ItemBlockOre extends ItemBlock{
 
 	@Override
 	public String getUnlocalizedName(ItemStack is){
-		return BlockOre.names[is.getItemDamage()];
+		return modsbfp.blockOre.names[is.getItemDamage()];
 	}
 }

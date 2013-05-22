@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.Property;
+import sbfp.machines.ItemRedflux;
 import sbfp.world.BlockOre;
 import sbfp.world.ItemBlockOre;
 import cpw.mods.fml.common.Mod;
@@ -17,9 +18,9 @@ import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
-@Mod(modid = sbfp.modid, name = sbfp.shortname, version = sbfp.version)
+@Mod(modid = modsbfp.modid, name = modsbfp.shortname, version = modsbfp.version)
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
-public class sbfp{
+public class modsbfp{
 
 	// Logger
 	public static final Logger logger = Logger.getLogger("Minecraft");
@@ -30,26 +31,28 @@ public class sbfp{
 
 	// mechanics constants
 	@Instance(modid)
-	private static sbfp instance;
+	private static modsbfp instance;
 	private static final Configuration config = new Configuration(new File("config/SBFP/SBFP.cfg"));
 	@SidedProxy(clientSide = "sbfp.client.SBClientProxy", serverSide = "sbfp.SBCommonProxy")
 	public static SBCommonProxy proxy;
 
 	// blocks and items
-	public static final BlockOre blockOre = new BlockOre(0,getBlockID("blockOreID",0x4c0));
-	public static final ItemSB items = new ItemSB(getItemID("itemSBID", 0x4c1));
+	public static final BlockOre blockOre = new BlockOre(getBlockID("blockOreID",0x4c0));
+	public static final ItemRedflux itemRedflux = new ItemRedflux(getItemID("itemRedfluxID",0x4c1));
 
 	@Init
 	public void init(FMLInitializationEvent event){
 		GameRegistry.registerBlock(blockOre,ItemBlockOre.class,"blockOre");
-		GameRegistry.registerItem(items,"itemSB");
-		for(int i = 0; i<BlockOre.names.length; i++){
-			LanguageRegistry.addName(new ItemStack(blockOre.blockID,1,i),BlockOre.names[i]);
-		}
-		for(int i = 0; i<ItemSB.names.length; i++){
-			LanguageRegistry.addName(new ItemStack(items.itemID,1,i),ItemSB.names[i]);
-		}
+		GameRegistry.registerItem(itemRedflux,"itemRedflux");
 		//LanguageRegistry.instance().addStringLocalization("oreThorium","Thorium Ore");
+		for(int i = 0; i<blockOre.names.length; i++){
+			LanguageRegistry.addName(new ItemStack(blockOre.blockID,1,i),blockOre.names[i]);
+			//change this.names[i] to whatever lang code
+		}
+		for(int i = 0; i<itemRedflux.names.length; i++){
+			LanguageRegistry.addName(new ItemStack(itemRedflux.itemID,1,i),itemRedflux.names[i]);
+			//change this.names[i] to whatever lang code
+		}
 	}
 
 	private static int getBlockID(String name, int defaultid){

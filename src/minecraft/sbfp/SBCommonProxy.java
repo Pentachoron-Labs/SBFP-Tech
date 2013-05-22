@@ -7,7 +7,7 @@ import cpw.mods.fml.common.network.IGuiHandler;
 public class SBCommonProxy implements IGuiHandler{
 
 	public void init(){
-		sbfp.logger.fine("SBFP Common Proxy loading");
+		modsbfp.logger.fine("SBFP Common Proxy loading");
 	}
 
 	@Override
