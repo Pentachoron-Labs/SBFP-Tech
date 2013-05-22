@@ -37,14 +37,19 @@ public class sbfp{
 
 	// blocks and items
 	public static final BlockOre blockOre = new BlockOre(0,getBlockID("blockOreID",0x4c0));
+	public static final ItemSB items = new ItemSB(getItemID("itemSBID", 0x4c1));
 
 	@Init
 	public void init(FMLInitializationEvent event){
 		GameRegistry.registerBlock(blockOre,ItemBlockOre.class,"blockOre");
+		GameRegistry.registerItem(items,"itemSB");
 		for(int i = 0; i<BlockOre.names.length; i++){
 			LanguageRegistry.addName(new ItemStack(blockOre.blockID,1,i),BlockOre.names[i]);
 		}
-		LanguageRegistry.instance().addStringLocalization("oreThorium","Thorium Ore");
+		for(int i = 0; i<ItemSB.names.length; i++){
+			LanguageRegistry.addName(new ItemStack(items.itemID,1,i),ItemSB.names[i]);
+		}
+		//LanguageRegistry.instance().addStringLocalization("oreThorium","Thorium Ore");
 	}
 
 	private static int getBlockID(String name, int defaultid){
