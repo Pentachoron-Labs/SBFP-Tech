@@ -10,7 +10,7 @@ import net.minecraft.util.Icon;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockSub extends BlockSB{
+public abstract class BlockSub extends BlockSB{
 
 	public Icon[] icons;
 	public String[] names;

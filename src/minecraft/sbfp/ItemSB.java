@@ -5,7 +5,7 @@ import net.minecraft.item.Item;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemSB extends Item{
+public abstract class ItemSB extends Item{
 
 	public ItemSB(int id, String name){
 		super(id);

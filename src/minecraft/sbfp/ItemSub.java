@@ -9,7 +9,7 @@ import net.minecraft.util.Icon;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemSub extends ItemSB{
+public abstract class ItemSub extends ItemSB{
 
 	public Icon[] icons;
 	public String[] names;
