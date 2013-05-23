@@ -5,8 +5,8 @@ import sbfp.ItemSub;
 import sbfp.modsbfp;
 
 public class ItemRedflux extends ItemSub{
-	public static String[] names = new String[]{"redFluxAmp","redFluxAbsorber", "redFluxStablizer"};
-	public ItemRedflux(int id){
+	public String[] name;
+	public ItemRedflux(int id, String[] names){
 		super(id,names);
 		this.setCreativeTab(CreativeTabs.tabRedstone);
 		for(int i = 0; i<this.names.length; i++){
