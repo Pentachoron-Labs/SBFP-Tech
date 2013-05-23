@@ -1,6 +1,8 @@
 package sbfp;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import net.minecraft.item.ItemStack;
@@ -28,6 +30,8 @@ public class modsbfp{
 	public static final String modid = "sbfp";
 	public static final String shortname = "SBFP Tech";
 	public static final String version = "Aleph Null";
+	
+	public static final Map<String, String> names = new HashMap();
 
 	// mechanics constants
 	@Instance(modid)
@@ -46,11 +50,11 @@ public class modsbfp{
 		GameRegistry.registerItem(itemRedflux,"itemRedflux");
 		//LanguageRegistry.instance().addStringLocalization("oreThorium","Thorium Ore");
 		for(int i = 0; i<blockOre.names.length; i++){
-			LanguageRegistry.addName(new ItemStack(blockOre.blockID,1,i),blockOre.names[i]);
+			LanguageRegistry.addName(new ItemStack(blockOre.blockID,1,i),names.get(blockOre.names[i]));
 			//change this.names[i] to whatever lang code
 		}
 		for(int i = 0; i<itemRedflux.names.length; i++){
-			LanguageRegistry.addName(new ItemStack(itemRedflux.itemID,1,i),itemRedflux.names[i]);
+			LanguageRegistry.addName(new ItemStack(itemRedflux.itemID,1,i),names.get(itemRedflux.names[i]));
 			//change this.names[i] to whatever lang code
 		}
 	}
@@ -65,5 +69,13 @@ public class modsbfp{
 		config.load();
 		Property q = config.get(Configuration.CATEGORY_ITEM,name,defaultid);
 		return q.getInt(defaultid);
+	}
+	
+	public void addDisplayName(String unLocal, String disp){
+		this.names.put(unLocal, disp);
+	}
+
+	public static modsbfp getInstance(){
+		return instance;
 	}
 }
