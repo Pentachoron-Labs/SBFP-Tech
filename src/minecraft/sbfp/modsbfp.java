@@ -41,13 +41,13 @@ public class modsbfp{
 	@SidedProxy(clientSide = "sbfp.client.SBClientProxy", serverSide = "sbfp.SBCommonProxy")
 	public static SBCommonProxy proxy;
 
-	// blocks and items
-	public static final BlockOre blockOre = new BlockOre(getBlockID("blockOreID",0x4c0));
-	public static final ItemRedflux itemRedflux = new ItemRedflux(getItemID("itemRedfluxID",0x4c1));
-	
 	//block and item name
 	public static final String[][] redFluxNames = new String[][]{{"redFluxAmp","redFluxAbsorber", "redFluxStablizer"},{"Redstone Flux Amplifier", "Redstone Flux Absorber", "Redstone Flux Stablilizer"}};
 	public static final String[][] oreNames = new String[][]{{"oreThorium","oreFluorite","oreMoS2","oreRutile"}, {"Thorium Ore", "Fluorite", "Molybdenite","Rutile"}};
+
+	// blocks and items
+	public static final BlockOre blockOre = new BlockOre(getBlockID("blockOreID",0x4c0));
+	public static final ItemRedflux itemRedflux = new ItemRedflux(getItemID("itemRedfluxID",0x4c1));
 	
 	@PreInit
 	public void preInit(FMLPreInitializationEvent event){
@@ -59,7 +59,7 @@ public class modsbfp{
 		GameRegistry.registerBlock(blockOre,ItemBlockOre.class,"blockOre");
 		GameRegistry.registerItem(itemRedflux,"itemRedflux");
 		for(int i = 0; i<blockOre.names.length; i++){
-			LanguageRegistry.addName(new ItemStack(blockOre.blockID,1,i),oreNames[1][0]);
+			LanguageRegistry.addName(new ItemStack(blockOre.blockID,1,i),oreNames[1][i]);
 			//change this.names[i] to whatever lang code
 		}
 		for(int i = 0; i<itemRedflux.names.length; i++){
