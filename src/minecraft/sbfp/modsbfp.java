@@ -31,7 +31,7 @@ public class modsbfp{
 	// name constants
 	public static final String modid = "sbfp";
 	public static final String shortname = "SBFP Tech";
-	public static final String version = "Aleph Null";
+	public static final String version = "Aleph NEGATIVE TEN MILLION";
 	
 
 	// mechanics constants
