@@ -33,7 +33,6 @@ public class modsbfp{
 	public static final String shortname = "SBFP Tech";
 	public static final String version = "Aleph Null";
 	
-	public static final Map<String, String> names = new HashMap();
 
 	// mechanics constants
 	@Instance(modid)
@@ -44,7 +43,11 @@ public class modsbfp{
 
 	// blocks and items
 	public static final BlockOre blockOre = new BlockOre(getBlockID("blockOreID",0x4c0));
-	public static final ItemRedflux itemRedflux = new ItemRedflux(getItemID("itemRedfluxID",0x4c1), new String[]{"redFluxAmp","redFluxAbsorber", "redFluxStablizer"});
+	public static final ItemRedflux itemRedflux = new ItemRedflux(getItemID("itemRedfluxID",0x4c1));
+	
+	//block and item name
+	public static final String[][] redFluxNames = new String[][]{{"redFluxAmp","redFluxAbsorber", "redFluxStablizer"},{"Redstone Flux Amplifier", "Redstone Flux Absorber", "Redstone Flux Stablilizer"}};
+	public static final String[][] oreNames = new String[][]{{"oreThorium","oreFluorite","oreMoS2"}, {"Thorium Ore", "Fluorite Ore", "Molybdenite Ore"}};
 	
 	@PreInit
 	public void preInit(FMLPreInitializationEvent event){
@@ -57,11 +60,11 @@ public class modsbfp{
 		GameRegistry.registerItem(itemRedflux,"itemRedflux");
 		//LanguageRegistry.instance().addStringLocalization("oreThorium","Thorium Ore");
 		for(int i = 0; i<blockOre.names.length; i++){
-			LanguageRegistry.addName(new ItemStack(blockOre.blockID,1,i),names.get(blockOre.names[i]));
+			LanguageRegistry.addName(new ItemStack(blockOre.blockID,1,i),oreNames[1][0]);
 			//change this.names[i] to whatever lang code
 		}
 		for(int i = 0; i<itemRedflux.names.length; i++){
-			LanguageRegistry.addName(new ItemStack(itemRedflux.itemID,1,i),names.get(itemRedflux.names[i]));
+			LanguageRegistry.addName(new ItemStack(itemRedflux.itemID,1,i),redFluxNames[1][i]);
 			//change this.names[i] to whatever lang code
 		}
 	}
@@ -78,10 +81,6 @@ public class modsbfp{
 		return q.getInt(defaultid);
 	}
 	
-	public void addDisplayName(String unLocal, String disp){
-		this.names.put(unLocal, disp);
-	}
-
 	public static modsbfp getInstance(){
 		return instance;
 	}

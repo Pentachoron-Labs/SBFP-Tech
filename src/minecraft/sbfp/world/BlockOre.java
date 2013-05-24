@@ -7,11 +7,12 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import sbfp.BlockSub;
+import sbfp.modsbfp;
 
 public class BlockOre extends BlockSub{
 
 	public BlockOre(int id){
-		super(id,Material.rock,new String[]{"oreThorium","oreFluorite","oreMoS2"});
+		super(id,Material.rock,modsbfp.oreNames[0]);
 		this.setCreativeTab(CreativeTabs.tabBlock);
 	}
 
