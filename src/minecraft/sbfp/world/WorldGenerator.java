@@ -12,7 +12,6 @@ public class WorldGenerator implements IWorldGenerator{
 	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider){
 		
-		
 	}
 
 }
