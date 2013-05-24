@@ -11,7 +11,7 @@ import sbfp.BlockSub;
 public class BlockOre extends BlockSub{
 
 	public BlockOre(int id){
-		super(id,Material.rock,new String[]{"oreThorium","oreFluorite","oreMoS2"});
+		super(id,Material.rock,new String[]{"oreThorium","oreFluorite","oreMoS2","oreRutile"});
 		this.setCreativeTab(CreativeTabs.tabBlock);
 	}
 
