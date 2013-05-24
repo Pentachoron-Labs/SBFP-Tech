@@ -58,7 +58,6 @@ public class modsbfp{
 	public void init(FMLInitializationEvent event){
 		GameRegistry.registerBlock(blockOre,ItemBlockOre.class,"blockOre");
 		GameRegistry.registerItem(itemRedflux,"itemRedflux");
-		//LanguageRegistry.instance().addStringLocalization("oreThorium","Thorium Ore");
 		for(int i = 0; i<blockOre.names.length; i++){
 			LanguageRegistry.addName(new ItemStack(blockOre.blockID,1,i),oreNames[1][0]);
 			//change this.names[i] to whatever lang code
