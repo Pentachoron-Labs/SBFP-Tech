@@ -77,10 +77,10 @@ public class modsbfp{
 	}
 
 	private void addWorldGeneration(){
-		this.wGen.addOre(new WorldGenOres(blockOre.blockID, 0, 12, 40, 32, 44, Block.stone.blockID));
-		this.wGen.addOre(new WorldGenOres(blockOre.blockID, 1, 12, 40, 10, 4, Block.stone.blockID));
-		this.wGen.addOre(new WorldGenOres(blockOre.blockID, 2, 12, 40, 10, 4, Block.stone.blockID));
-		this.wGen.addOre(new WorldGenOres(blockOre.blockID, 3, 12, 40, 10, 4, Block.stone.blockID));
+		this.wGen.addOre(new WorldGenOres(blockOre.blockID, 0, 12, 40, 12, 5, Block.stone.blockID));
+		this.wGen.addOre(new WorldGenOres(blockOre.blockID, 1, 12, 40, 14, 4, Block.stone.blockID));
+		this.wGen.addOre(new WorldGenOres(blockOre.blockID, 2, 12, 40, 5, 2, Block.stone.blockID));
+		this.wGen.addOre(new WorldGenOres(blockOre.blockID, 3, 12, 40, 14, 6, Block.stone.blockID));
 		
 	}
 	
