@@ -3,6 +3,7 @@ package sbfp;
 import java.io.File;
 import java.util.logging.Logger;
 
+import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.Property;
@@ -76,7 +77,14 @@ public class modsbfp{
 	}
 
 	private void addWorldGeneration(){
-		this.wGen.addOre(new WorldGenOres(12, 40, 4, blockOre.blockID, 0));
+		this.wGen.addOre(new WorldGenOres(blockOre.blockID, 0, 12, 40, 10, 4, Block.stone.blockID));
+		this.wGen.addOre(new WorldGenOres(blockOre.blockID, 1, 12, 40, 10, 4, Block.stone.blockID));
+		this.wGen.addOre(new WorldGenOres(blockOre.blockID, 2, 12, 40, 10, 4, Block.stone.blockID));
+		this.wGen.addOre(new WorldGenOres(blockOre.blockID, 3, 12, 40, 10, 4, Block.stone.blockID));
+		
+	}
+	
+	private void addRecipes(){
 		
 	}
 

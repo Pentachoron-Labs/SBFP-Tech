@@ -22,11 +22,13 @@ public class WorldGenerator implements IWorldGenerator{
 		chunkX = chunkX << 4;
 		chunkZ = chunkZ << 4;
 		if(chunkGenerator instanceof ChunkProviderGenerate){
+			assert(this.ores.get(0)!=null);
 			for(WorldGenOres o:this.ores){
 				o.generate(world,random,chunkX,0,chunkZ);
 			}
+			//System.out.println("Generating Stuffies");
 		}
-		modsbfp.logger.finer("Generating Stuffies");
+
 	}
 	
 	public void addOre(WorldGenOres ore){
