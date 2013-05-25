@@ -71,7 +71,7 @@ public class modsbfp{
 		}
 		this.addWorldGeneration();
 		GameRegistry.registerWorldGenerator(this.wGen);
-		logger.finer("SBFP: Added WGenerator");
+		System.out.println("AddedWGen");
 		
 	}
 
