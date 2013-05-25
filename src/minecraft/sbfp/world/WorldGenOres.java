@@ -10,20 +10,22 @@ public class WorldGenOres{
 	private int minGenLevel;
 	private int amountPerChunk;
 	private int genID;
-	public WorldGenOres(int minGen, int maxGen, int amt, int ID){
+	private int genMeta;
+	public WorldGenOres(int minGen, int maxGen, int amt, int ID, int meta){
 		this.maxGenLevel = maxGen;
 		this.minGenLevel = minGen;
 		this.amountPerChunk = amt;
 		this.genID = ID;
+		this.genMeta = meta;
 	}
 	
 	public void generate(World w, Random r, int x, int y, int z){
 		for (int i = 0; i < this.amountPerChunk; i++)
 		{
-		int xCoord = x + r.nextInt(16);
-		int zCoord = z + r.nextInt(16);
-		int yCoord = r.nextInt(Math.max(this.maxGenLevel - this.minGenLevel, 0)) + this.minGenLevel;
-		w.setBlock(xCoord,yCoord,zCoord,this.genID);
+			int xCoord = x + r.nextInt(16);
+			int zCoord = z + r.nextInt(16);
+			int yCoord = r.nextInt(Math.max(this.maxGenLevel - this.minGenLevel, 0)) + this.minGenLevel;
+			w.setBlock(xCoord,yCoord,zCoord,this.genID, this.genMeta, 2);
 		}
 	}
 

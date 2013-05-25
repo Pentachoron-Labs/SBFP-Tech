@@ -1,8 +1,6 @@
 package sbfp;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Logger;
 
 import net.minecraft.item.ItemStack;
@@ -11,6 +9,8 @@ import net.minecraftforge.common.Property;
 import sbfp.machines.ItemRedflux;
 import sbfp.world.BlockOre;
 import sbfp.world.ItemBlockOre;
+import sbfp.world.WorldGenOres;
+import sbfp.world.WorldGenerator;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.Mod.Instance;
@@ -37,7 +37,9 @@ public class modsbfp{
 	// mechanics constants
 	@Instance(modid)
 	private static modsbfp instance;
+	private WorldGenerator wGen;
 	private static final Configuration config = new Configuration(new File("config/SBFP/SBFP.cfg"));
+	
 	@SidedProxy(clientSide = "sbfp.client.SBClientProxy", serverSide = "sbfp.SBCommonProxy")
 	public static SBCommonProxy proxy;
 
@@ -52,6 +54,7 @@ public class modsbfp{
 	@PreInit
 	public void preInit(FMLPreInitializationEvent event){
 		instance = this;
+		wGen = new WorldGenerator();
 	}
 	
 	@Init
@@ -66,6 +69,15 @@ public class modsbfp{
 			LanguageRegistry.addName(new ItemStack(itemRedflux.itemID,1,i),redFluxNames[1][i]);
 			//change this.names[i] to whatever lang code
 		}
+		this.addWorldGeneration();
+		GameRegistry.registerWorldGenerator(this.wGen);
+		logger.finer("SBFP: Added WGenerator");
+		
+	}
+
+	private void addWorldGeneration(){
+		this.wGen.addOre(new WorldGenOres(12, 40, 4, blockOre.blockID, 0));
+		
 	}
 
 	private static int getBlockID(String name, int defaultid){
