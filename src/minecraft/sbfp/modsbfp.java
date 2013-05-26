@@ -4,9 +4,11 @@ import java.io.File;
 import java.util.logging.Logger;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.Property;
+import sbfp.machines.BlockMachine;
 import sbfp.machines.ItemRedflux;
 import sbfp.world.BlockOre;
 import sbfp.world.ItemBlockOre;
@@ -45,7 +47,7 @@ public class modsbfp{
 	public static SBCommonProxy proxy;
 
 	//block and item name
-	public static final String[][] redFluxNames = new String[][]{{"redFluxAmp","redFluxAbsorber", "redFluxStablizer"},{"Redstone Flux Amplifier", "Redstone Flux Absorber", "Redstone Flux Stablilizer"}};
+	public static final String[][] redFluxNames = new String[][]{{"redFluxAmp","redFluxAbsorber", "redFluxStablizer", "chargedRedstone"},{"Redstone Flux Amplifier", "Redstone Flux Absorber", "Redstone Flux Stablilizer", "Charged Redstone"}};
 	public static final String[][] oreNames = new String[][]{{"oreThorium","oreFluorite","oreMoS2","oreRutile"}, {"Thorium Ore", "Fluorite", "Molybdenite","Rutile"}};
 
 	// blocks and items
@@ -77,7 +79,7 @@ public class modsbfp{
 	}
 
 	private void addWorldGeneration(){
-		this.wGen.addOre(new WorldGenOres(blockOre.blockID, 0, 12, 40, 12, 5, Block.stone.blockID));
+		this.wGen.addOre(new WorldGenOres(blockOre.blockID, 0, 12, 40, 100, 100, Block.stone.blockID));
 		this.wGen.addOre(new WorldGenOres(blockOre.blockID, 1, 12, 40, 14, 4, Block.stone.blockID));
 		this.wGen.addOre(new WorldGenOres(blockOre.blockID, 2, 12, 40, 5, 2, Block.stone.blockID));
 		this.wGen.addOre(new WorldGenOres(blockOre.blockID, 3, 12, 40, 14, 6, Block.stone.blockID));
