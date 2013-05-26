@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.Property;
+import sbfp.chemistry.ItemDye;
 import sbfp.machines.ItemRedflux;
 import sbfp.world.BlockOre;
 import sbfp.world.ItemBlockOre;
@@ -44,10 +45,11 @@ public class modsbfp{
 	//block and item name
 	public static final String[][] redFluxNames = new String[][]{{"redFluxAmp","redFluxAbsorber", "redFluxStablizer"},{"Redstone Flux Amplifier", "Redstone Flux Absorber", "Redstone Flux Stablilizer"}};
 	public static final String[][] oreNames = new String[][]{{"oreThorium","oreFluorite","oreMoS2","oreRutile"}, {"Thorium Ore", "Fluorite", "Molybdenite","Rutile"}};
-
+	public static final String[][] dyeNames = new String[][]{{"dye1", "dye2"}, {"color", "moarcolor"}};
 	// blocks and items
 	public static final BlockOre blockOre = new BlockOre(getBlockID("blockOreID",0x4c0));
 	public static final ItemRedflux itemRedflux = new ItemRedflux(getItemID("itemRedfluxID",0x4c1));
+	public static final ItemDye itemDye = new ItemDye(getItemID("itemDyeID", 0x4c2));
 	
 	@PreInit
 	public void preInit(FMLPreInitializationEvent event){
