@@ -47,7 +47,7 @@ public class modsbfp{
 	//block and item name
 	public static final String[][] redFluxNames = new String[][]{{"redFluxAmp","redFluxAbsorber","redFluxStablizer","chargedRedstone"},{"Redstone Flux Amplifier","Redstone Flux Absorber","Redstone Flux Stablilizer","Charged Redstone"}};
 	public static final String[][] oreNames = new String[][]{{"oreThorium","oreFluorite","oreMoS2","oreRutile","oreCinnabar","oreLimonite","orePyrolusite"},{"Thorium Ore","Fluorite","Molybdenite","Rutile","Cinnabar","Limonite","Pyrolusite"}};
-	public static final String[][] dyeNames = new String[][]{{"dyeTiO2","dyeVermillion","dyeOchre","dyeUltramarine","dyeMnO2"},{"Titanium White","Vermillion","Ochre","Ultramarine","Manganese Black"}};
+	public static final String[][] dyeNames = new String[][]{{"dyeTiO2","dyeVermillion","dyeOchre","dyeUltramarine","dyeMnO2","dyeGreen","dyePurple","dyeOrange","dyeGrey"},{"Titanium White","Vermillion","Ochre","Ultramarine","Manganese Black","Green Dye","Purple Dye","Orange Dye","Grey Dye"}};
 	// blocks and items
 	public static final BlockOre blockOre = new BlockOre(getBlockID("blockOreID",0x4c0));
 	public static final ItemRedflux itemRedflux = new ItemRedflux(getItemID("itemRedfluxID",0x4c1));
@@ -74,6 +74,7 @@ public class modsbfp{
 			LanguageRegistry.addName(new ItemStack(itemDye.itemID,1,i),dyeNames[1][i]);
 		}
 		//		this.addWorldGeneration();
+		this.addRecipes();
 		GameRegistry.registerWorldGenerator(this.wGen);
 		System.out.println("AddedWGen");
 
@@ -86,7 +87,12 @@ public class modsbfp{
 		this.wGen.addOre(new WorldGenOres(blockOre.blockID,3,12,40,14,6,Block.stone.blockID));
 	}
 
-	private void addRecipes(){}
+	private void addRecipes(){
+		GameRegistry.addShapelessRecipe(new ItemStack(itemDye,2,5),new ItemStack(itemDye,1,2),new ItemStack(itemDye,1,3));
+		GameRegistry.addShapelessRecipe(new ItemStack(itemDye,2,6),new ItemStack(itemDye,1,1),new ItemStack(itemDye,1,3));
+		GameRegistry.addShapelessRecipe(new ItemStack(itemDye,2,7),new ItemStack(itemDye,1,1),new ItemStack(itemDye,1,2));
+		GameRegistry.addShapelessRecipe(new ItemStack(itemDye,2,8),new ItemStack(itemDye,1,0),new ItemStack(itemDye,1,4));
+	}
 
 	private static int getBlockID(String name, int defaultid){
 		config.load();
