@@ -1,4 +1,5 @@
-package sbfp.machines;
+package sbfp.machines.tiles;
+
 
 import com.google.common.io.ByteArrayDataInput;
 
@@ -11,7 +12,38 @@ import net.minecraft.network.packet.Packet250CustomPayload;
 
 public class TileSolarCharger extends TileProcessor implements IInventory{
 	
-	private ItemStack[] inventory = new ItemStack[6];
+	private ItemStack[] inventory = new ItemStack[8];
+	public static final int maxWorkTicks = 45*20; //45 Seconds to make 1 piece of charged redstone
+	@Override
+	public void updateEntity(){
+		super.updateEntity();
+		if(this.workTicks > maxWorkTicks || !this.canWork()){
+			this.workTicks = 0;
+		}
+		this.workTicks++;
+		
+	}
+	
+	private boolean canWork(){
+		if(!(this.worldObj.isDaytime()&&this.worldObj.canBlockSeeTheSky(this.xCoord,this.yCoord+1,this.zCoord))) return false;
+		boolean hasInputs = true;
+		boolean hasOutputs = true;
+		for(int i = 0; i<4; i++){
+			hasInputs = hasInputs&&(this.inventory[i]!=null);
+		}
+		for(int i = 4; i<8; i++){
+			hasOutputs = hasOutputs&&(this.inventory[i] == null);
+			if(hasOutputs) break;
+			hasOutputs = hasOutputs&&(this.inventory[i].stackSize < this.getInventoryStackLimit());
+			if(hasOutputs) break;
+		}
+		return hasInputs&&hasOutputs;
+	}
+
+	public int getWorkTicks(){
+		return this.workTicks;
+	}
+	
 	@Override
 	public void handleData(INetworkManager network, int packetTypeID, Packet250CustomPayload packet, EntityPlayer entityPlayer, ByteArrayDataInput data){
 		
@@ -24,7 +56,7 @@ public class TileSolarCharger extends TileProcessor implements IInventory{
 
 	@Override
 	public ItemStack getStackInSlot(int i){
-		return null;
+		return this.inventory[i];
 	}
 
 	@Override
