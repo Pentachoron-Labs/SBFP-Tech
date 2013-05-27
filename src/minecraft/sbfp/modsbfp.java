@@ -60,11 +60,9 @@ public class modsbfp{
 		GameRegistry.registerItem(itemRedflux,"itemRedflux");
 		for(int i = 0; i<blockOre.names.length; i++){
 			LanguageRegistry.addName(new ItemStack(blockOre.blockID,1,i),oreNames[1][i]);
-			//change this.names[i] to whatever lang code
 		}
 		for(int i = 0; i<itemRedflux.names.length; i++){
 			LanguageRegistry.addName(new ItemStack(itemRedflux.itemID,1,i),redFluxNames[1][i]);
-			//change this.names[i] to whatever lang code
 		}
 	}
 
