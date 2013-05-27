@@ -21,7 +21,7 @@ import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
 
 
-public class PacketHandler implements IPacketHandler, IPacketReceiver{
+public class PacketHandler implements IPacketHandler, IPacketReciever{
 	public enum PacketType
 		{
 		UNKNOWN, TILEENTITY;
@@ -229,16 +229,16 @@ public class PacketHandler implements IPacketHandler, IPacketReceiver{
 
 						if (tileEntity != null)
 						{
-							if (tileEntity instanceof IPacketReceiver)
+							if (tileEntity instanceof IPacketReciever)
 							{
-								((IPacketReceiver) tileEntity).handlePacketData(network, packetTypeID, packet, ((EntityPlayer) player), data);
+								((IPacketReciever) tileEntity).handleData(network, packetTypeID, packet, ((EntityPlayer) player), data);
 							}
 						}
 					}
 				}
 				else
 				{
-					this.handlePacketData(network, packetTypeID, packet, ((EntityPlayer) player), data);
+					this.handleData(network, packetTypeID, packet, ((EntityPlayer) player), data);
 				}
 			}
 			catch (Exception e)
@@ -248,7 +248,7 @@ public class PacketHandler implements IPacketHandler, IPacketReceiver{
 	}
 
 	@Override
-	public void handlePacketData(INetworkManager network, int packetType, Packet250CustomPayload packet, EntityPlayer player, ByteArrayDataInput dataStream)
+	public void handleData(INetworkManager network, int packetType, Packet250CustomPayload packet, EntityPlayer player, ByteArrayDataInput dataStream)
 	{
 
 	}

@@ -7,8 +7,8 @@ import net.minecraft.network.packet.Packet250CustomPayload;
 import com.google.common.io.ByteArrayDataInput;
 
 
-public interface IPacketReceiver{
+public interface IPacketReciever{
 
-	public void handlePacketData(INetworkManager network, int packetTypeID, Packet250CustomPayload packet, EntityPlayer entityPlayer, ByteArrayDataInput data);
+	public void handleData(INetworkManager network, int packetTypeID, Packet250CustomPayload packet, EntityPlayer entityPlayer, ByteArrayDataInput data);
 
 }
