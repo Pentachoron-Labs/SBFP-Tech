@@ -1,5 +1,6 @@
 package sbfp.machines;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import net.minecraft.block.material.Material;
@@ -17,9 +18,9 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 
-public abstract class BlockMachine extends BlockSub{
+public class BlockMachines extends BlockSub{
 	public Icon[][] icons;
-	public BlockMachine(int id, Material material, String[] names){
+	public BlockMachines(int id, Material material, String[] names){
 		super(id,material,names);
 		
 	}
@@ -99,6 +100,19 @@ public abstract class BlockMachine extends BlockSub{
 				}
 			}
 		}
+	}
+	@Override
+	public ArrayList<ItemStack> getBlockDropped(World w, int x, int y, int z, int metadata, int fortune){
+		ArrayList<ItemStack> q = new ArrayList<ItemStack>();
+		// insert pick code
+		q.add(new ItemStack(this.blockID,1,metadata));
+		return q;
+	}
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public Icon getIcon(int side, int meta){
+		return icons[meta][side];
 	}
 	
 }
