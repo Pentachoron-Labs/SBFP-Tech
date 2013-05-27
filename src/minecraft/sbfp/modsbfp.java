@@ -46,8 +46,8 @@ public class modsbfp{
 
 	//block and item name
 	public static final String[][] redFluxNames = new String[][]{{"redFluxAmp","redFluxAbsorber","redFluxStablizer","chargedRedstone"},{"Redstone Flux Amplifier","Redstone Flux Absorber","Redstone Flux Stablilizer","Charged Redstone"}};
-	public static final String[][] oreNames = new String[][]{{"oreThorium","oreFluorite","oreMoS2","oreRutile"},{"Thorium Ore","Fluorite","Molybdenite","Rutile"}};
-	public static final String[][] dyeNames = new String[][]{{"dye1","dye2"},{"color","moarcolor"}};
+	public static final String[][] oreNames = new String[][]{{"oreThorium","oreFluorite","oreMoS2","oreRutile","oreCinnabar","oreLimonite","orePyrolusite"},{"Thorium Ore","Fluorite","Molybdenite","Rutile","Cinnabar","Limonite","Pyrolusite"}};
+	public static final String[][] dyeNames = new String[][]{{"dyeTiO2","dyeVermillion","dyeOchre","dyeUltramarine","dyeMnO2"},{"Titanium White","Vermillion","Ochre","Ultramarine","Manganese Black"}};
 	// blocks and items
 	public static final BlockOre blockOre = new BlockOre(getBlockID("blockOreID",0x4c0));
 	public static final ItemRedflux itemRedflux = new ItemRedflux(getItemID("itemRedfluxID",0x4c1));
@@ -63,13 +63,17 @@ public class modsbfp{
 	public void init(FMLInitializationEvent event){
 		GameRegistry.registerBlock(blockOre,ItemBlockOre.class,"blockOre");
 		GameRegistry.registerItem(itemRedflux,"itemRedflux");
+		//TODO: multilingual support
 		for(int i = 0; i<blockOre.names.length; i++){
 			LanguageRegistry.addName(new ItemStack(blockOre.blockID,1,i),oreNames[1][i]);
 		}
 		for(int i = 0; i<itemRedflux.names.length; i++){
 			LanguageRegistry.addName(new ItemStack(itemRedflux.itemID,1,i),redFluxNames[1][i]);
 		}
-		this.addWorldGeneration();
+		for(int i = 0; i<itemDye.names.length; i++){
+			LanguageRegistry.addName(new ItemStack(itemDye.itemID,1,i),dyeNames[1][i]);
+		}
+		//		this.addWorldGeneration();
 		GameRegistry.registerWorldGenerator(this.wGen);
 		System.out.println("AddedWGen");
 
@@ -80,12 +84,9 @@ public class modsbfp{
 		this.wGen.addOre(new WorldGenOres(blockOre.blockID,1,12,40,14,4,Block.stone.blockID));
 		this.wGen.addOre(new WorldGenOres(blockOre.blockID,2,12,40,5,2,Block.stone.blockID));
 		this.wGen.addOre(new WorldGenOres(blockOre.blockID,3,12,40,14,6,Block.stone.blockID));
-
 	}
 
-	private void addRecipes(){
-
-	}
+	private void addRecipes(){}
 
 	private static int getBlockID(String name, int defaultid){
 		config.load();
