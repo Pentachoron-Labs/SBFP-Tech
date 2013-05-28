@@ -33,7 +33,7 @@ public class modsbfp{
 	// name constants
 	public static final String modid = "sbfp";
 	public static final String shortname = "SBFP Tech";
-	public static final String version = "Aleph NEGATIVE TEN MILLION";
+	public static final String version = "Aleph 0.58";
 
 	// mechanics constants
 	@Instance(modid)
@@ -76,8 +76,6 @@ public class modsbfp{
 		//		this.addWorldGeneration();
 		this.addRecipes();
 		GameRegistry.registerWorldGenerator(this.wGen);
-		System.out.println("AddedWGen");
-
 	}
 
 	private void addWorldGeneration(){
