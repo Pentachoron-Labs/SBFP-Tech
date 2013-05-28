@@ -37,7 +37,6 @@ public class modsbfp{
 	public static final String modid = "sbfp";
 	public static final String shortname = "SBFP Tech";
 	public static final String version = "Aleph NEGATIVE TEN MILLION";
-	
 
 	// mechanics constants
 	@Instance(modid)
@@ -50,14 +49,14 @@ public class modsbfp{
 
 	//block and item name
 	public static final String[][] redFluxNames = new String[][]{{"redFluxAmp","redFluxAbsorber", "redFluxStablizer", "chargedRedstone"},{"Redstone Flux Amplifier", "Redstone Flux Absorber", "Redstone Flux Stablilizer", "Charged Redstone"}};
-	public static final String[][] oreNames = new String[][]{{"oreThorium","oreFluorite","oreMoS2","oreRutile"}, {"Thorium Ore", "Fluorite", "Molybdenite","Rutile"}};
+	public static final String[][] oreNames = new String[][]{{"oreThorium","oreFluorite","oreMoS2","oreRutile"}, {"Monazite Sand", "Fluorite", "Molybdenite","Rutile"}};
 	public static final String[][] dyeNames = new String[][]{{"dye1", "dye2"}, {"color", "moarcolor"}};
 	public static final String[][] machineNames = new String[][]{{"solarCharger"},{"Sunlight Collector"}};
 	// blocks and items
 	public static final BlockOre blockOre = new BlockOre(getBlockID("blockOreID",0x4c0));
-	public static final BlockMachines blockMachines = new BlockMachines(getBlockID("blockMachinesID", 0x4c3), Material.iron, machineNames[0]);
+	public static final BlockMachines blockMachines = new BlockMachines(getBlockID("blockMachinesID", 0x4c3));
 	public static final ItemRedflux itemRedflux = new ItemRedflux(getItemID("itemRedfluxID",0x4c1));
-	public static final ItemDye itemDye = new ItemDye(getItemID("itemDyeID", 0x4c2));
+	//public static final ItemDye itemDye = new ItemDye(getItemID("itemDyeID", 0x4c2));
 	
 	@PreInit
 	public void preInit(FMLPreInitializationEvent event){
@@ -75,6 +74,9 @@ public class modsbfp{
 		}
 		for(int i = 0; i<itemRedflux.names.length; i++){
 			LanguageRegistry.addName(new ItemStack(itemRedflux.itemID,1,i),redFluxNames[1][i]);
+		}
+		for(int i = 0; i<blockMachines.names.length; i++){
+			LanguageRegistry.addName(new ItemStack(blockMachines.blockID,1,i),machineNames[1][i]);
 		}
 		this.addWorldGeneration();
 		GameRegistry.registerWorldGenerator(this.wGen);

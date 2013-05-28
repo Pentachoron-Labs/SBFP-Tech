@@ -5,6 +5,7 @@ import java.util.Random;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -14,14 +15,16 @@ import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 import sbfp.BlockSub;
+import sbfp.modsbfp;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 
 public class BlockMachines extends BlockSub{
 	public Icon[][] icons;
-	public BlockMachines(int id, Material material, String[] names){
-		super(id,material,names);
+	public BlockMachines(int id){
+		super(id,Material.iron,modsbfp.machineNames[0]);
+		this.setCreativeTab(CreativeTabs.tabBlock);
 		
 	}
 	
