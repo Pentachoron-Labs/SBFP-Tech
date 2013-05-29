@@ -29,7 +29,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
 @Mod(modid = modsbfp.modid, name = modsbfp.shortname, version = modsbfp.version)
-@NetworkMod(channels = {modsbfp.modid}, clientSideRequired = true, serverSideRequired = true, packetHandler = PacketHandler.class)
+@NetworkMod(channels = {modsbfp.modid}, clientSideRequired = true, serverSideRequired = false, packetHandler = PacketHandler.class)
 public class modsbfp{
 
 	// Logger
