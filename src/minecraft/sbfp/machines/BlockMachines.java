@@ -7,6 +7,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -107,6 +108,21 @@ public class BlockMachines extends BlockSub{
 	@SideOnly(Side.CLIENT)
 	public Icon getIcon(int side, int meta){
 		return icons[meta][side];
+	}
+	
+	@Override
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityPlayer, int side, float hitX, float hitY, float hitZ){
+		int metadata = world.getBlockMetadata(x, y, z);
+		System.out.println("Block Activated");
+		if (!world.isRemote)
+		{
+			System.out.println("Client Side");
+			entityPlayer.openGui(modsbfp.proxy, -1, world, x, y, z);
+			return true;
+		
+		}
+		return false;
+		
 	}
 	
 }

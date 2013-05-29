@@ -36,6 +36,9 @@ public class modsbfp{
 	public static final String modid = "sbfp";
 	public static final String shortname = "SBFP Tech";
 	public static final String version = "Aleph 0.58";
+	
+	//Directory Constants
+	public static final String guiDirectory = "mods/sbfp/textures/gui";
 
 	// mechanics constants
 	@Instance(modid)
