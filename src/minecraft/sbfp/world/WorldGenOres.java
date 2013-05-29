@@ -71,7 +71,7 @@ public class WorldGenOres{
 								int block = par1World.getBlockId(k2,l2,i3);
 								if(d12*d12+d13*d13+d14*d14<1.0D&&(this.replaceID==0||block==this.replaceID)){
 									par1World.setBlock(k2,l2,i3,this.minableBlockId,this.minableBlockMeta,2);
-									System.out.println("Added an ore at"+k2+" "+l2+" "+i3);
+									System.out.println("Added ore #"+this.minableBlockMeta+" at"+k2+" "+l2+" "+i3);
 								}
 							}
 						}

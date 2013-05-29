@@ -12,7 +12,7 @@ import sbfp.machines.ItemRedflux;
 import sbfp.world.BlockOre;
 import sbfp.world.ItemBlockOre;
 import sbfp.world.WorldGenOres;
-import sbfp.world.WorldGenerator;
+import sbfp.world.GeneratorOres;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.Mod.Instance;
@@ -38,7 +38,7 @@ public class modsbfp{
 	// mechanics constants
 	@Instance(modid)
 	private static modsbfp instance;
-	private WorldGenerator wGen;
+	private GeneratorOres wGen;
 	private static final Configuration config = new Configuration(new File("config/SBFP/SBFP.cfg"));
 
 	@SidedProxy(clientSide = "sbfp.client.SBClientProxy", serverSide = "sbfp.SBCommonProxy")
@@ -56,7 +56,7 @@ public class modsbfp{
 	@PreInit
 	public void preInit(FMLPreInitializationEvent event){
 		instance = this;
-		wGen = new WorldGenerator();
+		wGen = new GeneratorOres();
 	}
 
 	@Init
@@ -73,16 +73,16 @@ public class modsbfp{
 		for(int i = 0; i<itemDye.names.length; i++){
 			LanguageRegistry.addName(new ItemStack(itemDye.itemID,1,i),dyeNames[1][i]);
 		}
-		//		this.addWorldGeneration();
+		this.addWorldGeneration();
 		this.addRecipes();
 		GameRegistry.registerWorldGenerator(this.wGen);
 	}
 
 	private void addWorldGeneration(){
-		this.wGen.addOre(new WorldGenOres(blockOre.blockID,0,12,40,100,100,Block.stone.blockID));
-		this.wGen.addOre(new WorldGenOres(blockOre.blockID,1,12,40,14,4,Block.stone.blockID));
-		this.wGen.addOre(new WorldGenOres(blockOre.blockID,2,12,40,5,2,Block.stone.blockID));
-		this.wGen.addOre(new WorldGenOres(blockOre.blockID,3,12,40,14,6,Block.stone.blockID));
+		this.wGen.addOre(new WorldGenOres(blockOre.blockID,0,12,40,100,10,Block.stone.blockID));
+		this.wGen.addOre(new WorldGenOres(blockOre.blockID,1,12,40,140,4,Block.stone.blockID));
+		this.wGen.addOre(new WorldGenOres(blockOre.blockID,2,12,40,50,2,Block.stone.blockID));
+		this.wGen.addOre(new WorldGenOres(blockOre.blockID,3,12,40,140,6,Block.stone.blockID));
 	}
 
 	private void addRecipes(){
