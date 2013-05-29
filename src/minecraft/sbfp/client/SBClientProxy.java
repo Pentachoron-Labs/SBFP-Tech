@@ -1,12 +1,12 @@
 package sbfp.client;
 
 import sbfp.SBCommonProxy;
-import sbfp.modsbfp;
+import cpw.mods.fml.common.FMLLog;
 
 public class SBClientProxy extends SBCommonProxy{
 
 	@Override
 	public void init(){
-		modsbfp.logger.fine("SBFP Client Proxy Loading");
+		FMLLog.fine("SBFP Client Proxy Loading");
 	}
 }

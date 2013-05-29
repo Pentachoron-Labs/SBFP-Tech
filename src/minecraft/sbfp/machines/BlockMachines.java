@@ -19,9 +19,10 @@ import sbfp.modsbfp;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-
 public class BlockMachines extends BlockSub{
+
 	public Icon[][] icons;
+
 	public BlockMachines(int id){
 		super(id,Material.iron,modsbfp.machineNames[0]);
 		this.setCreativeTab(CreativeTabs.tabBlock);
@@ -95,6 +96,7 @@ public class BlockMachines extends BlockSub{
 			}
 		}
 	}
+
 	@Override
 	public ArrayList<ItemStack> getBlockDropped(World w, int x, int y, int z, int metadata, int fortune){
 		ArrayList<ItemStack> q = new ArrayList<ItemStack>();
@@ -102,11 +104,11 @@ public class BlockMachines extends BlockSub{
 		q.add(new ItemStack(this.blockID,1,metadata));
 		return q;
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public Icon getIcon(int side, int meta){
 		return icons[meta][side];
 	}
-	
+
 }

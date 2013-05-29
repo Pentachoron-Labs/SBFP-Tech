@@ -2,12 +2,13 @@ package sbfp;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
+import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.network.IGuiHandler;
 
 public class SBCommonProxy implements IGuiHandler{
 
 	public void init(){
-		modsbfp.logger.fine("SBFP Common Proxy loading");
+		FMLLog.fine("SBFP Common Proxy loading");
 	}
 
 	@Override

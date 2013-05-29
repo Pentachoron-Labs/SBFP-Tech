@@ -1,41 +1,46 @@
 package sbfp.machines.tiles;
 
-
-import com.google.common.io.ByteArrayDataInput;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet250CustomPayload;
 
+import com.google.common.io.ByteArrayDataInput;
 
 public class TileSolarCharger extends TileProcessor implements IInventory{
-	
+
 	private ItemStack[] inventory = new ItemStack[8];
 	public static final int maxWorkTicks = 45*20; //45 Seconds to make 1 piece of charged redstone
+
 	@Override
 	public void updateEntity(){
 		super.updateEntity();
-		if(this.workTicks > maxWorkTicks || !this.canWork()){
+		if(this.workTicks>maxWorkTicks||!this.canWork()){
 			this.workTicks = 0;
 		}
 		this.workTicks++;
-		
+
 	}
-	
+
 	private boolean canWork(){
-		if(!(this.worldObj.isDaytime()&&this.worldObj.canBlockSeeTheSky(this.xCoord,this.yCoord+1,this.zCoord))) return false;
+		if(!(this.worldObj.isDaytime()&&this.worldObj.canBlockSeeTheSky(this.xCoord,this.yCoord+1,this.zCoord))){
+			return false;
+		}
 		boolean hasInputs = true;
 		boolean hasOutputs = true;
 		for(int i = 0; i<4; i++){
-			hasInputs = hasInputs&&(this.inventory[i]!=null);
+			hasInputs = hasInputs&&this.inventory[i]!=null;
 		}
 		for(int i = 4; i<8; i++){
-			hasOutputs = hasOutputs&&(this.inventory[i] == null);
-			if(hasOutputs) break;
-			hasOutputs = hasOutputs&&(this.inventory[i].stackSize < this.getInventoryStackLimit());
-			if(hasOutputs) break;
+			hasOutputs = hasOutputs&&this.inventory[i]==null;
+			if(hasOutputs){
+				break;
+			}
+			hasOutputs = hasOutputs&&this.inventory[i].stackSize<this.getInventoryStackLimit();
+			if(hasOutputs){
+				break;
+			}
 		}
 		return hasInputs&&hasOutputs;
 	}
@@ -43,10 +48,10 @@ public class TileSolarCharger extends TileProcessor implements IInventory{
 	public int getWorkTicks(){
 		return this.workTicks;
 	}
-	
+
 	@Override
 	public void handleData(INetworkManager network, int packetTypeID, Packet250CustomPayload packet, EntityPlayer entityPlayer, ByteArrayDataInput data){
-		
+
 	}
 
 	@Override
@@ -71,8 +76,7 @@ public class TileSolarCharger extends TileProcessor implements IInventory{
 
 	@Override
 	public void setInventorySlotContents(int i, ItemStack itemstack){
-		
-		
+
 	}
 
 	@Override
