@@ -3,6 +3,7 @@ package sbfp.machines;
 import java.util.ArrayList;
 import java.util.Random;
 
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -17,11 +18,12 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 import sbfp.BlockSub;
 import sbfp.modsbfp;
+import sbfp.machines.tiles.TileSolarCharger;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 
-public class BlockMachines extends BlockSub{
+public class BlockMachines extends BlockSub implements ITileEntityProvider{
 	public Icon[][] icons;
 	public BlockMachines(int id){
 		super(id,Material.iron,modsbfp.machineNames[0]);
@@ -114,15 +116,15 @@ public class BlockMachines extends BlockSub{
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityPlayer, int side, float hitX, float hitY, float hitZ){
 		int metadata = world.getBlockMetadata(x, y, z);
 		System.out.println("Block Activated");
-		if (!world.isRemote)
-		{
-			System.out.println("Client Side");
-			entityPlayer.openGui(modsbfp.proxy, -1, world, x, y, z);
-			return true;
+		//System.out.println("Client Side");
+		entityPlayer.openGui(modsbfp.getInstance(), -1, world, x, y, z);
+		return true;
 		
-		}
-		return false;
 		
+	}
+	@Override
+	public TileEntity createNewTileEntity(World w){
+		return new TileSolarCharger();
 	}
 	
 }

@@ -11,10 +11,11 @@ import sbfp.chemistry.ItemDye;
 import sbfp.machines.BlockMachines;
 import sbfp.machines.ItemBlockMachines;
 import sbfp.machines.ItemRedflux;
+import sbfp.machines.tiles.TileSolarCharger;
 import sbfp.world.BlockOre;
+import sbfp.world.GeneratorOres;
 import sbfp.world.ItemBlockOre;
 import sbfp.world.WorldGenOres;
-import sbfp.world.GeneratorOres;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.Mod.Instance;
@@ -23,11 +24,12 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
+import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
 @Mod(modid = modsbfp.modid, name = modsbfp.shortname, version = modsbfp.version)
-@NetworkMod(channels = {modsbfp.modid}, clientSideRequired = true, serverSideRequired = false, packetHandler = PacketHandler.class)
+@NetworkMod(channels = {modsbfp.modid}, clientSideRequired = true, serverSideRequired = true, packetHandler = PacketHandler.class)
 public class modsbfp{
 
 	// Logger
@@ -38,7 +40,7 @@ public class modsbfp{
 	public static final String version = "Aleph 0.58";
 	
 	//Directory Constants
-	public static final String guiDirectory = "mods/sbfp/textures/gui";
+	public static final String guiDirectory = "mods/sbfp/textures/gui/";
 
 	// mechanics constants
 	@Instance(modid)
@@ -70,6 +72,7 @@ public class modsbfp{
 	public void init(FMLInitializationEvent event){
 		GameRegistry.registerBlock(blockOre,ItemBlockOre.class,"blockOre");
 		GameRegistry.registerBlock(blockMachines, ItemBlockMachines.class, "blockMachines");
+		GameRegistry.registerTileEntity(TileSolarCharger.class,"sunlightCollector");
 		GameRegistry.registerItem(itemRedflux,"itemRedflux");
 		//TODO: multilingual support
 		for(int i = 0; i<blockOre.names.length; i++){
@@ -87,6 +90,7 @@ public class modsbfp{
 		this.addWorldGeneration();
 		this.addRecipes();
 		GameRegistry.registerWorldGenerator(this.wGen);
+		NetworkRegistry.instance().registerGuiHandler(this, this.proxy);
 	}
 
 	private void addWorldGeneration(){
