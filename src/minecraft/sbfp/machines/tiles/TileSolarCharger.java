@@ -5,6 +5,7 @@ import com.google.common.io.ByteArrayDataInput;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet250CustomPayload;
@@ -17,10 +18,13 @@ public class TileSolarCharger extends TileProcessor implements IInventory{
 	@Override
 	public void updateEntity(){
 		super.updateEntity();
-		if(this.workTicks > maxWorkTicks || !this.canWork()){
+		if(this.workTicks > maxWorkTicks){
 			this.workTicks = 0;
+			
+		}if(this.canWork()){
+			this.workTicks++;
 		}
-		this.workTicks++;
+		
 		
 	}
 	
@@ -92,7 +96,7 @@ public class TileSolarCharger extends TileProcessor implements IInventory{
 
 	@Override
 	public boolean isUseableByPlayer(EntityPlayer entityplayer){
-		return false;
+		return true;
 	}
 
 	@Override
@@ -102,7 +106,8 @@ public class TileSolarCharger extends TileProcessor implements IInventory{
 	public void closeChest(){}
 
 	@Override
-	public boolean isStackValidForSlot(int i, ItemStack itemstack){
+	public boolean isStackValidForSlot(int i, ItemStack is){
+		if(is.itemID == Item.redstone.itemID && i < 3) return true;
 		return false;
 	}
 
