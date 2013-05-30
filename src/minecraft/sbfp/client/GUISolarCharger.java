@@ -42,7 +42,7 @@ public class GUISolarCharger extends GuiContainer{
 	protected void drawGuiContainerForegroundLayer(int par1, int par2)
 	{
 		this.fontRenderer.drawString(this.tileEntity.getInvName(), 55, 6, 4210752);
-		this.drawTexturedModalRect(containerWidth, containerHeight, 0, 0, this.xSize, this.ySize);
+		this.drawTexturedModalRect(48, 47, 176, 0, 254, 4);
 	}
 
 }

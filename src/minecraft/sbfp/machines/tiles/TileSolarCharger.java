@@ -22,63 +22,28 @@ public class TileSolarCharger extends TileProcessor implements IInventory{
 
 	private ItemStack[] inventory = new ItemStack[8];
 	private boolean isWorking = false;
-	public static final int maxWorkTicks = 5*20; //45 Seconds to make 1 piece of charged redstone
+	public static final int maxWorkTicks = 45*20; //45 Seconds to make 1 piece of charged redstone
 	@Override
 	public void updateEntity(){
 		super.updateEntity();
 		if(!this.worldObj.isRemote){
-			if(this.canWork()){
-				this.workTicks++;
-				if(this.workTicks > maxWorkTicks){
-					this.workTicks = 0;
-			
-					for(int i = 4; i<this.inventory.length; i++){
-						if(this.inventory[i] == null){
-							this.inventory[i] = new ItemStack(modsbfp.itemRedflux.itemID,1,3);
-							break;
-						}
-						if(this.inventory[i].stackSize < this.getInventoryStackLimit()){
-							this.inventory[i].stackSize++;
-							break;
-						}
-					}
-					for(int i = 0; i<4; i++){
-						if(this.inventory[i] != null){
-							this.inventory[i].stackSize--;
-							break;
-						}
-					}
+			//if(this.canWork()){
+				
+			//}
+			if (this.ticks % 3 == 0){
+				for (EntityPlayer player : this.playersUsing){
+					PacketDispatcher.sendPacketToPlayer(getDescriptionPacket(), (Player) player);
 				}
-			}
-		}
-		if (this.ticks % 3 == 0)
-		{
-			for (EntityPlayer player : this.playersUsing)
-			{
-				PacketDispatcher.sendPacketToPlayer(getDescriptionPacket(), (Player) player);
 			}
 		}
 	}
 
 	private boolean canWork(){
-		if(!(this.worldObj.isDaytime()&&this.worldObj.canBlockSeeTheSky(this.xCoord,this.yCoord+1,this.zCoord))){
-			return false;
-		}
-		boolean hasInputs = true;
-		boolean hasOutputs = true;
-		for(int i = 0; i<4; i++){
-			hasInputs = hasInputs&&this.inventory[i]!=null;
-		}
-		for(int i = 4; i<8; i++){
-			hasOutputs = hasOutputs&&this.inventory[i]==null;
-			if(hasOutputs){
-				break;
-			}
-			hasOutputs = hasOutputs&&this.inventory[i].stackSize<this.getInventoryStackLimit();
-			if(hasOutputs){
-				break;
-			}
-		}
+		//if(!(this.worldObj.isDaytime()&&this.worldObj.canBlockSeeTheSky(this.xCoord,this.yCoord+1,this.zCoord))){
+		//	return false;
+		//}
+		boolean hasInputs = this.inventory[0]!=null;
+		boolean hasOutputs = this.inventory[4] != null || this.inventory[4].stackSize<this.getInventoryStackLimit();
 		return hasInputs&&hasOutputs;
 	}
 

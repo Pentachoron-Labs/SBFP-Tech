@@ -37,5 +37,9 @@ public abstract class TileProcessor extends TileEntity implements IPacketRecieve
 		super.readFromNBT(tagCompound);
 		this.workTicks = tagCompound.getInteger("workTicks");
 	}
+	
+	public int getWorkTicks(){
+		return this.workTicks;
+	}
 
 }
