@@ -8,6 +8,7 @@ import net.minecraft.inventory.SlotFurnace;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import sbfp.machines.tiles.TileSolarCharger;
+import sbfp.machines.tiles.slot.SlotSolarCharger;
 
 
 public class ContainerSolarCharger extends Container{
@@ -15,10 +16,10 @@ public class ContainerSolarCharger extends Container{
 
 	public ContainerSolarCharger(InventoryPlayer par1InventoryPlayer, TileSolarCharger tileEntity){
 		this.tileEntity = tileEntity;
-		this.addSlotToContainer(new Slot(tileEntity, 0, 8, 32));
-		this.addSlotToContainer(new Slot(tileEntity, 1, 26, 32));
-		this.addSlotToContainer(new Slot(tileEntity, 2, 8, 50));
-		this.addSlotToContainer(new Slot(tileEntity, 3, 26, 50));
+		this.addSlotToContainer(new SlotSolarCharger(tileEntity, 0, 8, 32));
+		this.addSlotToContainer(new SlotSolarCharger(tileEntity, 1, 26, 32));
+		this.addSlotToContainer(new SlotSolarCharger(tileEntity, 2, 8, 50));
+		this.addSlotToContainer(new SlotSolarCharger(tileEntity, 3, 26, 50));
 		this.addSlotToContainer(new SlotFurnace(par1InventoryPlayer.player, tileEntity, 4, 134, 32));
 		this.addSlotToContainer(new SlotFurnace(par1InventoryPlayer.player, tileEntity, 5, 152, 32));
 		this.addSlotToContainer(new SlotFurnace(par1InventoryPlayer.player, tileEntity, 6, 134, 50));
