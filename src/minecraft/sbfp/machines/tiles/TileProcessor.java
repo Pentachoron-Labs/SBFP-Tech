@@ -1,24 +1,28 @@
 package sbfp.machines.tiles;
 
-import com.google.common.io.ByteArrayDataInput;
+import java.util.HashSet;
+import java.util.Set;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.INetworkManager;
-import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.tileentity.TileEntity;
 import sbfp.IPacketReciever;
 
 /** This class is for machines that have an input and output*/
 public abstract class TileProcessor extends TileEntity implements IPacketReciever{
 	int workTicks = 0;
-	int ticks;
+	long ticks = 0;
+	public final Set<EntityPlayer> playersUsing = new HashSet<EntityPlayer>();
+	
 	@Override
-	public void updateEntity(){ //number of ticks into the second, for packet sending purposes
-		this.ticks++;
-		if(this.ticks > 20){
-			this.ticks = 0;
+	public void updateEntity(){
+
+		if (this.ticks >= Long.MAX_VALUE)
+		{
+			this.ticks = 1;
 		}
+
+		this.ticks++;
 	}
 	
 	@Override

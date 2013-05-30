@@ -8,25 +8,57 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.INetworkManager;
+import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet250CustomPayload;
+import sbfp.PacketHandler;
+import sbfp.modsbfp;
 
 import com.google.common.io.ByteArrayDataInput;
+
+import cpw.mods.fml.common.network.PacketDispatcher;
+import cpw.mods.fml.common.network.Player;
 
 
 public class TileSolarCharger extends TileProcessor implements IInventory{
 	
 	private ItemStack[] inventory = new ItemStack[8];
-	public static final int maxWorkTicks = 45*20; //45 Seconds to make 1 piece of charged redstone
+	private boolean isWorking = false;
+	public static final int maxWorkTicks = 5*20; //45 Seconds to make 1 piece of charged redstone
 	@Override
 	public void updateEntity(){
 		super.updateEntity();
-		if(this.workTicks > maxWorkTicks){
-			this.workTicks = 0;
+		if(!this.worldObj.isRemote){
+			if(this.canWork()){
+				this.workTicks++;
+				if(this.workTicks > maxWorkTicks){
+					this.workTicks = 0;
 			
-		}if(this.canWork()){
-			this.workTicks++;
+					for(int i = 4; i<this.inventory.length; i++){
+						if(this.inventory[i] == null){
+							this.inventory[i] = new ItemStack(modsbfp.itemRedflux.itemID,1,3);
+							break;
+						}
+						if(this.inventory[i].stackSize < this.getInventoryStackLimit()){
+							this.inventory[i].stackSize++;
+							break;
+						}
+					}
+					for(int i = 0; i<4; i++){
+						if(this.inventory[i] != null){
+							this.inventory[i].stackSize--;
+							break;
+						}
+					}
+				}
+			}
 		}
-		
+		if (this.ticks % 3 == 0)
+		{
+			for (EntityPlayer player : this.playersUsing)
+			{
+				PacketDispatcher.sendPacketToPlayer(getDescriptionPacket(), (Player) player);
+			}
+		}
 		
 	}
 	
@@ -51,8 +83,25 @@ public class TileSolarCharger extends TileProcessor implements IInventory{
 	}
 	
 	@Override
-	public void handleData(INetworkManager network, int packetTypeID, Packet250CustomPayload packet, EntityPlayer entityPlayer, ByteArrayDataInput data){
-		
+	public Packet getDescriptionPacket()
+	{
+		return PacketHandler.getPacket(modsbfp.modid, this, this.workTicks);
+	}
+	
+	@Override
+	public void handleData(INetworkManager network, int type, Packet250CustomPayload packet, EntityPlayer player, ByteArrayDataInput dataStream)
+	{
+		try
+		{
+			if (this.worldObj.isRemote)
+			{
+				this.workTicks = dataStream.readInt();
+			}
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	@Override

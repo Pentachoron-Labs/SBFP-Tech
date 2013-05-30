@@ -35,7 +35,7 @@ public class modsbfp{
 	// Logger
 	public static final Logger logger = Logger.getLogger("Minecraft");
 	// name constants
-	public static final String modid = "sbfp";
+	public static final String modid = "sbfp"; //Channel, name, etc
 	public static final String shortname = "SBFP Tech";
 	public static final String version = "Aleph 0.58";
 	
