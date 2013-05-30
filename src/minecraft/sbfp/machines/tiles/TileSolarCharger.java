@@ -1,14 +1,16 @@
 package sbfp.machines.tiles;
 
 
-import com.google.common.io.ByteArrayDataInput;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet250CustomPayload;
+
+import com.google.common.io.ByteArrayDataInput;
 
 
 public class TileSolarCharger extends TileProcessor implements IInventory{
@@ -151,6 +153,34 @@ public class TileSolarCharger extends TileProcessor implements IInventory{
 	public boolean isStackValidForSlot(int i, ItemStack is){
 		if(is.itemID == Item.redstone.itemID && i < 3) return true;
 		return false;
+	}
+	
+	@Override
+	public void writeToNBT(NBTTagCompound tagCompound){
+		super.writeToNBT(tagCompound);
+		NBTTagList tagList = new NBTTagList();
+		for (int var3 = 0; var3 < this.inventory.length; ++var3){
+			if (this.inventory[var3] != null){
+				NBTTagCompound var4 = new NBTTagCompound();
+				var4.setByte("slot", (byte) var3);
+				this.inventory[var3].writeToNBT(var4);
+				tagList.appendTag(var4);
+			}
+		}
+
+		tagCompound.setTag("items", tagList);
+	}
+	
+	public void readFromNBT(NBTTagCompound tagCompound){
+		super.readFromNBT(tagCompound);
+		NBTTagList var2 = tagCompound.getTagList("items");
+		for (int var3 = 0; var3 < var2.tagCount(); ++var3){
+			NBTTagCompound var4 = (NBTTagCompound) var2.tagAt(var3);
+			byte var5 = var4.getByte("slot");
+			if (var5 >= 0 && var5 < this.inventory.length){
+				this.inventory[var5] = ItemStack.loadItemStackFromNBT(var4);
+			}
+		}
 	}
 
 }

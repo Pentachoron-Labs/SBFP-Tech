@@ -20,6 +20,8 @@ public class GUISolarCharger extends GuiContainer{
 	{
 		super(new ContainerSolarCharger(par1InventoryPlayer, tileEntity));
 		this.tileEntity = tileEntity;
+		this.xSize = 175;
+		this.ySize = 221;
 	}
 
 	/**
