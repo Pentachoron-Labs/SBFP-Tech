@@ -6,12 +6,13 @@ import net.minecraft.world.World;
 import sbfp.client.GUISolarCharger;
 import sbfp.machines.container.ContainerSolarCharger;
 import sbfp.machines.tiles.TileSolarCharger;
+import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.network.IGuiHandler;
 
 public class SBCommonProxy implements IGuiHandler{
 
 	public void init(){
-		modsbfp.logger.fine("SBFP Common Proxy loading");
+		FMLLog.fine("SBFP Common Proxy loading");
 	}
 
 	@Override

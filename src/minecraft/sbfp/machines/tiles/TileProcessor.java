@@ -10,6 +10,7 @@ import sbfp.IPacketReciever;
 
 /** This class is for machines that have an input and output*/
 public abstract class TileProcessor extends TileEntity implements IPacketReciever{
+
 	int workTicks = 0;
 	long ticks = 0;
 	public final Set<EntityPlayer> playersUsing = new HashSet<EntityPlayer>();
@@ -24,17 +25,17 @@ public abstract class TileProcessor extends TileEntity implements IPacketRecieve
 
 		this.ticks++;
 	}
-	
+
 	@Override
 	public void writeToNBT(NBTTagCompound tagCompound){
 		super.writeToNBT(tagCompound);
-		tagCompound.setInteger("workTicks", this.workTicks);
+		tagCompound.setInteger("workTicks",this.workTicks);
 	}
-	
+
+	@Override
 	public void readFromNBT(NBTTagCompound tagCompound){
 		super.readFromNBT(tagCompound);
 		this.workTicks = tagCompound.getInteger("workTicks");
 	}
-	
-	
+
 }

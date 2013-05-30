@@ -1,6 +1,4 @@
 package sbfp.machines.tiles;
-
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
@@ -18,9 +16,10 @@ import com.google.common.io.ByteArrayDataInput;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
 
+import com.google.common.io.ByteArrayDataInput;
 
 public class TileSolarCharger extends TileProcessor implements IInventory{
-	
+
 	private ItemStack[] inventory = new ItemStack[8];
 	private boolean isWorking = false;
 	public static final int maxWorkTicks = 5*20; //45 Seconds to make 1 piece of charged redstone
@@ -59,21 +58,26 @@ public class TileSolarCharger extends TileProcessor implements IInventory{
 				PacketDispatcher.sendPacketToPlayer(getDescriptionPacket(), (Player) player);
 			}
 		}
-		
 	}
-	
+
 	private boolean canWork(){
-		if(!(this.worldObj.isDaytime()&&this.worldObj.canBlockSeeTheSky(this.xCoord,this.yCoord+1,this.zCoord))) return false;
+		if(!(this.worldObj.isDaytime()&&this.worldObj.canBlockSeeTheSky(this.xCoord,this.yCoord+1,this.zCoord))){
+			return false;
+		}
 		boolean hasInputs = true;
 		boolean hasOutputs = true;
 		for(int i = 0; i<4; i++){
-			hasInputs = hasInputs&&(this.inventory[i]!=null);
+			hasInputs = hasInputs&&this.inventory[i]!=null;
 		}
 		for(int i = 4; i<8; i++){
-			hasOutputs = hasOutputs&&(this.inventory[i] == null);
-			if(hasOutputs) break;
-			hasOutputs = hasOutputs&&(this.inventory[i].stackSize < this.getInventoryStackLimit());
-			if(hasOutputs) break;
+			hasOutputs = hasOutputs&&this.inventory[i]==null;
+			if(hasOutputs){
+				break;
+			}
+			hasOutputs = hasOutputs&&this.inventory[i].stackSize<this.getInventoryStackLimit();
+			if(hasOutputs){
+				break;
+			}
 		}
 		return hasInputs&&hasOutputs;
 	}
@@ -81,7 +85,7 @@ public class TileSolarCharger extends TileProcessor implements IInventory{
 	public int getWorkTicks(){
 		return this.workTicks;
 	}
-	
+
 	@Override
 	public Packet getDescriptionPacket()
 	{
@@ -103,7 +107,6 @@ public class TileSolarCharger extends TileProcessor implements IInventory{
 			e.printStackTrace();
 		}
 	}
-
 	@Override
 	public int getSizeInventory(){
 		return this.inventory.length;

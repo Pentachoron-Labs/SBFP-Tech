@@ -1,12 +1,11 @@
 package sbfp.machines;
 
-import sbfp.modsbfp;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-
+import sbfp.modsbfp;
 
 public class ItemBlockMachines extends ItemBlock{
-	
+
 	public ItemBlockMachines(int id){
 		super(id);
 		this.setHasSubtypes(true);

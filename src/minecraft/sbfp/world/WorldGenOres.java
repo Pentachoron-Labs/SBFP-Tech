@@ -25,7 +25,7 @@ public class WorldGenOres{
 		this.replaceID = replace;
 	}
 
-	public void generate(World w, Random r, int x, int z){
+	void generate(World w, Random r, int x, int z){
 		for(int i = 0; i<this.chunkAmount; i++){
 			int xCoord = x+r.nextInt(16);
 			int zCoord = z+r.nextInt(16);

@@ -1,7 +1,6 @@
 package sbfp;
 
 import java.io.File;
-import java.util.logging.Logger;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
@@ -16,6 +15,7 @@ import sbfp.world.BlockOre;
 import sbfp.world.GeneratorOres;
 import sbfp.world.ItemBlockOre;
 import sbfp.world.WorldGenOres;
+import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.Mod.Instance;
@@ -32,8 +32,6 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 @NetworkMod(channels = {modsbfp.modid}, clientSideRequired = true, serverSideRequired = false, packetHandler = PacketHandler.class)
 public class modsbfp{
 
-	// Logger
-	public static final Logger logger = Logger.getLogger("Minecraft");
 	// name constants
 	public static final String modid = "sbfp"; //Channel, name, etc
 	public static final String shortname = "SBFP Tech";
@@ -52,13 +50,13 @@ public class modsbfp{
 	public static SBCommonProxy proxy;
 
 	//block and item name
-	public static final String[][] redFluxNames = new String[][]{{"redFluxAmp","redFluxAbsorber", "redFluxStablizer", "chargedRedstone"},{"Redstone Flux Amplifier", "Redstone Flux Absorber", "Redstone Flux Stablilizer", "Charged Redstone"}};
+	public static final String[][] redFluxNames = new String[][]{{"redFluxAmp","redFluxAbsorber","redFluxStablizer","chargedRedstone"},{"Redstone Flux Amplifier","Redstone Flux Absorber","Redstone Flux Stablilizer","Charged Redstone"}};
 	public static final String[][] machineNames = new String[][]{{"solarCharger"},{"Sunlight Collector"}};
 	public static final String[][] oreNames = new String[][]{{"oreThorium","oreFluorite","oreMoS2","oreRutile","oreCinnabar","oreLimonite","orePyrolusite"},{"Monazite Sand","Fluorite","Molybdenite","Rutile","Cinnabar","Limonite","Pyrolusite"}};
 	public static final String[][] dyeNames = new String[][]{{"dyeTiO2","dyeVermillion","dyeOchre","dyeUltramarine","dyeMnO2","dyeGreen","dyePurple","dyeOrange","dyeGrey"},{"Titanium White","Vermillion","Ochre","Ultramarine","Manganese Black","Green Dye","Purple Dye","Orange Dye","Grey Dye"}};
 	// blocks and items
 	public static final BlockOre blockOre = new BlockOre(getBlockID("blockOreID",0x4c0));
-	public static final BlockMachines blockMachines = new BlockMachines(getBlockID("blockMachinesID", 0x4c3));
+	public static final BlockMachines blockMachines = new BlockMachines(getBlockID("blockMachinesID",0x4c3));
 	public static final ItemRedflux itemRedflux = new ItemRedflux(getItemID("itemRedfluxID",0x4c1));
 	public static final ItemDye itemDye = new ItemDye(getItemID("itemDyeID",0x4c2));
 
@@ -70,6 +68,7 @@ public class modsbfp{
 
 	@Init
 	public void init(FMLInitializationEvent event){
+		FMLLog.info("SHAZAP!!!");
 		GameRegistry.registerBlock(blockOre,ItemBlockOre.class,"blockOre");
 		GameRegistry.registerBlock(blockMachines, ItemBlockMachines.class, "blockMachines");
 		GameRegistry.registerTileEntity(TileSolarCharger.class,"sunlightCollector");
