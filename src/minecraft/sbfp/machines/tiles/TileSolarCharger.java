@@ -59,24 +59,66 @@ public class TileSolarCharger extends TileProcessor implements IInventory{
 	}
 
 	@Override
-	public ItemStack getStackInSlot(int i){
-		return this.inventory[i];
+	public ItemStack getStackInSlot(int par1)
+	{
+		return this.inventory[par1];
 	}
 
 	@Override
-	public ItemStack decrStackSize(int i, int j){
-		return null;
+	public ItemStack decrStackSize(int par1, int par2)
+	{
+		if (this.inventory[par1] != null)
+		{
+			ItemStack var3;
+
+			if (this.inventory[par1].stackSize <= par2)
+			{
+				var3 = this.inventory[par1];
+				this.inventory[par1] = null;
+				return var3;
+			}
+			else
+			{
+				var3 = this.inventory[par1].splitStack(par2);
+
+				if (this.inventory[par1].stackSize == 0)
+				{
+					this.inventory[par1] = null;
+				}
+
+				return var3;
+			}
+		}
+		else
+		{
+			return null;
+		}
 	}
 
 	@Override
-	public ItemStack getStackInSlotOnClosing(int i){
-		return null;
-	}
+	public ItemStack getStackInSlotOnClosing(int par1)
+	{
+		if (this.inventory[par1] != null)
+		{
+			ItemStack var2 = this.inventory[par1];
+			this.inventory[par1] = null;
+			return var2;
+		}
+		else
+		{
+			return null;
+		}
+}
 
 	@Override
-	public void setInventorySlotContents(int i, ItemStack itemstack){
-		
-		
+	public void setInventorySlotContents(int par1, ItemStack par2ItemStack)
+	{
+		this.inventory[par1] = par2ItemStack;
+
+		if (par2ItemStack != null && par2ItemStack.stackSize > this.getInventoryStackLimit())
+		{
+			par2ItemStack.stackSize = this.getInventoryStackLimit();
+		}
 	}
 
 	@Override
