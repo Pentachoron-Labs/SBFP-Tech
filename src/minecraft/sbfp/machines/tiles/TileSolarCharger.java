@@ -26,16 +26,10 @@ public class TileSolarCharger extends TileProcessor implements IInventory{
 	@Override
 	public void updateEntity(){
 		super.updateEntity();
-		if(!this.worldObj.isRemote){
-			//if(this.canWork()){
-				
-			//}
-			if (this.ticks % 3 == 0){
-				for (EntityPlayer player : this.playersUsing){
-					PacketDispatcher.sendPacketToPlayer(getDescriptionPacket(), (Player) player);
-				}
-			}
+		if(this.canWork()){
+			this.workTicks++;
 		}
+		
 	}
 
 	private boolean canWork(){
@@ -43,7 +37,8 @@ public class TileSolarCharger extends TileProcessor implements IInventory{
 		//	return false;
 		//}
 		boolean hasInputs = this.inventory[0]!=null;
-		boolean hasOutputs = this.inventory[4] != null || this.inventory[4].stackSize<this.getInventoryStackLimit();
+		if(this.inventory[4] == null) return hasInputs;
+		boolean hasOutputs = this.inventory[4].stackSize < this.getInventoryStackLimit();
 		return hasInputs&&hasOutputs;
 	}
 
