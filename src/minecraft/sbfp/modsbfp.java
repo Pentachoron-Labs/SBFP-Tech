@@ -2,7 +2,6 @@ package sbfp;
 
 import java.io.File;
 
-import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.Property;
@@ -14,7 +13,6 @@ import sbfp.machines.tiles.TileSolarCharger;
 import sbfp.world.BlockOre;
 import sbfp.world.GeneratorOres;
 import sbfp.world.ItemBlockOre;
-import sbfp.world.WorldGenOres;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
@@ -86,17 +84,9 @@ public class modsbfp{
 		for(int i = 0; i<itemDye.names.length; i++){
 			LanguageRegistry.addName(new ItemStack(itemDye.itemID,1,i),dyeNames[1][i]);
 		}
-		this.addWorldGeneration();
 		this.addRecipes();
 		GameRegistry.registerWorldGenerator(this.wGen);
 		NetworkRegistry.instance().registerGuiHandler(this, this.proxy);
-	}
-
-	private void addWorldGeneration(){
-		this.wGen.addOre(new WorldGenOres(blockOre.blockID,0,12,40,100,10,Block.stone.blockID));
-		this.wGen.addOre(new WorldGenOres(blockOre.blockID,1,12,40,140,4,Block.stone.blockID));
-		this.wGen.addOre(new WorldGenOres(blockOre.blockID,2,12,40,50,2,Block.stone.blockID));
-		this.wGen.addOre(new WorldGenOres(blockOre.blockID,3,12,40,140,6,Block.stone.blockID));
 	}
 
 	private void addRecipes(){
