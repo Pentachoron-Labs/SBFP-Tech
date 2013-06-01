@@ -131,4 +131,9 @@ public class BlockMachines extends BlockSub implements ITileEntityProvider{
 		return new TileSolarCharger();
 	}
 	
+	@Override
+	public boolean isOpaqueCube(){
+		return false;
+	}
+	
 }
