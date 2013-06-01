@@ -36,7 +36,7 @@ public class GUISolarCharger extends GuiContainer{
 		containerWidth = (this.width - this.xSize) / 2;
 		containerHeight = (this.height - this.ySize) / 2;
 		this.drawTexturedModalRect(containerWidth, containerHeight, 0, 0, this.xSize, this.ySize);
-		this.drawTexturedModalRect(48, 47, 176, 0, 254, 4);
+		this.drawTexturedModalRect(this.containerWidth+48, this.containerHeight+47, 176, 0, 79, 4);
 	}
 	
 	@Override

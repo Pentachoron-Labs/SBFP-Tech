@@ -13,6 +13,7 @@ import sbfp.modsbfp;
 
 import com.google.common.io.ByteArrayDataInput;
 
+import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
 
@@ -33,13 +34,10 @@ public class TileSolarCharger extends TileProcessor implements IInventory{
 	}
 
 	private boolean canWork(){
-		//if(!(this.worldObj.isDaytime()&&this.worldObj.canBlockSeeTheSky(this.xCoord,this.yCoord+1,this.zCoord))){
-		//	return false;
-		//}
-		boolean hasInputs = this.inventory[0]!=null;
-		if(this.inventory[4] == null) return hasInputs;
-		boolean hasOutputs = this.inventory[4].stackSize < this.getInventoryStackLimit();
-		return hasInputs&&hasOutputs;
+		if(this.inventory[0] == null && this.inventory[1] == null && this.inventory[2] == null && this.inventory[3] == null) return false;
+		
+		return true;
+		
 	}
 
 	public int getWorkTicks(){
@@ -151,9 +149,10 @@ public class TileSolarCharger extends TileProcessor implements IInventory{
 	}
 
 	@Override
-	public boolean isUseableByPlayer(EntityPlayer entityplayer){
-		return true;
-	}
+	public boolean isUseableByPlayer(EntityPlayer par1EntityPlayer)
+	{
+		return this.worldObj.getBlockTileEntity(this.xCoord, this.yCoord, this.zCoord) != this ? false : par1EntityPlayer.getDistanceSq(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D) <= 64.0D;
+}	
 
 	@Override
 	public void openChest(){}
