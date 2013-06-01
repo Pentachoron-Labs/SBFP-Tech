@@ -19,6 +19,7 @@ import net.minecraftforge.common.ForgeDirection;
 import sbfp.BlockSub;
 import sbfp.modsbfp;
 import sbfp.machines.tiles.TileSolarCharger;
+import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -118,7 +119,7 @@ public class BlockMachines extends BlockSub implements ITileEntityProvider{
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityPlayer, int side, float hitX, float hitY, float hitZ){
 		int metadata = world.getBlockMetadata(x, y, z);
-		System.out.println("Block Activated");
+		FMLLog.info("Block Activated");
 		//System.out.println("Client Side");
 		entityPlayer.openGui(modsbfp.getInstance(), -1, world, x, y, z);
 		return true;
