@@ -16,14 +16,16 @@ class LargeVeinGenerator{
 	private int X, Y, Z;
 	private ArrayList<Integer[]> blocks, blocksNew;
 	private int meta;
-
-	LargeVeinGenerator(int seedX, int seedY, int seedZ, World world, Random rand, int meta){
+	private double veinSize;
+	
+	LargeVeinGenerator(int seedX, int seedY, int seedZ, World world, Random rand, int meta, double veinSize){
 		this.seedX = seedX;
 		this.seedY = seedY;
 		this.seedZ = seedZ;
 		this.world = world;
 		this.rand = rand;
 		this.meta = meta;
+		this.veinSize = veinSize;
 	}
 
 	void generate(){
@@ -57,7 +59,7 @@ class LargeVeinGenerator{
 	private void setBlock(int x, int y, int z){
 		int X = this.X+x, Y = this.Y+y, Z = this.Z+z;
 		int dx = X-seedX, dy = Y-seedY, dz = Z-seedZ;
-		if(world.getBlockId(X,Y,Z)==Block.stone.blockID&&rand.nextDouble()<1/(Math.pow(dx,16)+Math.pow(dy,16)+Math.pow(dz,16)+1)){
+		if(world.getBlockId(X,Y,Z)==Block.stone.blockID&&rand.nextDouble()<Math.pow(Math.pow(dx,16)+Math.pow(dy,16)+Math.pow(dz,16)+1,-this.veinSize)){
 			world.setBlock(X,Y,Z,modsbfp.blockOre.blockID,meta,2);
 			blocksNew.add(new Integer[]{X,Y,Z});
 		}
