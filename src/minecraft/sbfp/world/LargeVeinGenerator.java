@@ -15,13 +15,15 @@ class LargeVeinGenerator{
 	private final Random rand;
 	private int X, Y, Z;
 	private ArrayList<Integer[]> blocks, blocksNew;
+	private int meta;
 
-	LargeVeinGenerator(int seedX, int seedY, int seedZ, World world, Random rand){
+	LargeVeinGenerator(int seedX, int seedY, int seedZ, World world, Random rand, int meta){
 		this.seedX = seedX;
 		this.seedY = seedY;
 		this.seedZ = seedZ;
 		this.world = world;
 		this.rand = rand;
+		this.meta = meta;
 	}
 
 	void generate(){
@@ -46,7 +48,7 @@ class LargeVeinGenerator{
 			blocks = blocksNew;
 			blocksNew = new ArrayList<Integer[]>();
 			if(blocks.size()==0){
-				FMLLog.finer("I haz a LV deposit at (%d,%d,%d) with %d blocks",seedX,seedY,seedZ,iter);
+//				FMLLog.finer("I haz a LV deposit at (%d,%d,%d) with %d blocks",seedX,seedY,seedZ,iter);
 				break;
 			}
 		}
@@ -56,7 +58,7 @@ class LargeVeinGenerator{
 		int X = this.X+x, Y = this.Y+y, Z = this.Z+z;
 		int dx = X-seedX, dy = Y-seedY, dz = Z-seedZ;
 		if(world.getBlockId(X,Y,Z)==Block.stone.blockID&&rand.nextDouble()<1/(Math.pow(dx,16)+Math.pow(dy,16)+Math.pow(dz,16)+1)){
-			world.setBlock(X,Y,Z,modsbfp.blockOre.blockID,1,2);
+			world.setBlock(X,Y,Z,modsbfp.blockOre.blockID,meta,2);
 			blocksNew.add(new Integer[]{X,Y,Z});
 		}
 	}

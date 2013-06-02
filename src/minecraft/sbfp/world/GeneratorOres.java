@@ -17,7 +17,7 @@ public final class GeneratorOres implements IWorldGenerator{
 
 	@Override
 	public void generate(Random r, int cx, int cz, World w, IChunkProvider cg, IChunkProvider cp){
-		FMLLog.finest("Chunk (%d,%d)",cx,cz);
+//		FMLLog.finest("Chunk (%d,%d)",cx,cz);
 		cx <<= 4;
 		cz <<= 4;
 		if(cg instanceof ChunkProviderGenerate){
@@ -30,7 +30,9 @@ public final class GeneratorOres implements IWorldGenerator{
 							}else if(r.nextInt(1536)==0){
 								w.setBlock(x,y,z,modsbfp.blockOre.blockID,0,2); //Monazite—other
 							}else if(r.nextInt(5120)==0){
-								new LargeVeinGenerator(x,y,z,w,r).generate(); //Fluorite
+								new LargeVeinGenerator(x,y,z,w,r,1).generate(); //Fluorite
+							}else if(r.nextInt(10240)==0){
+								new LargeVeinGenerator(x,y,z,w,r,2).generate(); //MoS₂
 							}
 						}
 					}
