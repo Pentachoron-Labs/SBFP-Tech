@@ -33,7 +33,7 @@ public class modsbfp{
 	// name constants
 	public static final String modid = "sbfp"; //Channel, name, etc
 	public static final String shortname = "SBFP Tech";
-	public static final String version = "Aleph 0.94";
+	public static final String version = "Aleph 1.0";
 	
 	// data constants
 	public static final String guiDirectory = "/mods/sbfp/textures/gui/";
