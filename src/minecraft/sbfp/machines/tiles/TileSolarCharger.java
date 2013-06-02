@@ -57,7 +57,7 @@ public class TileSolarCharger extends TileProcessor implements IInventory{
 		if(this.inventory[4] != null){
 			if(this.inventory[4].stackSize+1>this.inventory[4].getMaxStackSize()) return false;
 		}
-		//if(!this.worldObj.isDaytime()) return false;
+		if(!this.worldObj.isDaytime()) return false;
 		//if(!(this.worldObj.canBlockSeeTheSky(this.xCoord,this.yCoord+1,this.zCoord))) return false;
 		
 		return true;
@@ -209,7 +209,7 @@ public class TileSolarCharger extends TileProcessor implements IInventory{
 	
 	public void readFromNBT(NBTTagCompound tagCompound){
 		super.readFromNBT(tagCompound);
-		//this.hasItem = tagCompound.getBoolean("isWorking");
+		this.hasItem = tagCompound.getBoolean("isWorking");
 		NBTTagList var2 = tagCompound.getTagList("items");
 		for (int var3 = 0; var3 < var2.tagCount(); ++var3){
 			NBTTagCompound var4 = (NBTTagCompound) var2.tagAt(var3);
