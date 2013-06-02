@@ -24,11 +24,11 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 
-public class BlockMachines extends BlockSub implements ITileEntityProvider{
+public class BlockMachine extends BlockSub implements ITileEntityProvider{
 
 	public Icon[][] icons;
 
-	public BlockMachines(int id){
+	public BlockMachine(int id){
 		super(id,Material.iron,modsbfp.machineNames[0]);
 		this.setCreativeTab(CreativeTabs.tabBlock);
 	}
