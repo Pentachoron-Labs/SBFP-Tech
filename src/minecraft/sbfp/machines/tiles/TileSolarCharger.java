@@ -19,7 +19,7 @@ public class TileSolarCharger extends TileProcessor implements IInventory{
 
 	private ItemStack[] inventory = new ItemStack[8];
 	private boolean hasItem = false;
-	public static final int maxWorkTicks = 10*20; //45 Seconds to make 1 piece of charged redstone
+	public static final int maxWorkTicks = 45*20; //45 Seconds to make 1 piece of charged redstone
 	@Override
 	public void updateEntity(){
 		super.updateEntity();
@@ -33,8 +33,17 @@ public class TileSolarCharger extends TileProcessor implements IInventory{
 					break;
 				}
 			}
-		}else if(this.canWork() && this.hasItem){
-			
+		}else if(this.canWork()){
+			this.workTicks++;
+			if(this.workTicks >= this.maxWorkTicks){
+				if(this.inventory[4] == null){ 
+					this.inventory[4] =  new ItemStack(modsbfp.itemRedflux.itemID, 1, 3);
+				}else{
+					this.inventory[4].stackSize++;
+				}
+				this.workTicks = 0;
+				this.hasItem = false;
+			}
 		}
 		
 	}
