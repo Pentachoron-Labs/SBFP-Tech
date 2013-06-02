@@ -18,13 +18,13 @@ import cpw.mods.fml.common.FMLLog;
 public class TileSolarCharger extends TileProcessor implements IInventory{
 
 	private ItemStack[] inventory = new ItemStack[8];
-	private boolean isWorking = false;
+	private boolean hasItem = false;
 	public static final int maxWorkTicks = 10*20; //45 Seconds to make 1 piece of charged redstone
 	@Override
 	public void updateEntity(){
 		super.updateEntity();
-		if(!this.isWorking && this.canWork()){
-			this.isWorking = true;
+		if(!this.hasItem && this.canWork()){
+			this.hasItem = true;
 			FMLLog.info("Working now");
 			for(int i = 0; i<4;i++){
 				if(this.inventory[i] != null){
@@ -33,23 +33,18 @@ public class TileSolarCharger extends TileProcessor implements IInventory{
 					break;
 				}
 			}
-		}else if(this.canWork() && this.isWorking){
-			this.workTicks++;
-			if(this.workTicks > this.maxWorkTicks){
-				if(this.inventory[4] == null){
-					this.inventory[4] = new ItemStack(modsbfp.itemRedflux.itemID,1,3);
-				}else{
-					this.inventory[4].stackSize++;
-				}
-				this.isWorking = false;
-				this.workTicks = 0;
-			}
+		}else if(this.canWork() && this.hasItem){
+			
 		}
 		
 	}
 
 	private boolean canWork(){
-		if((this.inventory[0] == null && this.inventory[1] == null && this.inventory[2] == null && this.inventory[3] == null)||!this.isWorking) return false;
+		
+		if((this.inventory[0] == null && this.inventory[1] == null && this.inventory[2] == null && this.inventory[3] == null)){
+			if(this.hasItem) return true;
+			return false;
+		}
 		if(this.inventory[4] != null){
 			if(this.inventory[4].stackSize+1>this.inventory[4].getMaxStackSize()) return false;
 		}
@@ -189,7 +184,7 @@ public class TileSolarCharger extends TileProcessor implements IInventory{
 	@Override
 	public void writeToNBT(NBTTagCompound tagCompound){
 		super.writeToNBT(tagCompound);
-		tagCompound.setBoolean("isWorking",this.isWorking);
+		tagCompound.setBoolean("isWorking",this.hasItem);
 		NBTTagList tagList = new NBTTagList();
 		for (int var3 = 0; var3 < this.inventory.length; ++var3){
 			if (this.inventory[var3] != null){
@@ -205,7 +200,7 @@ public class TileSolarCharger extends TileProcessor implements IInventory{
 	
 	public void readFromNBT(NBTTagCompound tagCompound){
 		super.readFromNBT(tagCompound);
-		this.isWorking = tagCompound.getBoolean("isWorking");
+		//this.hasItem = tagCompound.getBoolean("isWorking");
 		NBTTagList var2 = tagCompound.getTagList("items");
 		for (int var3 = 0; var3 < var2.tagCount(); ++var3){
 			NBTTagCompound var4 = (NBTTagCompound) var2.tagAt(var3);

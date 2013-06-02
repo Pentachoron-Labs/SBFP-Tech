@@ -3,6 +3,8 @@ package sbfp.machines.tiles;
 import java.util.HashSet;
 import java.util.Set;
 
+import cpw.mods.fml.common.FMLLog;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -17,7 +19,10 @@ public abstract class TileProcessor extends TileEntity implements IPacketRecieve
 	
 	@Override
 	public void updateEntity(){
-
+		if(this.ticks == 0){
+			FMLLog.info("Created TileEntityProcessor");
+			this.intialize();
+		}
 		if (this.ticks >= Long.MAX_VALUE)
 		{
 			this.ticks = 1;
@@ -26,15 +31,21 @@ public abstract class TileProcessor extends TileEntity implements IPacketRecieve
 		this.ticks++;
 	}
 
+	private void intialize(){
+		
+	}
+
 	@Override
 	public void writeToNBT(NBTTagCompound tagCompound){
 		super.writeToNBT(tagCompound);
+		tagCompound.setLong("ticks", this.ticks);
 		tagCompound.setInteger("workTicks",this.workTicks);
 	}
 
 	@Override
 	public void readFromNBT(NBTTagCompound tagCompound){
 		super.readFromNBT(tagCompound);
+		this.ticks = tagCompound.getLong("ticks");
 		this.workTicks = tagCompound.getInteger("workTicks");
 	}
 	
