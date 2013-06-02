@@ -33,9 +33,9 @@ public class modsbfp{
 	// name constants
 	public static final String modid = "sbfp"; //Channel, name, etc
 	public static final String shortname = "SBFP Tech";
-	public static final String version = "Aleph 0.58";
+	public static final String version = "Aleph 0.94";
 	
-	//Directory Constants
+	// data constants
 	public static final String guiDirectory = "/mods/sbfp/textures/gui/";
 
 	// mechanics constants
@@ -50,7 +50,8 @@ public class modsbfp{
 	//block and item name
 	public static final String[][] redFluxNames = new String[][]{{"redFluxAmp","redFluxAbsorber","redFluxStablizer","chargedRedstone"},{"Redstone Flux Amplifier","Redstone Flux Absorber","Redstone Flux Stablilizer","Charged Redstone"}};
 	public static final String[][] machineNames = new String[][]{{"solarCharger"},{"Sunlight Collector"}};
-	public static final String[][] oreNames = new String[][]{{"oreThorium","oreFluorite","oreMoS2","oreRutile","oreCinnabar","oreLimonite","orePyrolusite"},{"Monazite Sand","Fluorite","Molybdenite","Rutile","Cinnabar","Limonite","Pyrolusite"}};
+	//Don't mind me...								(Ce,La,Pr,Nd,Th,Y)PO₄		CaF₂		MoS₂	  TiO₂			HgS		 FeO(OH)·nH₂O		MnO₂		As
+	public static final String[][] oreNames = new String[][]{{"oreThorium","oreFluorite","oreMoS2","oreRutile","oreCinnabar","oreLimonite","orePyrolusite","oreAs"},{"Monazite Sand","Fluorite","Molybdenite","Rutile","Cinnabar","Limonite","Pyrolusite","Arsenopyrite"}};
 	public static final String[][] dyeNames = new String[][]{{"dyeTiO2","dyeVermillion","dyeOchre","dyeUltramarine","dyeMnO2","dyeGreen","dyePurple","dyeOrange","dyeGrey"},{"Titanium White","Vermillion","Ochre","Ultramarine","Manganese Black","Green Dye","Purple Dye","Orange Dye","Grey Dye"}};
 	// blocks and items
 	public static final BlockOre blockOre = new BlockOre(getBlockID("blockOreID",0x4c0));
