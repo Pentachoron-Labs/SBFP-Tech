@@ -13,8 +13,6 @@ import cpw.mods.fml.common.IWorldGenerator;
 
 public final class GeneratorOres implements IWorldGenerator{
 
-	public GeneratorOres(){}
-
 	@Override
 	public void generate(Random r, int cx, int cz, World w, IChunkProvider cg, IChunkProvider cp){
 //		FMLLog.finest("Chunk (%d,%d)",cx,cz);
@@ -29,10 +27,14 @@ public final class GeneratorOres implements IWorldGenerator{
 								w.setBlock(x,y,z,modsbfp.blockOre.blockID,0,2); //Monazite—pools
 							}else if(r.nextInt(1536)==0){
 								w.setBlock(x,y,z,modsbfp.blockOre.blockID,0,2); //Monazite—other
-							}else if(r.nextInt(5120)==0){
-								new LargeVeinGenerator(x,y,z,w,r,1).generate(); //Fluorite
-							}else if(r.nextInt(10240)==0){
-								new LargeVeinGenerator(x,y,z,w,r,2).generate(); //MoS₂
+							}else if(r.nextInt(2560)==0){
+								new LargeVeinGenerator(x,y,z,w,r,1,1).generate(); //Fluorite
+							}else if(r.nextInt(1536)==0){
+								w.setBlock(x,y,z,modsbfp.blockOre.blockID,2,2);
+								if(r.nextBoolean()){
+									int q = r.nextInt(3);
+									w.setBlock(x+(q==0?1:0),y+(q==1?1:0),z+(q==2?1:0),modsbfp.blockOre.blockID,2,2);
+								}
 							}
 						}
 					}
