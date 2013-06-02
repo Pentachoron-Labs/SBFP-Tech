@@ -7,7 +7,7 @@ import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.Property;
 import sbfp.chemistry.ItemDye;
 import sbfp.machines.BlockMachine;
-import sbfp.machines.ItemBlockMachines;
+import sbfp.machines.ItemBlockMachine;
 import sbfp.machines.ItemRedflux;
 import sbfp.machines.tiles.TileSolarCharger;
 import sbfp.world.BlockOre;
@@ -69,7 +69,7 @@ public class modsbfp{
 	public void init(FMLInitializationEvent event){
 		FMLLog.info("SHAZAP!!!");
 		GameRegistry.registerBlock(blockOre,ItemBlockOre.class,"blockOre");
-		GameRegistry.registerBlock(blockMachines, ItemBlockMachines.class, "blockMachines");
+		GameRegistry.registerBlock(blockMachines, ItemBlockMachine.class, "blockMachines");
 		GameRegistry.registerTileEntity(TileSolarCharger.class,"sunlightCollector");
 		GameRegistry.registerItem(itemRedflux,"itemRedflux");
 		//TODO: multilingual support
