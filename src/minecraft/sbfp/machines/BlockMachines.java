@@ -121,14 +121,14 @@ public class BlockMachines extends BlockSub implements ITileEntityProvider{
 		int metadata = world.getBlockMetadata(x, y, z);
 		FMLLog.info("Block Activated");
 		//System.out.println("Client Side");
-		entityPlayer.openGui(modsbfp.getInstance(), -1, world, x, y, z);
+		entityPlayer.openGui(modsbfp.getInstance(), metadata, world, x, y, z);
 		return true;
 		
 		
 	}
 	@Override
 	public TileEntity createNewTileEntity(World w){
-		return new TileSolarCharger();
+				return new TileSolarCharger();
 	}
 	
 	@Override

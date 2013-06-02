@@ -21,6 +21,7 @@ public class SBCommonProxy implements IGuiHandler{
 		if(tileEntity != null){
 			if(tileEntity instanceof TileSolarCharger) return new ContainerSolarCharger(player.inventory, (TileSolarCharger) tileEntity);
 		}
+		FMLLog.info("TileEntity is null");
 		return null;
 	}
 
