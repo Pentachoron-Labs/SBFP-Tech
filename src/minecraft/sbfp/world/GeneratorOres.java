@@ -28,16 +28,38 @@ public final class GeneratorOres implements IWorldGenerator{
 							}else if(r.nextInt(2560)==0){
 								new LargeVeinGenerator(x,y,z,w,r,1,1).generate(); //Fluorite
 							}else if(r.nextInt(1536)==0){
-								w.setBlock(x,y,z,modsbfp.blockOre.blockID,2,2);
+								w.setBlock(x,y,z,modsbfp.blockOre.blockID,2,2); //MoS₂
 								if(r.nextBoolean()){
 									int q = r.nextInt(3);
 									w.setBlock(x+(q==0 ? 1 : 0),y+(q==1 ? 1 : 0),z+(q==2 ? 1 : 0),modsbfp.blockOre.blockID,2,2);
 								}
+							}else if(r.nextInt(5120)==0){
+								new LargeVeinGenerator(x,y,z,w,r,3,1).generate(); //Rutile
+							}else if(r.nextInt(1280)==0&&bordersLava(x,y,z,w)){
+								new LargeVeinGenerator(x,y,z,w,r,3,1).generate(); //Cinnabar—lava pools
+							}else if(r.nextInt(7680)==0){
+								new LargeVeinGenerator(x,y,z,w,r,4,1).generate(); //Cinnabar—other
+							}else if(r.nextInt(7680)==0){
+								new LargeVeinGenerator(x,y,z,w,r,7,1).generate(); //Arsenopyrite
+							}
+						}
+					}
+					for(int y = 40; y<80; y++){
+						if(w.getBlockId(x,y,z)==Block.stone.blockID||w.getBlockId(x,y,z)==Block.dirt.blockID){
+							if(r.nextInt(7680)==0){
+								new LargeVeinGenerator(x,y,z,w,r,5,1).generate(); //Limonite
+							}else if(r.nextInt(7680)==0){
+								new LargeVeinGenerator(x,y,z,w,r,6,1).generate(); //Pyrolusite
 							}
 						}
 					}
 				}
 			}
 		}
+	}
+
+	private static boolean bordersLava(int x, int y, int z, World w){
+		int q = Block.lavaStill.blockID;
+		return w.getBlockId(x,y+1,z)==q||w.getBlockId(x,y-1,z)==q||w.getBlockId(x,y-2,z)==q||w.getBlockId(x+1,y,z)==q||w.getBlockId(x-1,y,z)==q||w.getBlockId(x,y,z+1)==q||w.getBlockId(x,y,z-1)==q;
 	}
 }
