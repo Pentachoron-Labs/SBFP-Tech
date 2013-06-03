@@ -13,10 +13,10 @@ class LargeVeinGenerator{
 	private final int seedX, seedY, seedZ;
 	private final World world;
 	private final Random rand;
+	private final int meta;
+	private final double veinSize;
 	private int X, Y, Z;
 	private ArrayList<Integer[]> blocks, blocksNew;
-	private int meta;
-	private double veinSize;
 	
 	LargeVeinGenerator(int seedX, int seedY, int seedZ, World world, Random rand, int meta, double veinSize){
 		this.seedX = seedX;

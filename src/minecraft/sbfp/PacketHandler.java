@@ -208,8 +208,5 @@ public class PacketHandler implements IPacketHandler,IPacketReciever{
 	}
 
 	@Override
-	public void handleData(INetworkManager network, int packetType, Packet250CustomPayload packet, EntityPlayer player, ByteArrayDataInput dataStream){
-
-	}
-
+	public void handleData(INetworkManager network, int packetType, Packet250CustomPayload packet, EntityPlayer player, ByteArrayDataInput dataStream){}
 }

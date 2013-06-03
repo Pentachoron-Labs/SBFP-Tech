@@ -18,7 +18,7 @@ public class ItemBlockMachine extends ItemBlock{
 
 	@Override
 	public String getUnlocalizedName(ItemStack is){
-		return modsbfp.blockMachines.names[is.getItemDamage()];
+		return modsbfp.blockMachine.names[is.getItemDamage()];
 	}
 
 }

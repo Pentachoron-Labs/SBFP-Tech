@@ -55,7 +55,7 @@ public class modsbfp{
 	public static final String[][] dyeNames = new String[][]{{"dyeTiO2","dyeVermillion","dyeOchre","dyeUltramarine","dyeMnO2","dyeGreen","dyePurple","dyeOrange","dyeGrey"},{"Titanium White","Vermillion","Ochre","Ultramarine","Manganese Black","Green Dye","Purple Dye","Orange Dye","Grey Dye"}};
 	// blocks and items
 	public static final BlockOre blockOre = new BlockOre(getBlockID("blockOreID",0x4c0));
-	public static final BlockMachine blockMachines = new BlockMachine(getBlockID("blockMachinesID",0x4c3));
+	public static final BlockMachine blockMachine = new BlockMachine(getBlockID("blockMachinesID",0x4c3));
 	public static final ItemRedflux itemRedflux = new ItemRedflux(getItemID("itemRedfluxID",0x4c1));
 	public static final ItemDye itemDye = new ItemDye(getItemID("itemDyeID",0x4c2));
 
@@ -69,7 +69,7 @@ public class modsbfp{
 	public void init(FMLInitializationEvent event){
 		FMLLog.info("SHAZAP!!!");
 		GameRegistry.registerBlock(blockOre,ItemBlockOre.class,"blockOre");
-		GameRegistry.registerBlock(blockMachines, ItemBlockMachine.class, "blockMachines");
+		GameRegistry.registerBlock(blockMachine, ItemBlockMachine.class, "blockMachines");
 		GameRegistry.registerTileEntity(TileSolarCharger.class,"sunlightCollector");
 		GameRegistry.registerItem(itemRedflux,"itemRedflux");
 		//TODO: multilingual support
@@ -79,8 +79,8 @@ public class modsbfp{
 		for(int i = 0; i<itemRedflux.names.length; i++){
 			LanguageRegistry.addName(new ItemStack(itemRedflux.itemID,1,i),redFluxNames[1][i]);
 		}
-		for(int i = 0; i<blockMachines.names.length; i++){
-			LanguageRegistry.addName(new ItemStack(blockMachines.blockID,1,i),machineNames[1][i]);
+		for(int i = 0; i<blockMachine.names.length; i++){
+			LanguageRegistry.addName(new ItemStack(blockMachine.blockID,1,i),machineNames[1][i]);
 		}
 		for(int i = 0; i<itemDye.names.length; i++){
 			LanguageRegistry.addName(new ItemStack(itemDye.itemID,1,i),dyeNames[1][i]);
