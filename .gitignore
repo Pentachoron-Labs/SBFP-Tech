@@ -17,3 +17,5 @@ UniversalElectricity
 !/modversion.txt
 !/README.md
 !/newt_*.xml
+!/compile.sh
+/*.jar
