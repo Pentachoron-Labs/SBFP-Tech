@@ -17,9 +17,11 @@ public class SBCommonProxy implements IGuiHandler{
 
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z){
-		TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
-		if(tileEntity != null){
-			if(tileEntity instanceof TileSolarCharger) return new ContainerSolarCharger(player.inventory, (TileSolarCharger) tileEntity);
+		TileEntity tileEntity = world.getBlockTileEntity(x,y,z);
+		if(tileEntity!=null){
+			if(tileEntity instanceof TileSolarCharger){
+				return new ContainerSolarCharger(player.inventory,(TileSolarCharger) tileEntity);
+			}
 		}
 		FMLLog.info("TileEntity is null");
 		return null;
@@ -27,9 +29,11 @@ public class SBCommonProxy implements IGuiHandler{
 
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z){
-		TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
-		if(tileEntity != null){
-			if(tileEntity instanceof TileSolarCharger) return new GUISolarCharger(player.inventory, (TileSolarCharger) tileEntity);
+		TileEntity tileEntity = world.getBlockTileEntity(x,y,z);
+		if(tileEntity!=null){
+			if(tileEntity instanceof TileSolarCharger){
+				return new GUISolarCharger(player.inventory,(TileSolarCharger) tileEntity);
+			}
 		}
 		return null;
 	}

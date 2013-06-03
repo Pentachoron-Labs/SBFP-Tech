@@ -1,8 +1,14 @@
 package sbfp;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.Set;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StringTranslate;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.Property;
 import sbfp.chemistry.ItemDye;
@@ -34,60 +40,66 @@ public class modsbfp{
 	public static final String modid = "sbfp"; //Channel, name, etc
 	public static final String shortname = "SBFP Tech";
 	public static final String version = "Aleph 1.01";
-	
+
 	// data constants
 	public static final String guiDirectory = "/mods/sbfp/textures/gui/";
 
 	// mechanics constants
 	@Instance(modid)
 	private static modsbfp instance;
-	private GeneratorOres wGen;
-	private static final Configuration config = new Configuration(new File("config/SBFP/SBFP.cfg"));
+	private final GeneratorOres wGen = new GeneratorOres();
+	private static final Configuration config = new Configuration(new File("minecraft/config/SBFP/SBFP.cfg"));
+	private static final HashMap<String,HashMap<String,String>> lang = new HashMap<String,HashMap<String,String>>();
 
 	@SidedProxy(clientSide = "sbfp.client.SBClientProxy", serverSide = "sbfp.SBCommonProxy")
 	public static SBCommonProxy proxy;
 
-	//block and item name
-	public static final String[][] redFluxNames = new String[][]{{"redFluxAmp","redFluxAbsorber","redFluxStablizer","chargedRedstone"},{"Redstone Flux Amplifier","Redstone Flux Absorber","Redstone Flux Stablilizer","Charged Redstone"}};
-	public static final String[][] machineNames = new String[][]{{"solarCharger"},{"Sunlight Collector"}};
-	//Don't mind me...								(Ce,La,Pr,Nd,Th,Y)PO₄		CaF₂		MoS₂	  TiO₂			HgS		 FeO(OH)·nH₂O		MnO₂		As
-	public static final String[][] oreNames = new String[][]{{"oreThorium","oreFluorite","oreMoS2","oreRutile","oreCinnabar","oreLimonite","orePyrolusite","oreAs"},{"Monazite Sand","Fluorite","Molybdenite","Rutile","Cinnabar","Limonite","Pyrolusite","Arsenopyrite"}};
-	public static final String[][] dyeNames = new String[][]{{"dyeTiO2","dyeVermillion","dyeOchre","dyeUltramarine","dyeMnO2","dyeGreen","dyePurple","dyeOrange","dyeGrey"},{"Titanium White","Vermillion","Ochre","Ultramarine","Manganese Black","Green Dye","Purple Dye","Orange Dye","Grey Dye"}};
-	// blocks and items
-	public static final BlockOre blockOre = new BlockOre(getBlockID("blockOreID",0x4c0));
-	public static final BlockMachine blockMachine = new BlockMachine(getBlockID("blockMachinesID",0x4c3));
-	public static final ItemRedflux itemRedflux = new ItemRedflux(getItemID("itemRedfluxID",0x4c1));
-	public static final ItemDye itemDye = new ItemDye(getItemID("itemDyeID",0x4c2));
+	// blocks and items (sort by ID please)
+	public static final BlockOre blockOre = new BlockOre(getBlockID("blockOreID",0x4c0),new String[]{"oreThorium","oreFluorite","oreMoS2","oreRutile","oreCinnabar","oreLimonite","orePyrolusite","oreAs"});
+	public static final ItemRedflux itemRedflux = new ItemRedflux(getItemID("itemRedfluxID",0x4c1),new String[]{"redFluxAmp","redFluxAbsorber","redFluxStabilizer","chargedRedstone"});
+	public static final ItemDye itemDye = new ItemDye(getItemID("itemDyeID",0x4c2),new String[]{"dyeTiO2","dyeVermillion","dyeOchre","dyeUltramarine","dyeMnO2","dyeGreen","dyePurple","dyeOrange","dyeGrey"});
+	public static final BlockMachine blockMachine = new BlockMachine(getBlockID("blockMachinesID",0x4c3),new String[]{"solarCharger"});
 
 	@PreInit
 	public void preInit(FMLPreInitializationEvent event){
 		instance = this;
-		wGen = new GeneratorOres();
 	}
 
 	@Init
 	public void init(FMLInitializationEvent event){
 		FMLLog.info("SHAZAP!!!");
 		GameRegistry.registerBlock(blockOre,ItemBlockOre.class,"blockOre");
-		GameRegistry.registerBlock(blockMachine, ItemBlockMachine.class, "blockMachines");
+		GameRegistry.registerBlock(blockMachine,ItemBlockMachine.class,"blockMachines");
 		GameRegistry.registerTileEntity(TileSolarCharger.class,"sunlightCollector");
 		GameRegistry.registerItem(itemRedflux,"itemRedflux");
-		//TODO: multilingual support
-		for(int i = 0; i<blockOre.names.length; i++){
-			LanguageRegistry.addName(new ItemStack(blockOre.blockID,1,i),oreNames[1][i]);
-		}
-		for(int i = 0; i<itemRedflux.names.length; i++){
-			LanguageRegistry.addName(new ItemStack(itemRedflux.itemID,1,i),redFluxNames[1][i]);
-		}
-		for(int i = 0; i<blockMachine.names.length; i++){
-			LanguageRegistry.addName(new ItemStack(blockMachine.blockID,1,i),machineNames[1][i]);
-		}
-		for(int i = 0; i<itemDye.names.length; i++){
-			LanguageRegistry.addName(new ItemStack(itemDye.itemID,1,i),dyeNames[1][i]);
-		}
 		this.addRecipes();
 		GameRegistry.registerWorldGenerator(this.wGen);
-		NetworkRegistry.instance().registerGuiHandler(this, this.proxy);
+		NetworkRegistry.instance().registerGuiHandler(this,modsbfp.proxy);
+		this.loadLang();
+	}
+
+	private void loadLang(){
+		for(String i:(Set<String>) StringTranslate.getInstance().getLanguageList().keySet()){
+			lang.put(i,new HashMap<String,String>());
+		}
+		BufferedReader br = new BufferedReader(new InputStreamReader(modsbfp.class.getResourceAsStream("/mods/sbfp/lang/sbfp.lang")));
+		try{
+			String q, l = null;
+			while((q = br.readLine())!=null){
+				if(q.equals("")||q.charAt(0)=='#'){
+					continue;
+				}
+				if(q.contains("=")){
+					String key = q.substring(0,q.indexOf("="));
+					String value = q.substring(q.indexOf("=")+1);
+					LanguageRegistry.instance().addStringLocalization(key,l,value);
+				}else{
+					l = q;
+				}
+			}
+		}catch(IOException e){
+			e.printStackTrace();
+		}
 	}
 
 	private void addRecipes(){

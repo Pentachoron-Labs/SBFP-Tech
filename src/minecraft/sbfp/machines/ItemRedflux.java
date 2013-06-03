@@ -2,12 +2,11 @@ package sbfp.machines;
 
 import net.minecraft.creativetab.CreativeTabs;
 import sbfp.ItemSub;
-import sbfp.modsbfp;
 
 public class ItemRedflux extends ItemSub{
 
-	public ItemRedflux(int id){
-		super(id,modsbfp.redFluxNames[0]);
+	public ItemRedflux(int id, String[] names){
+		super(id,names);
 		this.setCreativeTab(CreativeTabs.tabRedstone);
 	}
 }

@@ -6,7 +6,6 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
 import sbfp.modsbfp;
-import cpw.mods.fml.common.FMLLog;
 
 class LargeVeinGenerator{
 
@@ -17,7 +16,7 @@ class LargeVeinGenerator{
 	private final double veinSize;
 	private int X, Y, Z;
 	private ArrayList<Integer[]> blocks, blocksNew;
-	
+
 	LargeVeinGenerator(int seedX, int seedY, int seedZ, World world, Random rand, int meta, double veinSize){
 		this.seedX = seedX;
 		this.seedY = seedY;
@@ -50,7 +49,7 @@ class LargeVeinGenerator{
 			blocks = blocksNew;
 			blocksNew = new ArrayList<Integer[]>();
 			if(blocks.size()==0){
-//				FMLLog.finer("I haz a LV deposit at (%d,%d,%d) with %d blocks",seedX,seedY,seedZ,iter);
+				//				FMLLog.finer("I haz a LV deposit at (%d,%d,%d) with %d blocks",seedX,seedY,seedZ,iter);
 				break;
 			}
 		}

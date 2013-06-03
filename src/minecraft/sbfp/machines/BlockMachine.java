@@ -23,13 +23,12 @@ import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-
 public class BlockMachine extends BlockSub implements ITileEntityProvider{
 
 	public Icon[][] icons;
 
-	public BlockMachine(int id){
-		super(id,Material.iron,modsbfp.machineNames[0]);
+	public BlockMachine(int id, String[] names){
+		super(id,Material.iron,names);
 		this.setCreativeTab(CreativeTabs.tabBlock);
 	}
 
@@ -115,25 +114,25 @@ public class BlockMachine extends BlockSub implements ITileEntityProvider{
 	public Icon getIcon(int side, int meta){
 		return icons[meta][side];
 	}
-	
+
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityPlayer, int side, float hitX, float hitY, float hitZ){
-		int metadata = world.getBlockMetadata(x, y, z);
+		int metadata = world.getBlockMetadata(x,y,z);
 		FMLLog.info("Block Activated");
 		//System.out.println("Client Side");
-		entityPlayer.openGui(modsbfp.getInstance(), metadata, world, x, y, z);
+		entityPlayer.openGui(modsbfp.getInstance(),metadata,world,x,y,z);
 		return true;
-		
-		
+
 	}
+
 	@Override
 	public TileEntity createNewTileEntity(World w){
-				return new TileSolarCharger();
+		return new TileSolarCharger();
 	}
-	
+
 	@Override
 	public boolean isOpaqueCube(){
 		return false;
 	}
-	
+
 }

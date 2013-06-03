@@ -1,0 +1,83 @@
+de_DE
+oreThorium.name=Monazit
+oreFluorite.name=Fluorit
+oreMoS2.name=Molybdänit
+oreRutile.name=Rutil
+oreCinnabar.name=Zinnober
+oreLimonite.name=Limonit
+orePyrolusite.name=Pyrolusit
+oreAs.name=Arsenopyrit
+
+redFluxAmp.name=Redstonefluss-Verstärker
+redFluxAbsorber.name=Redstonefluss-Absorber
+redFluxStabilizer.name=Redstonefluss-Stabilisator
+chargedRedstone.name=Geladen Redstone
+
+dyeTiO2.name=Weiß Farbstoff
+dyeVermillion.name=Rot Farbstoff
+dyeOchre.name=Gelb Farbstoff
+dyeUltramarine.name=Blau Farbstoff
+dyeMnO2.name=Schwarz Farbstoff
+dyeGreen.name=Grün Farbstoff
+dyePurple.name=Purpur Farbstoff
+dyeOrange.name=Orange Farbstoff
+dyeGrey.name=Grau Farbstoff
+
+solarCharger.name=Redstonefluss-Infuser
+########################
+en_US
+oreThorium.name=Monazite
+oreFluorite.name=Fluorite
+oreMoS2.name=Molybdenite
+oreRutile.name=Rutile
+oreCinnabar.name=Cinnabar
+oreLimonite.name=Limonite
+orePyrolusite.name=Pyrolusite
+oreAs.name=Arsenopyrite
+
+redFluxAmp.name=Redstone Flux Amplifier
+redFluxAbsorber.name=Redstone Flux Absorber
+redFluxStabilizer.name=Redstone Flux Stabilizer
+chargedRedstone.name=Charged Redstone
+
+dyeTiO2.name=Titanium White
+dyeVermillion.name=Vermillion
+dyeOchre.name=Ochre
+dyeUltramarine.name=Ultramarine
+dyeMnO2.name=Manganese Black
+dyeGreen.name=Green Dye
+dyePurple.name=Purple Dye
+dyeOrange.name=Orange Dye
+dyeGrey.name=Grey Dye
+
+solarCharger.name=Redstone Flux Infuser
+########################
+es_ES
+oreThorium.name=Monacita
+oreFluorite.name=Fluorita
+oreMoS2.name=Molibdenita
+oreRutile.name=Rutilo
+oreCinnabar.name=Cinabriio
+oreLimonite.name=Limonita
+orePyrolusite.name=Pirolusita
+oreAs.name=Arsenopirita
+
+redFluxAmp.name=Amplificador del Flujo de Redstone
+redFluxAbsorber.name=Absorbedor del Flujo de Redstone
+redFluxStabilizer.name=Estabilizador del Flujo de Redstone
+chargedRedstone.name=Redstone Chargado
+
+dyeTiO2.name=Blanco del Titanio
+dyeVermillion.name=Bermellón
+dyeOchre.name=Ocre
+dyeUltramarine.name=Azul Ultramar
+dyeMnO2.name=Negro del Manganeso
+dyeGreen.name=Tinte Verde
+dyePurple.name=Tinte Púrpura
+dyeOrange.name=Tinte Anaranjado
+dyeGrey.name=Tinte Gris
+
+#solarCharger.name=
+########################
+la_CL
+oreThorium.name=monazīta
