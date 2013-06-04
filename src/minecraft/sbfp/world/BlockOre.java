@@ -15,6 +15,7 @@ public class BlockOre extends BlockSub{
 		super(id,Material.rock,names);
 		this.setCreativeTab(CreativeTabs.tabBlock);
 		MinecraftForge.setBlockHarvestLevel(this,"pickaxe",2);
+		this.blockHardness = 3;
 	}
 
 	@Override
@@ -22,5 +23,11 @@ public class BlockOre extends BlockSub{
 		ArrayList<ItemStack> q = new ArrayList<ItemStack>();
 		q.add(new ItemStack(this.blockID,1,metadata));
 		return q;
+	}
+
+	@Override
+	public void dropBlockAsItemWithChance(World w, int x, int y, int z, int meta, float chance, int fortune){
+		super.dropBlockAsItemWithChance(w,x,y,z,meta,chance,fortune);
+		//XP?
 	}
 }
