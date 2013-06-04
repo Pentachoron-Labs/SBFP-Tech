@@ -15,6 +15,7 @@ public class BlockOre extends BlockSub{
 		super(id,Material.rock,names);
 		this.setCreativeTab(CreativeTabs.tabBlock);
 		MinecraftForge.setBlockHarvestLevel(this,"pickaxe",2);
+		this.blockHardness = 3;
 	}
 
 	@Override
