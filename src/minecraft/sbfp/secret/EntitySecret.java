@@ -6,21 +6,21 @@ import net.minecraft.world.World;
 
 public class EntitySecret extends Entity{
 
-	public static final String name = "secret";
-
 	public EntitySecret(World w){
 		super(w);
 	}
 
-	@Override
-	protected void entityInit(){
+	public EntitySecret(World w, double posX, double posY, double posZ){
+		this(w);
+		this.setPosition(posX,posY+this.yOffset,posZ);
 	}
 
 	@Override
-	protected void readEntityFromNBT(NBTTagCompound nbttagcompound){
-	}
+	protected void entityInit(){}
 
 	@Override
-	protected void writeEntityToNBT(NBTTagCompound nbttagcompound){
-	}
+	protected void readEntityFromNBT(NBTTagCompound nbttagcompound){}
+
+	@Override
+	protected void writeEntityToNBT(NBTTagCompound nbttagcompound){}
 }
