@@ -16,6 +16,7 @@ import sbfp.machines.BlockMachine;
 import sbfp.machines.ItemBlockMachine;
 import sbfp.machines.ItemRedflux;
 import sbfp.machines.tiles.TileSolarCharger;
+import sbfp.secret.EntitySecret;
 import sbfp.world.BlockOre;
 import sbfp.world.GeneratorOres;
 import sbfp.world.ItemBlockOre;
@@ -29,6 +30,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
@@ -72,6 +74,7 @@ public class modsbfp{
 		GameRegistry.registerBlock(blockMachine,ItemBlockMachine.class,"blockMachines");
 		GameRegistry.registerTileEntity(TileSolarCharger.class,"sunlightCollector");
 		GameRegistry.registerItem(itemRedflux,"itemRedflux");
+		EntityRegistry.registerModEntity(EntitySecret.class,EntitySecret.name,77,this,0,0,true);
 		this.addRecipes();
 		GameRegistry.registerWorldGenerator(this.wGen);
 		NetworkRegistry.instance().registerGuiHandler(this,modsbfp.proxy);
