@@ -52,6 +52,7 @@ public class modsbfp{
 	@Instance(modid)
 	private static modsbfp instance;
 	private final GeneratorOres wGen = new GeneratorOres();
+	public int q;
 	private static final Configuration config = new Configuration(new File("minecraft/config/SBFP/SBFP.cfg"));
 	private static final HashMap<String,HashMap<String,String>> lang = new HashMap<String,HashMap<String,String>>();
 
@@ -72,18 +73,18 @@ public class modsbfp{
 
 	@Init
 	public void init(FMLInitializationEvent event){
-		proxy.init();
 		FMLLog.info("SHAZAP!!!");
 		GameRegistry.registerBlock(blockOre,ItemBlockOre.class,"blockOre");
 		GameRegistry.registerBlock(blockMachine,ItemBlockMachine.class,"blockMachines");
 		GameRegistry.registerTileEntity(TileSolarCharger.class,"sunlightCollector");
 		GameRegistry.registerItem(itemRedflux,"itemRedflux");
 		GameRegistry.registerItem(itemSecret,"itemSecret");
-		EntityRegistry.registerGlobalEntityID(EntitySecret.class,"entitySecret",EntityRegistry.findGlobalUniqueEntityId());
+		EntityRegistry.registerModEntity(EntitySecret.class,"entitySecret",0,this,256,1,true);
 		this.addRecipes();
 		GameRegistry.registerWorldGenerator(this.wGen);
 		NetworkRegistry.instance().registerGuiHandler(this,modsbfp.proxy);
 		this.loadLang();
+		proxy.init();
 	}
 
 	private void loadLang(){
