@@ -72,6 +72,7 @@ public class modsbfp{
 
 	@Init
 	public void init(FMLInitializationEvent event){
+		proxy.init();
 		FMLLog.info("SHAZAP!!!");
 		GameRegistry.registerBlock(blockOre,ItemBlockOre.class,"blockOre");
 		GameRegistry.registerBlock(blockMachine,ItemBlockMachine.class,"blockMachines");

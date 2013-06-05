@@ -13,7 +13,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public abstract class BlockSub extends BlockSB{
 
 	public Icon[] icons;
-	public String[] names;
+	public final String[] names;
 
 	public BlockSub(int id, Material material, String[] names){
 		super(id,material,names[0]);
