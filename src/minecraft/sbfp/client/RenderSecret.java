@@ -1,7 +1,5 @@
 package sbfp.client;
 
-import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.model.ModelBoat;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.MathHelper;
@@ -9,14 +7,13 @@ import net.minecraft.util.MathHelper;
 import org.lwjgl.opengl.GL11;
 
 import sbfp.secret.EntitySecret;
-import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderSecret extends Render{
 
-	protected final ModelBase model = new ModelBoat();
+	protected final ModelSecret model = new ModelSecret();
 
 	public RenderSecret(){
 		this.shadowSize = .5f;
@@ -36,11 +33,11 @@ public class RenderSecret extends Render{
 		if(f2>0.0F){
 			GL11.glRotatef(MathHelper.sin(f2)*f2*f3/10.0F*es.getForwardDirection(),1.0F,0.0F,0.0F);
 		}
-		this.loadTexture("/terrain.png");
-		float f4 = 0.75F;
-		GL11.glScalef(f4,f4,f4);
-		GL11.glScalef(1.0F/f4,1.0F/f4,1.0F/f4);
-		this.loadTexture("/item/boat.png");
+		//		this.loadTexture("/terrain.png");
+		//		float f4 = 0.75F;
+		//		GL11.glScalef(f4,f4,f4);
+		//		GL11.glScalef(1.0F/f4,1.0F/f4,1.0F/f4);
+		this.loadTexture("/mods/sbfp/textures/entity/secret.png");
 		GL11.glScalef(-1.0F,-1.0F,1.0F);
 		this.model.render(entity,0,0,0,0,0,.0625f);
 		GL11.glPopMatrix();

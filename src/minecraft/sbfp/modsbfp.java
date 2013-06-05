@@ -52,7 +52,6 @@ public class modsbfp{
 	@Instance(modid)
 	private static modsbfp instance;
 	private final GeneratorOres wGen = new GeneratorOres();
-	public int q;
 	private static final Configuration config = new Configuration(new File("minecraft/config/SBFP/SBFP.cfg"));
 	private static final HashMap<String,HashMap<String,String>> lang = new HashMap<String,HashMap<String,String>>();
 
