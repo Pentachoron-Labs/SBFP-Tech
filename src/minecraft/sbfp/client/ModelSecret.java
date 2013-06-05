@@ -27,9 +27,9 @@ public class ModelSecret extends ModelBase{
 		mr[13] = new ModelRenderer(this,58,29);
 		mr[14] = new ModelRenderer(this,98,0);
 		mr[15] = new ModelRenderer(this,0,0);
-		mr[0].addBox(-7,-10,-5,12,16,10); //body
-		mr[1].addBox(5,-10,-6,16,8,12); //body 2
-		mr[2].addBox(16,-2,-6,18,7,12); //body 3
+		mr[0].addBox(-7,-10,-5,12,16,10); //body front
+		mr[1].addBox(5,-10,-6,16,8,12); //body mid
+		mr[2].addBox(16,-2,-6,18,7,12); //body back
 		mr[3].addBox(-8,-10.5F,-6,3,4,12); //lights
 		mr[4].addBox(-3,3,-6,2,2,12); //front axle
 		mr[5].addBox(26,-1,-8,2,2,16); //back axle
