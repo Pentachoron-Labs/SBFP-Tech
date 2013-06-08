@@ -11,6 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.StringTranslate;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.Property;
+import net.minecraftforge.oredict.OreDictionary;
 import sbfp.chemistry.ItemDye;
 import sbfp.machines.BlockMachine;
 import sbfp.machines.ItemBlockMachine;
@@ -55,7 +56,7 @@ public class modsbfp{
 	public static SBCommonProxy proxy;
 
 	// blocks and items (sort by ID please)
-	public static final BlockOre blockOre = new BlockOre(getBlockID("blockOreID",0x4c0),new String[]{"oreThorium","oreFluorite","oreMoS2","oreRutile","oreCinnabar","oreLimonite","orePyrolusite","oreAs"});
+	public static final BlockOre blockOre = new BlockOre(getBlockID("blockOreID",0x4c0),new String[]{"oreMonazite","oreFluorite","oreMolybdenite","oreRutile","oreCinnabar","oreLimonite","orePyrolusite","oreArsenopyrite"});
 	public static final ItemRedflux itemRedflux = new ItemRedflux(getItemID("itemRedfluxID",0x4c1),new String[]{"redFluxAmp","redFluxAbsorber","redFluxStabilizer","chargedRedstone"});
 	public static final ItemDye itemDye = new ItemDye(getItemID("itemDyeID",0x4c2),new String[]{"dyeTiO2","dyeVermillion","dyeOchre","dyeUltramarine","dyeMnO2","dyeGreen","dyePurple","dyeOrange","dyeGrey"});
 	public static final BlockMachine blockMachine = new BlockMachine(getBlockID("blockMachinesID",0x4c3),new String[]{"solarCharger"});
@@ -73,9 +74,12 @@ public class modsbfp{
 		GameRegistry.registerBlock(blockMachine,ItemBlockMachine.class,"blockMachines");
 		GameRegistry.registerTileEntity(TileSolarCharger.class,"sunlightCollector");
 		GameRegistry.registerItem(itemRedflux,"itemRedflux");
-		this.addRecipes();
 		GameRegistry.registerWorldGenerator(this.wGen);
 		NetworkRegistry.instance().registerGuiHandler(this,modsbfp.proxy);
+		for(int i = 0; i<blockOre.names.length; i++){
+			OreDictionary.registerOre(blockOre.names[i],new ItemStack(blockOre.blockID,1,i));
+		}
+		this.addRecipes();
 		this.loadLang();
 	}
 
