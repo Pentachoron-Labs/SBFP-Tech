@@ -11,7 +11,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.StringTranslate;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.Property;
-import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import sbfp.chemistry.ItemDye;
 import sbfp.machines.BlockMachine;
 import sbfp.machines.ItemBlockMachine;
@@ -85,7 +84,6 @@ public class modsbfp{
 		NetworkRegistry.instance().registerGuiHandler(this,modsbfp.proxy);
 		this.loadLang();
 		proxy.init();
-		new LivingAttackEvent(null,null,0);
 	}
 
 	private void loadLang(){
