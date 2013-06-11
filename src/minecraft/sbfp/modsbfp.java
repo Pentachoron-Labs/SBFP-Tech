@@ -64,7 +64,7 @@ public class modsbfp{
 	public static final ItemRedflux itemRedflux = new ItemRedflux(getItemID("itemRedfluxID",0x4c1),new String[]{"redFluxAmp","redFluxAbsorber","redFluxStabilizer","chargedRedstone"});
 	public static final ItemDye itemDye = new ItemDye(getItemID("itemDyeID",0x4c2),new String[]{"dyeTiO2","dyeVermillion","dyeOchre","dyeUltramarine","dyeMnO2","dyeGreen","dyePurple","dyeOrange","dyeGrey"});
 	public static final BlockMachine blockMachine = new BlockMachine(getBlockID("blockMachinesID",0x4c3),new String[]{"solarCharger"});
-	public static final ItemSecret itemSecret = new ItemSecret(getItemID("itemSecretID",0x4c4),"ItemSecret");
+	public static final ItemSecret itemSecret = new ItemSecret(getItemID("itemSecretID",0x4c4),"itemSecret");
 
 	@PreInit
 	public void preInit(FMLPreInitializationEvent event){

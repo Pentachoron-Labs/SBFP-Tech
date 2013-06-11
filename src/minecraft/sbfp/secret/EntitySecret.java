@@ -2,6 +2,8 @@ package sbfp.secret;
 
 import java.util.List;
 
+import org.lwjgl.input.Keyboard;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -51,9 +53,9 @@ public class EntitySecret extends Entity{
 	public EntitySecret(World w, double x, double y, double z){
 		this(w);
 		this.setPosition(x,y+this.yOffset,z);
-		this.motionX = 0.0D;
-		this.motionY = 0.0D;
-		this.motionZ = 0.0D;
+		this.motionX = 0;
+		this.motionY = 0;
+		this.motionZ = 0;
 		this.prevPosX = x;
 		this.prevPosY = y;
 		this.prevPosZ = z;
@@ -81,10 +83,22 @@ public class EntitySecret extends Entity{
 	@Override
 	public void onUpdate(){
 		super.onUpdate();
-		double motion = Math.sqrt(this.motionX*this.motionX+this.motionZ*this.motionZ);
 		if(this.riddenByEntity!=null){
-			this.motionX = 0;
-			this.motionZ = 0;
+			float dyaw = 0;
+			if(Keyboard.isKeyDown(Keyboard.KEY_W)){
+				this.motionX = Math.cos(this.rotationYaw);
+				this.motionZ = Math.sin(this.rotationYaw);
+			}else{
+				this.motionX = 0;
+				this.motionZ = 0;
+			}
+			if(Keyboard.isKeyDown(Keyboard.KEY_A)){
+				dyaw = 5;
+			}
+			if(Keyboard.isKeyDown(Keyboard.KEY_D)){
+				dyaw = -5;
+			}
+			this.setRotation(this.rotationPitch, this.rotationYaw+dyaw);
 		}
 		if(!this.onGround){
 			this.motionY -= 0.098;
