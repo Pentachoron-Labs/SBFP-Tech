@@ -2,8 +2,6 @@ package sbfp.secret;
 
 import java.util.List;
 
-import org.lwjgl.input.Keyboard;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,16 +10,20 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+
+import org.lwjgl.input.Keyboard;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class EntitySecret extends Entity{
 
+	public static final double speed = 0.25;
+
 	public EntitySecret(World w){
 		super(w);
 		this.preventEntitySpawning = true;
 		this.entityCollisionReduction = 1;
-		this.setSize(0.75f,0.6F);
 		this.yOffset = this.height/2.0F;
 	}
 
@@ -32,7 +34,6 @@ public class EntitySecret extends Entity{
 
 	@Override
 	protected void entityInit(){
-		this.dataWatcher.addObject(18,new Integer(1));
 	}
 
 	@Override
@@ -46,8 +47,11 @@ public class EntitySecret extends Entity{
 	}
 
 	@Override
-	public boolean canBePushed(){
-		return true;
+	public void setPosition(double x, double y, double z){
+		this.posX = x;
+		this.posY = y;
+		this.posZ = z;
+		this.boundingBox.setBounds(x-0.375,y,z-0.75,x+0.375,y+1.125,z+0.75);
 	}
 
 	public EntitySecret(World w, double x, double y, double z){
@@ -86,8 +90,8 @@ public class EntitySecret extends Entity{
 		if(this.riddenByEntity!=null){
 			float dyaw = 0;
 			if(Keyboard.isKeyDown(Keyboard.KEY_W)){
-				this.motionX = Math.cos(this.rotationYaw);
-				this.motionZ = Math.sin(this.rotationYaw);
+				this.motionX = Math.cos(this.rotationYaw*speed);
+				this.motionZ = Math.sin(this.rotationYaw*speed);
 			}else{
 				this.motionX = 0;
 				this.motionZ = 0;
@@ -106,9 +110,6 @@ public class EntitySecret extends Entity{
 			this.motionY = 0;
 		}
 		this.moveEntity(this.motionX,this.motionY,this.motionZ);
-		if(this.isCollidedHorizontally){
-			;
-		}
 		if(!this.worldObj.isRemote){
 			List list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this,this.boundingBox.expand(0.2,0,0.2));
 			if(list!=null&&!list.isEmpty()){
@@ -178,19 +179,5 @@ public class EntitySecret extends Entity{
 			}
 			return true;
 		}
-	}
-
-	/**
-	 * Sets the forward direction of the entity.
-	 */
-	public void setForwardDirection(int dir){
-		this.dataWatcher.updateObject(18,Integer.valueOf(dir));
-	}
-
-	/**
-	 * Gets the forward direction of the entity.
-	 */
-	public int getForwardDirection(){
-		return this.dataWatcher.getWatchableObjectInt(18);
 	}
 }
