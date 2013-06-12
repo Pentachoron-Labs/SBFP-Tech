@@ -8,7 +8,7 @@ import net.minecraft.inventory.SlotFurnace;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import sbfp.machines.tiles.TileSolarCharger;
-import sbfp.machines.tiles.slot.SlotSolarCharger;
+import sbfp.slot.SlotSolarCharger;
 
 public class ContainerSolarCharger extends Container{
 

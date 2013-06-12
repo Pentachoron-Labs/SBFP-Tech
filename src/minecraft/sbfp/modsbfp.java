@@ -46,6 +46,8 @@ public class modsbfp{
 	public static final String modid = "sbfp"; //Channel, name, etc
 	public static final String shortname = "SBFP Tech";
 	public static final String version = "Aleph 1.01";
+	
+	public static final ItemStack recipePlaceholder = new ItemStack(Block.stone, 1);
 
 	// data constants
 	public static final String guiDirectory = "/mods/sbfp/textures/gui/";
@@ -65,7 +67,7 @@ public class modsbfp{
 	public static final BlockOre blockOre = new BlockOre(getBlockID("blockOreID",0x4c0),new String[]{"oreThorium","oreFluorite","oreMoS2","oreRutile","oreCinnabar","oreLimonite","orePyrolusite","oreAs"});
 	public static final ItemRedflux itemRedflux = new ItemRedflux(getItemID("itemRedfluxID",0x4c1),new String[]{"redFluxAmp","redFluxAbsorber","redFluxStabilizer","chargedRedstone"});
 	public static final ItemDye itemDye = new ItemDye(getItemID("itemDyeID",0x4c2),new String[]{"dyeTiO2","dyeVermillion","dyeOchre","dyeUltramarine","dyeMnO2","dyeGreen","dyePurple","dyeOrange","dyeGrey"});
-	public static final BlockMachine blockMachine = new BlockMachine(getBlockID("blockMachinesID",0x4c3),new String[]{"solarCharger"});
+	public static final BlockMachine blockMachine = new BlockMachine(getBlockID("blockMachinesID",0x4c3),new String[]{"solarCharger", "crusher"});
 	public static final ItemSecret itemSecret = new ItemSecret(getItemID("itemSecretID",0x4c4),"ItemSecret");
 
 	@PreInit
@@ -82,7 +84,7 @@ public class modsbfp{
 		GameRegistry.registerItem(itemRedflux,"itemRedflux");
 		GameRegistry.registerItem(itemSecret,"itemSecret");
 		EntityRegistry.registerModEntity(EntitySecret.class,"entitySecret",0,this,256,1,true);
-		this.addRecipes();
+		//this.addRecipes();
 		GameRegistry.registerWorldGenerator(this.wGen);
 		NetworkRegistry.instance().registerGuiHandler(this,modsbfp.proxy);
 		this.loadLang();
@@ -120,9 +122,9 @@ public class modsbfp{
 		GameRegistry.addShapelessRecipe(new ItemStack(itemDye,2,7),new ItemStack(itemDye,1,1),new ItemStack(itemDye,1,2));
 		GameRegistry.addShapelessRecipe(new ItemStack(itemDye,2,8),new ItemStack(itemDye,1,0),new ItemStack(itemDye,1,4));
 		
-		ProcessorRecipeManager.instance.addRecipe(new ItemStack(Block.stone, 1), new CrusherOutput(new ItemStack(Block.cobblestone, 1), null, 0));
-		ProcessorRecipeManager.instance.addRecipe(new ItemStack(Block.cobblestone, 1), new CrusherOutput(new ItemStack(Block.gravel, 1), null, 0));
-		ProcessorRecipeManager.instance.addRecipe(new ItemStack(Block.gravel, 1), new CrusherOutput(new ItemStack(Block.sand, 1), null, 0));
+		ProcessorRecipeManager.instance.addRecipe(new ItemStack(Block.stone, 1), new CrusherOutput(new ItemStack(Block.cobblestone, 1), recipePlaceholder, 0));
+		ProcessorRecipeManager.instance.addRecipe(new ItemStack(Block.cobblestone, 1), new CrusherOutput(new ItemStack(Block.gravel, 1), recipePlaceholder, 0));
+		ProcessorRecipeManager.instance.addRecipe(new ItemStack(Block.gravel, 1), new CrusherOutput(new ItemStack(Block.sand, 1), recipePlaceholder, 0));
 	}
 
 	private static int getBlockID(String name, int defaultid){

@@ -10,7 +10,7 @@ public class CrusherOutput implements IOutput{
 
 	public CrusherOutput(ItemStack p, ItemStack s, float c){
 		this.primary = p;
-		this.secondary = s;
+		if(c != 0F) this.secondary = s;
 		this.secondaryChance = c;
 	}
 	

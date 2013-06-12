@@ -127,6 +127,7 @@ public class BlockMachine extends BlockSub implements ITileEntityProvider{
 
 	@Override
 	public TileEntity createNewTileEntity(World w){
+		
 		return new TileSolarCharger();
 	}
 
