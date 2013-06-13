@@ -9,13 +9,13 @@ import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.util.StringTranslate;
 import sbfp.modsbfp;
-import sbfp.machines.TileProcessor;
+import sbfp.machines.TileEntityProcessor;
 
 import com.google.common.io.ByteArrayDataInput;
 
 import cpw.mods.fml.common.FMLLog;
 
-public class TileSolarCharger extends TileProcessor implements IInventory{
+public class TileEntitySolarCharger extends TileEntityProcessor implements IInventory{
 
 	private ItemStack[] inventory = new ItemStack[8];
 	private boolean hasItem = false;

@@ -7,15 +7,15 @@ import org.lwjgl.opengl.GL11;
 
 import sbfp.modsbfp;
 import sbfp.machines.solar.ContainerSolarCharger;
-import sbfp.machines.solar.TileSolarCharger;
+import sbfp.machines.solar.TileEntitySolarCharger;
 
 public class GUISolarCharger extends GuiContainer{
 
-	private TileSolarCharger tileEntity;
+	private TileEntitySolarCharger tileEntity;
 	private int containerWidth;
 	private int containerHeight;
 
-	public GUISolarCharger(InventoryPlayer inv, TileSolarCharger tileEntity){
+	public GUISolarCharger(InventoryPlayer inv, TileEntitySolarCharger tileEntity){
 		super(new ContainerSolarCharger(inv,tileEntity));
 		this.tileEntity = tileEntity;
 		this.xSize = 175;
@@ -33,7 +33,7 @@ public class GUISolarCharger extends GuiContainer{
 		containerWidth = (this.width-this.xSize)/2;
 		containerHeight = (this.height-this.ySize)/2;
 		this.drawTexturedModalRect(containerWidth,containerHeight,0,0,this.xSize,this.ySize);
-		this.drawTexturedModalRect(this.containerWidth+48,this.containerHeight+47,177,0,79*this.tileEntity.workTicks/TileSolarCharger.maxWorkTicks,5);
+		this.drawTexturedModalRect(this.containerWidth+48,this.containerHeight+47,177,0,79*this.tileEntity.workTicks/TileEntitySolarCharger.maxWorkTicks,5);
 	}
 
 	@Override

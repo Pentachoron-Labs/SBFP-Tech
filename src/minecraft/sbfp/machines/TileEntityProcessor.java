@@ -9,7 +9,7 @@ import net.minecraft.tileentity.TileEntity;
 import sbfp.IPacketReciever;
 
 /** This class is for machines that have an input and output */
-public abstract class TileProcessor extends TileEntity implements IPacketReciever{
+public abstract class TileEntityProcessor extends TileEntity implements IPacketReciever{
 
 	public int workTicks = 0;
 	protected long ticks = 0;

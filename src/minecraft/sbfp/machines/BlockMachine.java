@@ -18,7 +18,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 import sbfp.BlockSub;
 import sbfp.modsbfp;
-import sbfp.machines.solar.TileSolarCharger;
+import sbfp.machines.solar.TileEntitySolarCharger;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -128,7 +128,7 @@ public class BlockMachine extends BlockSub implements ITileEntityProvider{
 
 	@Override
 	public TileEntity createNewTileEntity(World w){
-		return new TileSolarCharger();
+		return new TileEntitySolarCharger();
 	}
 
 	@Override

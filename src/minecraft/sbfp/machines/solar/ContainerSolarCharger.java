@@ -10,9 +10,9 @@ import cpw.mods.fml.common.FMLLog;
 
 public class ContainerSolarCharger extends Container{
 
-	TileSolarCharger tileEntity;
+	TileEntitySolarCharger tileEntity;
 
-	public ContainerSolarCharger(InventoryPlayer inv, TileSolarCharger tileEntity){
+	public ContainerSolarCharger(InventoryPlayer inv, TileEntitySolarCharger tileEntity){
 		this.tileEntity = tileEntity;
 		this.tileEntity.container = this;
 		FMLLog.info("I am being created");

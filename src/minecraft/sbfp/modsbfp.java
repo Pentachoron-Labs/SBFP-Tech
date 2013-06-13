@@ -16,7 +16,7 @@ import sbfp.chemistry.ItemDye;
 import sbfp.machines.BlockMachine;
 import sbfp.machines.ItemBlockMachine;
 import sbfp.machines.ItemRedflux;
-import sbfp.machines.solar.TileSolarCharger;
+import sbfp.machines.solar.TileEntitySolarCharger;
 import sbfp.secret.EntitySecret;
 import sbfp.secret.ItemSecret;
 import sbfp.world.BlockOre;
@@ -76,7 +76,7 @@ public class modsbfp{
 		FMLLog.info("SHAZAP!!!");
 		GameRegistry.registerBlock(blockOre,ItemBlockOre.class,"blockOre");
 		GameRegistry.registerBlock(blockMachine,ItemBlockMachine.class,"blockMachines");
-		GameRegistry.registerTileEntity(TileSolarCharger.class,"sunlightCollector");
+		GameRegistry.registerTileEntity(TileEntitySolarCharger.class,"sunlightCollector");
 		GameRegistry.registerItem(itemRedflux,"itemRedflux");
 		GameRegistry.registerItem(itemSecret,"itemSecret");
 		EntityRegistry.registerModEntity(EntitySecret.class,"entitySecret",0,this,256,1,true);
