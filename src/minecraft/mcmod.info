@@ -7,9 +7,12 @@
 "url":"http://127.0.0.1/",
 "updateUrl":"http://127.0.0.1/",
 "authors":["atrain99","ObsequiousNewt"],
-"credits":"By atrain99 (formerly of Green Energy) and \nObsequiousNewt (formerly of Newt's Horticulture)",
+"credits":"Coded and textured by atrain99 and ObsequiousNewt",
 "logoFile":"",
 "screenshots":[],
 "parent":"",
-"dependencies":[]
+"requiredMods":["Forge"],
+"dependencies":["Forge"],
+"dependants":[],
+"useDependencyInformation":"true",
 }]
