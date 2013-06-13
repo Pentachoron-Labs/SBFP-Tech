@@ -25,6 +25,33 @@ dyeGrey.name=Grau Farbstoff
 
 solarCharger.name=Redstonefluss-Infuser
 ########################
+el_GR
+oreThorium.name=Μοναζίτης
+oreFluorite.name=Φθορίτης
+oreMoS2.name=Μολυβδαινίτης
+oreRutile.name=Ρουτίλιο
+oreCinnabar.name=Κινναβαρίτης
+oreLimonite.name=λειμωνίτης
+orePyrolusite.name=ΠυροΛoυσίτης
+oreAs.name=Αρσενοπυρίτης
+
+redFluxAmp.name=Redstone Flux Amplifier
+redFluxAbsorber.name=Redstone Flux Absorber
+redFluxStabilizer.name=Redstone Flux Stabilizer
+chargedRedstone.name=Charged Redstone
+
+dyeTiO2.name=Titanium White
+dyeVermillion.name=Vermillion
+dyeOchre.name=Ochre
+dyeUltramarine.name=Ultramarine
+dyeMnO2.name=Manganese Black
+dyeGreen.name=Green Dye
+dyePurple.name=Purple Dye
+dyeOrange.name=Orange Dye
+dyeGrey.name=Grey Dye
+
+solarCharger.name=Redstone Flux Infuser
+########################
 en_US
 oreThorium.name=Monazite
 oreFluorite.name=Fluorite
@@ -57,7 +84,7 @@ oreThorium.name=Monacita
 oreFluorite.name=Fluorita
 oreMoS2.name=Molibdenita
 oreRutile.name=Rutilo
-oreCinnabar.name=Cinabriio
+oreCinnabar.name=Cinabrio
 oreLimonite.name=Limonita
 orePyrolusite.name=Pirolusita
 oreAs.name=Arsenopirita
