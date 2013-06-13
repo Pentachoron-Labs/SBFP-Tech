@@ -34,7 +34,7 @@ public class RenderSecret extends Render{
 		GL11.glScalef(-1.0F,-1.0F,1.0F);
 		this.m2.render(entity,0.0F,0.0F,-0.1F,0.0F,0.0F,0.0625F);
 		this.loadTexture("/mods/sbfp/textures/entity/secret.png");
-		//		GL11.glScalef(-1.0F,-1.0F,1.0F);
+		// GL11.glScalef(-1.0F,-1.0F,1.0F);
 		this.model.render(entity,0,0,0,0,0,.0625f);
 		GL11.glPopMatrix();
 	}

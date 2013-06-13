@@ -152,13 +152,13 @@ public class EntitySecret extends Entity{
 	}
 
 	/**
-	 * Called when a player interacts with a mob. e.g. gets milk from a cow, gets into the saddle on a pig.
+	 * Called when a player interacts with a mob. e.g. gets milk from a cow,
+	 * gets into the saddle on a pig.
 	 */
 	@Override
 	public boolean interact(EntityPlayer par1EntityPlayer){
-		if(this.riddenByEntity!=null&&this.riddenByEntity instanceof EntityPlayer&&this.riddenByEntity!=par1EntityPlayer){
-			return true;
-		}else{
+		if(this.riddenByEntity!=null&&this.riddenByEntity instanceof EntityPlayer&&this.riddenByEntity!=par1EntityPlayer) return true;
+		else{
 			if(!this.worldObj.isRemote){
 				par1EntityPlayer.mountEntity(this);
 			}

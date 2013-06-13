@@ -55,7 +55,8 @@ class LargeVeinGenerator{
 			blocks = blocksNew;
 			blocksNew = new ArrayList<Integer[]>();
 			if(blocks.size()==0){
-				//				if(this.meta == 5) FMLLog.finer("I haz a %s deposit at (%d,%d,%d) with %d blocks",modsbfp.blockOre.names[this.meta],seedX,seedY,seedZ,iter);
+				// if(this.meta == 5)
+				// FMLLog.finer("I haz a %s deposit at (%d,%d,%d) with %d blocks",modsbfp.blockOre.names[this.meta],seedX,seedY,seedZ,iter);
 				break;
 			}
 		}

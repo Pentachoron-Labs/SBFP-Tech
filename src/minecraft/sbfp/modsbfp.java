@@ -16,7 +16,7 @@ import sbfp.chemistry.ItemDye;
 import sbfp.machines.BlockMachine;
 import sbfp.machines.ItemBlockMachine;
 import sbfp.machines.ItemRedflux;
-import sbfp.machines.tiles.TileSolarCharger;
+import sbfp.machines.solar.TileSolarCharger;
 import sbfp.secret.EntitySecret;
 import sbfp.secret.ItemSecret;
 import sbfp.world.BlockOre;
@@ -41,7 +41,7 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 public class modsbfp{
 
 	// name constants
-	public static final String modid = "sbfp"; //Channel, name, etc
+	public static final String modid = "sbfp"; // Channel, name, etc
 	public static final String shortname = "SBFP Tech";
 	public static final String version = "Aleph 1.01";
 
@@ -87,7 +87,7 @@ public class modsbfp{
 			OreDictionary.registerOre(blockOre.names[i],new ItemStack(blockOre.blockID,1,i));
 		}
 		this.addRecipes();
-		this.loadLang();
+		modsbfp.instance.loadLang();
 		proxy.init();
 	}
 

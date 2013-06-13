@@ -28,6 +28,6 @@ public class BlockOre extends BlockSub{
 	@Override
 	public void dropBlockAsItemWithChance(World w, int x, int y, int z, int meta, float chance, int fortune){
 		super.dropBlockAsItemWithChance(w,x,y,z,meta,chance,fortune);
-		//XP?
+		// XP?
 	}
 }

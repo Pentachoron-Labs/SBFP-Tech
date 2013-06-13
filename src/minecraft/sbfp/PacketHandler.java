@@ -26,16 +26,14 @@ public class PacketHandler implements IPacketHandler,IPacketReciever{
 		UNKNOWN, TILEENTITY;
 
 		public static PacketType get(int id){
-			if(id>=0&&id<PacketType.values().length){
-				return PacketType.values()[id];
-			}
+			if(id>=0&&id<PacketType.values().length) return PacketType.values()[id];
 			return UNKNOWN;
 		}
 	}
 
 	/**
-	* Writes a compressed NBTTagCompound to the OutputStream
-	*/
+	 * Writes a compressed NBTTagCompound to the OutputStream
+	 */
 	public static void writeNBTTagCompound(NBTTagCompound tag, DataOutputStream dataStream) throws IOException{
 		if(tag==null){
 			dataStream.writeShort(-1);
@@ -47,14 +45,13 @@ public class PacketHandler implements IPacketHandler,IPacketReciever{
 	}
 
 	/**
-	* Reads a compressed NBTTagCompount in a ByteStream.
-	*/
+	 * Reads a compressed NBTTagCompount in a ByteStream.
+	 */
 	public static NBTTagCompound readNBTTagCompound(ByteArrayDataInput dataStream) throws IOException{
 		short lengthOfData = dataStream.readShort();
 
-		if(lengthOfData<0){
-			return null;
-		}else{
+		if(lengthOfData<0) return null;
+		else{
 			byte[] data = new byte[lengthOfData];
 			dataStream.readFully(data);
 			return CompressedStreamTools.decompress(data);
@@ -89,10 +86,9 @@ public class PacketHandler implements IPacketHandler,IPacketReciever{
 	}
 
 	/**
-	* Gets a packet for the tile entity.
-	*
-	* @return
-	*/
+	 * Gets a packet for the tile entity.
+	 * @return
+	 */
 	@SuppressWarnings("resource")
 	public static Packet getPacket(String channelName, TileEntity sender, Object... sendData){
 		ByteArrayOutputStream bytes = new ByteArrayOutputStream();
@@ -121,8 +117,8 @@ public class PacketHandler implements IPacketHandler,IPacketReciever{
 	}
 
 	/**
-	* Sends a packet to all the clients on this server.
-	*/
+	 * Sends a packet to all the clients on this server.
+	 */
 	public static void sendPacketToClients(Packet packet, World worldObj){
 		try{
 			PacketDispatcher.sendPacketToAllInDimension(packet,worldObj.provider.dimensionId);
