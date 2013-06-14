@@ -41,9 +41,7 @@ public class ItemSecret extends ItemSB{
 		double d3 = 5.0D;
 		Vec3 vec31 = v.addVector(f7*d3,f6*d3,f8*d3);
 		MovingObjectPosition mop = w.rayTraceBlocks_do(v,vec31,true);
-		if(mop==null){
-			return stack;
-		}
+		if(mop==null) return stack;
 		Vec3 vec32 = p.getLook(1);
 		float f9 = 1.0F;
 		List list = w.getEntitiesWithinAABBExcludingEntity(p,p.boundingBox.addCoord(vec32.xCoord*d3,vec32.yCoord*d3,vec32.zCoord*d3).expand(f9,f9,f9));
@@ -52,9 +50,7 @@ public class ItemSecret extends ItemSB{
 			if(entity.canBeCollidedWith()){
 				float f10 = entity.getCollisionBorderSize();
 				AxisAlignedBB axisalignedbb = entity.boundingBox.expand(f10,f10,f10);
-				if(axisalignedbb.isVecInside(v)){
-					return stack;
-				}
+				if(axisalignedbb.isVecInside(v)) return stack;
 			}
 		}
 		if(mop.typeOfHit==EnumMovingObjectType.TILE){
@@ -66,9 +62,7 @@ public class ItemSecret extends ItemSB{
 			}
 			EntitySecret entitysecret = new EntitySecret(w,i+0.5F,j+1.0F,k+0.5F);
 			entitysecret.rotationYaw = ((MathHelper.floor_double(p.rotationYaw*4.0F/360.0F+0.5D)&3)-1)*90;
-			if(!w.getCollidingBoundingBoxes(entitysecret,entitysecret.boundingBox.expand(-0.1D,-0.1D,-0.1D)).isEmpty()){
-				return stack;
-			}
+			if(!w.getCollidingBoundingBoxes(entitysecret,entitysecret.boundingBox.expand(-0.1D,-0.1D,-0.1D)).isEmpty()) return stack;
 			if(!w.isRemote){
 				FMLLog.info("Sha-POW!");
 				w.spawnEntityInWorld(entitysecret);

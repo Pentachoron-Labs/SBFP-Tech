@@ -12,13 +12,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.StringTranslate;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.Property;
+import net.minecraftforge.oredict.OreDictionary;
 import sbfp.chemistry.ItemDye;
 import sbfp.machines.BlockMachine;
 import sbfp.machines.ItemBlockMachine;
 import sbfp.machines.ItemRedflux;
-import sbfp.machines.tiles.TileSolarCharger;
 import sbfp.recipes.CrusherOutput;
 import sbfp.recipes.ProcessorRecipeManager;
+import sbfp.machines.solar.TileEntitySolarCharger;
 import sbfp.secret.EntitySecret;
 import sbfp.secret.ItemSecret;
 import sbfp.world.BlockOre;
@@ -43,11 +44,11 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 public class modsbfp{
 
 	// name constants
-	public static final String modid = "sbfp"; //Channel, name, etc
+	public static final String modid = "sbfp"; // Channel, name, etc
 	public static final String shortname = "SBFP Tech";
-	public static final String version = "Aleph 1.01";
 	
 	public static final ItemStack recipePlaceholder = new ItemStack(Block.stone, 1);
+	public static final String version = "Aleph 1";
 
 	// data constants
 	public static final String guiDirectory = "/mods/sbfp/textures/gui/";
@@ -64,7 +65,7 @@ public class modsbfp{
 	public static SBCommonProxy proxy;
 
 	// blocks and items (sort by ID please)
-	public static final BlockOre blockOre = new BlockOre(getBlockID("blockOreID",0x4c0),new String[]{"oreThorium","oreFluorite","oreMoS2","oreRutile","oreCinnabar","oreLimonite","orePyrolusite","oreAs"});
+	public static final BlockOre blockOre = new BlockOre(getBlockID("blockOreID",0x4c0),new String[]{"oreMonazite","oreFluorite","oreMolybdenite","oreRutile","oreCinnabar","oreLimonite","orePyrolusite","oreArsenopyrite"});
 	public static final ItemRedflux itemRedflux = new ItemRedflux(getItemID("itemRedfluxID",0x4c1),new String[]{"redFluxAmp","redFluxAbsorber","redFluxStabilizer","chargedRedstone"});
 	public static final ItemDye itemDye = new ItemDye(getItemID("itemDyeID",0x4c2),new String[]{"dyeTiO2","dyeVermillion","dyeOchre","dyeUltramarine","dyeMnO2","dyeGreen","dyePurple","dyeOrange","dyeGrey"});
 	public static final BlockMachine blockMachine = new BlockMachine(getBlockID("blockMachinesID",0x4c3),new String[]{"solarCharger", "crusher"});
@@ -80,14 +81,18 @@ public class modsbfp{
 		FMLLog.info("SHAZAP!!!");
 		GameRegistry.registerBlock(blockOre,ItemBlockOre.class,"blockOre");
 		GameRegistry.registerBlock(blockMachine,ItemBlockMachine.class,"blockMachines");
-		GameRegistry.registerTileEntity(TileSolarCharger.class,"sunlightCollector");
+		GameRegistry.registerTileEntity(TileEntitySolarCharger.class,"sunlightCollector");
 		GameRegistry.registerItem(itemRedflux,"itemRedflux");
 		GameRegistry.registerItem(itemSecret,"itemSecret");
 		EntityRegistry.registerModEntity(EntitySecret.class,"entitySecret",0,this,256,1,true);
 		//this.addRecipes();
 		GameRegistry.registerWorldGenerator(this.wGen);
 		NetworkRegistry.instance().registerGuiHandler(this,modsbfp.proxy);
-		this.loadLang();
+		for(int i = 0; i<blockOre.names.length; i++){
+			OreDictionary.registerOre(blockOre.names[i],new ItemStack(blockOre.blockID,1,i));
+		}
+		this.addRecipes();
+		modsbfp.instance.loadLang();
 		proxy.init();
 		new ProcessorRecipeManager().intialize();
 	}

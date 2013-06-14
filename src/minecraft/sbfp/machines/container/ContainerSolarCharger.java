@@ -7,14 +7,14 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.inventory.SlotFurnace;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import sbfp.machines.tiles.TileSolarCharger;
+import sbfp.machines.solar.TileEntitySolarCharger;
 import sbfp.slot.SlotSolarCharger;
 
 public class ContainerSolarCharger extends Container{
 
-	private TileSolarCharger tileEntity;
+	private TileEntitySolarCharger tileEntity;
 
-	public ContainerSolarCharger(InventoryPlayer par1InventoryPlayer, TileSolarCharger tileEntity){
+	public ContainerSolarCharger(InventoryPlayer par1InventoryPlayer, TileEntitySolarCharger tileEntity){
 		this.tileEntity = tileEntity;
 		this.addSlotToContainer(new SlotSolarCharger(tileEntity,0,8,32));
 		this.addSlotToContainer(new SlotSolarCharger(tileEntity,1,26,32));

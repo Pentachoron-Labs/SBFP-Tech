@@ -3,7 +3,6 @@ package sbfp.client;
 import net.minecraft.client.model.ModelBoat;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.MathHelper;
 
 import org.lwjgl.opengl.GL11;
 
@@ -27,14 +26,6 @@ public class RenderSecret extends Render{
 		GL11.glPushMatrix();
 		GL11.glTranslated(x,y,z);
 		GL11.glRotatef(180-yaw,0,1,0);
-		float f2 = es.getTimeSinceHit()-pitch;
-		float f3 = es.getDamageTaken()-pitch;
-		if(f3<0.0F){
-			f3 = 0.0F;
-		}
-		if(f2>0.0F){
-			GL11.glRotatef(MathHelper.sin(f2)*f2*f3/10.0F*es.getForwardDirection(),1.0F,0.0F,0.0F);
-		}
 		this.loadTexture("/terrain.png");
 		float f4 = 0.75F;
 		GL11.glScalef(f4,f4,f4);
@@ -43,7 +34,7 @@ public class RenderSecret extends Render{
 		GL11.glScalef(-1.0F,-1.0F,1.0F);
 		this.m2.render(entity,0.0F,0.0F,-0.1F,0.0F,0.0F,0.0625F);
 		this.loadTexture("/mods/sbfp/textures/entity/secret.png");
-		//		GL11.glScalef(-1.0F,-1.0F,1.0F);
+		// GL11.glScalef(-1.0F,-1.0F,1.0F);
 		this.model.render(entity,0,0,0,0,0,.0625f);
 		GL11.glPopMatrix();
 	}
