@@ -13,7 +13,7 @@ public final class GeneratorOres implements IWorldGenerator{
 
 	@Override
 	public void generate(Random r, int cx, int cz, World w, IChunkProvider cg, IChunkProvider cp){
-		//		FMLLog.finest("Chunk (%d,%d)",cx,cz);
+		// FMLLog.finest("Chunk (%d,%d)",cx,cz);
 		cx <<= 4;
 		cz <<= 4;
 		if(cg instanceof ChunkProviderGenerate){
@@ -22,34 +22,35 @@ public final class GeneratorOres implements IWorldGenerator{
 					for(int y = 0; y<40; y++){
 						if(w.getBlockId(x,y,z)==Block.stone.blockID){
 							if(w.getBlockId(x,y+1,z)==Block.waterStill.blockID&&r.nextInt(32)==0){
-								w.setBlock(x,y,z,modsbfp.blockOre.blockID,0,2); //Monazite—pools
+								w.setBlock(x,y,z,modsbfp.blockOre.blockID,0,2); // Monazite—pools
 							}else if(r.nextInt(1536)==0){
-								w.setBlock(x,y,z,modsbfp.blockOre.blockID,0,2); //Monazite—other
+								w.setBlock(x,y,z,modsbfp.blockOre.blockID,0,2); // Monazite—other
 							}else if(r.nextInt(2560)==0){
-								new LargeVeinGenerator(x,y,z,w,r,1,1).generate(); //Fluorite
+								new LargeVeinGenerator(x,y,z,w,r,1,1).generate(); // Fluorite
 							}else if(r.nextInt(1536)==0){
-								w.setBlock(x,y,z,modsbfp.blockOre.blockID,2,2); //MoS₂
+								w.setBlock(x,y,z,modsbfp.blockOre.blockID,2,2); // MoS₂
 								if(r.nextBoolean()){
 									int q = r.nextInt(3);
 									w.setBlock(x+(q==0 ? 1 : 0),y+(q==1 ? 1 : 0),z+(q==2 ? 1 : 0),modsbfp.blockOre.blockID,2,2);
 								}
 							}else if(r.nextInt(10240)==0){
-								new LargeVeinGenerator(x,y,z,w,r,3,2).generate(); //Rutile
+								new LargeVeinGenerator(x,y,z,w,r,3,2).generate(); // Rutile
 							}else if(r.nextInt(128)==0&&bordersLava(x,y,z,w)){
-								new LargeVeinGenerator(x,y,z,w,r,4,1.5).generate(); //Cinnabar—lava pools
+								new LargeVeinGenerator(x,y,z,w,r,4,1.5).generate(); // Cinnabar—lava
+																					// pools
 							}else if(r.nextInt(2560)==0){
-								new LargeVeinGenerator(x,y,z,w,r,4,1.5).generate(); //Cinnabar—other
+								new LargeVeinGenerator(x,y,z,w,r,4,1.5).generate(); // Cinnabar—other
 							}else if(r.nextInt(5120)==0){
-								new LargeVeinGenerator(x,y,z,w,r,7,1.5).generate(); //Arsenopyrite
+								new LargeVeinGenerator(x,y,z,w,r,7,1.5).generate(); // Arsenopyrite
 							}
 						}
 					}
 					for(int y = 40; y<60; y++){
 						if(w.getBlockId(x,y,z)==Block.stone.blockID){
 							if(r.nextInt(5120)==0){
-								new LargeVeinGenerator(x,y,z,w,r,5,1,true).generate(); //Limonite
+								new LargeVeinGenerator(x,y,z,w,r,5,1,true).generate(); // Limonite
 							}else if(r.nextInt(5120)==0){
-								new LargeVeinGenerator(x,y,z,w,r,6,1,true).generate(); //Pyrolusite
+								new LargeVeinGenerator(x,y,z,w,r,6,1,true).generate(); // Pyrolusite
 							}
 						}
 					}
@@ -60,6 +61,6 @@ public final class GeneratorOres implements IWorldGenerator{
 
 	private static boolean bordersLava(int x, int y, int z, World w){
 		int q = Block.lavaStill.blockID;
-		return w.getBlockId(x,y+1,z)==q||w.getBlockId(x,y-1,z)==q||w.getBlockId(x,y-2,z)==q;//||w.getBlockId(x+1,y,z)==q||w.getBlockId(x-1,y,z)==q||w.getBlockId(x,y,z+1)==q||w.getBlockId(x,y,z-1)==q;
+		return w.getBlockId(x,y+1,z)==q||w.getBlockId(x,y-1,z)==q||w.getBlockId(x,y-2,z)==q;// ||w.getBlockId(x+1,y,z)==q||w.getBlockId(x-1,y,z)==q||w.getBlockId(x,y,z+1)==q||w.getBlockId(x,y,z-1)==q;
 	}
 }

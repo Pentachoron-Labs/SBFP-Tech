@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Set;
 
+import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StringTranslate;
 import net.minecraftforge.common.Configuration;
@@ -16,7 +17,9 @@ import sbfp.chemistry.ItemDye;
 import sbfp.machines.BlockMachine;
 import sbfp.machines.ItemBlockMachine;
 import sbfp.machines.ItemRedflux;
-import sbfp.machines.tiles.TileSolarCharger;
+import sbfp.recipes.CrusherOutput;
+import sbfp.recipes.ProcessorRecipeManager;
+import sbfp.machines.solar.TileEntitySolarCharger;
 import sbfp.secret.EntitySecret;
 import sbfp.secret.ItemSecret;
 import sbfp.world.BlockOre;
@@ -41,9 +44,11 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 public class modsbfp{
 
 	// name constants
-	public static final String modid = "sbfp"; //Channel, name, etc
+	public static final String modid = "sbfp"; // Channel, name, etc
 	public static final String shortname = "SBFP Tech";
-	public static final String version = "Aleph 1.01";
+	
+	public static final ItemStack recipePlaceholder = new ItemStack(Block.stone, 1);
+	public static final String version = "Aleph 1";
 
 	// data constants
 	public static final String guiDirectory = "/mods/sbfp/textures/gui/";
@@ -63,7 +68,7 @@ public class modsbfp{
 	public static final BlockOre blockOre = new BlockOre(getBlockID("blockOreID",0x4c0),new String[]{"oreMonazite","oreFluorite","oreMolybdenite","oreRutile","oreCinnabar","oreLimonite","orePyrolusite","oreArsenopyrite"});
 	public static final ItemRedflux itemRedflux = new ItemRedflux(getItemID("itemRedfluxID",0x4c1),new String[]{"redFluxAmp","redFluxAbsorber","redFluxStabilizer","chargedRedstone"});
 	public static final ItemDye itemDye = new ItemDye(getItemID("itemDyeID",0x4c2),new String[]{"dyeTiO2","dyeVermillion","dyeOchre","dyeUltramarine","dyeMnO2","dyeGreen","dyePurple","dyeOrange","dyeGrey"});
-	public static final BlockMachine blockMachine = new BlockMachine(getBlockID("blockMachinesID",0x4c3),new String[]{"solarCharger"});
+	public static final BlockMachine blockMachine = new BlockMachine(getBlockID("blockMachinesID",0x4c3),new String[]{"solarCharger", "crusher"});
 	public static final ItemSecret itemSecret = new ItemSecret(getItemID("itemSecretID",0x4c4),"itemSecret");
 
 	@PreInit
@@ -76,19 +81,20 @@ public class modsbfp{
 		FMLLog.info("SHAZAP!!!");
 		GameRegistry.registerBlock(blockOre,ItemBlockOre.class,"blockOre");
 		GameRegistry.registerBlock(blockMachine,ItemBlockMachine.class,"blockMachines");
-		GameRegistry.registerTileEntity(TileSolarCharger.class,"sunlightCollector");
+		GameRegistry.registerTileEntity(TileEntitySolarCharger.class,"sunlightCollector");
 		GameRegistry.registerItem(itemRedflux,"itemRedflux");
 		GameRegistry.registerItem(itemSecret,"itemSecret");
 		EntityRegistry.registerModEntity(EntitySecret.class,"entitySecret",0,this,256,1,true);
-		this.addRecipes();
+		//this.addRecipes();
 		GameRegistry.registerWorldGenerator(this.wGen);
 		NetworkRegistry.instance().registerGuiHandler(this,modsbfp.proxy);
 		for(int i = 0; i<blockOre.names.length; i++){
 			OreDictionary.registerOre(blockOre.names[i],new ItemStack(blockOre.blockID,1,i));
 		}
 		this.addRecipes();
-		this.loadLang();
+		modsbfp.instance.loadLang();
 		proxy.init();
+		new ProcessorRecipeManager().intialize();
 	}
 
 	private void loadLang(){
@@ -120,6 +126,10 @@ public class modsbfp{
 		GameRegistry.addShapelessRecipe(new ItemStack(itemDye,2,6),new ItemStack(itemDye,1,1),new ItemStack(itemDye,1,3));
 		GameRegistry.addShapelessRecipe(new ItemStack(itemDye,2,7),new ItemStack(itemDye,1,1),new ItemStack(itemDye,1,2));
 		GameRegistry.addShapelessRecipe(new ItemStack(itemDye,2,8),new ItemStack(itemDye,1,0),new ItemStack(itemDye,1,4));
+		
+		ProcessorRecipeManager.instance.addRecipe(new ItemStack(Block.stone, 1), new CrusherOutput(new ItemStack(Block.cobblestone, 1), recipePlaceholder, 0));
+		ProcessorRecipeManager.instance.addRecipe(new ItemStack(Block.cobblestone, 1), new CrusherOutput(new ItemStack(Block.gravel, 1), recipePlaceholder, 0));
+		ProcessorRecipeManager.instance.addRecipe(new ItemStack(Block.gravel, 1), new CrusherOutput(new ItemStack(Block.sand, 1), recipePlaceholder, 0));
 	}
 
 	private static int getBlockID(String name, int defaultid){

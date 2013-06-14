@@ -8,6 +8,7 @@ UniversalElectricity
 !/src/
 /src/minecraft/*
 
+!/src/minecraft/mcmod.info
 !/src/minecraft/sbfp
 !/src/minecraft/mods
 /src/minecraft/mods/sbfp/textures/blocks/*.db

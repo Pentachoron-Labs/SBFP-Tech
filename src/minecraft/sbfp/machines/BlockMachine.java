@@ -18,7 +18,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 import sbfp.BlockSub;
 import sbfp.modsbfp;
-import sbfp.machines.tiles.TileSolarCharger;
+import sbfp.machines.solar.TileEntitySolarCharger;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -39,7 +39,7 @@ public class BlockMachine extends BlockSub implements ITileEntityProvider{
 		for(int i = 0; i<names.length; i++){
 			for(int j = 0; j<6; j++){
 				this.icons[i][j] = register.registerIcon("sbfp:"+this.names[i]+ForgeDirection.getOrientation(j).toString());
-				//System.out.println("sbfp:"+this.names[i]+ForgeDirection.getOrientation(j).toString());
+				// System.out.println("sbfp:"+this.names[i]+ForgeDirection.getOrientation(j).toString());
 			}
 		}
 	}
@@ -50,13 +50,14 @@ public class BlockMachine extends BlockSub implements ITileEntityProvider{
 		super.breakBlock(world,x,y,z,par5,par6);
 	}
 
-	/**Drops entire inventory of block
-	 * 
+	/**
+	 * Drops entire inventory of block
 	 * @param world
 	 * @param x
 	 * @param y
 	 * @param z
-	 * @param par5 Necessary for vanilla minecraft code to not crash, don't know what it's for.
+	 * @param par5 Necessary for vanilla minecraft code to not crash, don't know
+	 * what it's for.
 	 * @param par6 Ditto
 	 */
 	public void dropEntireInventory(World world, int x, int y, int z, int par5, int par6){
@@ -119,7 +120,7 @@ public class BlockMachine extends BlockSub implements ITileEntityProvider{
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityPlayer, int side, float hitX, float hitY, float hitZ){
 		int metadata = world.getBlockMetadata(x,y,z);
 		FMLLog.info("Block Activated");
-		//System.out.println("Client Side");
+		// System.out.println("Client Side");
 		entityPlayer.openGui(modsbfp.getInstance(),metadata,world,x,y,z);
 		return true;
 
@@ -127,7 +128,7 @@ public class BlockMachine extends BlockSub implements ITileEntityProvider{
 
 	@Override
 	public TileEntity createNewTileEntity(World w){
-		return new TileSolarCharger();
+		return new TileEntitySolarCharger();
 	}
 
 	@Override
