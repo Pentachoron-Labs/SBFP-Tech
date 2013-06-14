@@ -1,24 +1,21 @@
 package sbfp.secret;
 
-import java.util.List;
-
-import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-
-import org.lwjgl.input.Keyboard;
-
+import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class EntitySecret extends Entity{
 
-	public static final double speed = 0.25;
+	private static final double speed = 0.1;
+	protected double tractorX, tractorY, tractorZ, tractorYaw, tractorPitch;
+	@SideOnly(Side.CLIENT)
+	protected double velX, velY, velZ;
 
 	public EntitySecret(World w){
 		super(w);
@@ -31,10 +28,15 @@ public class EntitySecret extends Entity{
 	protected boolean canTriggerWalking(){
 		return true;
 	}
+	
+	@Override
+	public boolean canBePushed(){
+		FMLLog.info("%s",this.boundingBox);
+		return false;
+	}
 
 	@Override
-	protected void entityInit(){
-	}
+	protected void entityInit(){}
 
 	@Override
 	public AxisAlignedBB getCollisionBox(Entity e){
@@ -86,57 +88,69 @@ public class EntitySecret extends Entity{
 
 	@Override
 	public void onUpdate(){
-		super.onUpdate();
-		if(this.riddenByEntity!=null){
-			float dyaw = 0;
-			if(Keyboard.isKeyDown(Keyboard.KEY_W)){
-				this.motionX = Math.cos(this.rotationYaw*speed);
-				this.motionZ = Math.sin(this.rotationYaw*speed);
-			}else{
-				this.motionX = 0;
-				this.motionZ = 0;
-			}
-			if(Keyboard.isKeyDown(Keyboard.KEY_A)){
-				dyaw = 5;
-			}
-			if(Keyboard.isKeyDown(Keyboard.KEY_D)){
-				dyaw = -5;
-			}
-			this.setRotation(this.rotationPitch, this.rotationYaw+dyaw);
-		}
-		if(!this.onGround){
-			this.motionY -= 0.098;
-		}else{
-			this.motionY = 0;
-		}
+		this.prevPosX = this.posX;
+		this.prevPosY = this.posY;
+		this.prevPosZ = this.posZ;
+		this.motionY -= 0.04;
 		this.moveEntity(this.motionX,this.motionY,this.motionZ);
-		if(!this.worldObj.isRemote){
-			List list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this,this.boundingBox.expand(0.2,0,0.2));
-			if(list!=null&&!list.isEmpty()){
-				for(int i = 0; i<list.size(); ++i){
-					Entity entity = (Entity) list.get(i);
-					if(entity!=this.riddenByEntity&&entity.canBePushed()&&!(entity instanceof EntitySecret)){
-						entity.applyEntityCollision(this);
-					}
-				}
-			}
-			for(int i = 0; i<4; ++i){
-				int blockX = MathHelper.floor_double(this.posX+(i%2-0.5D)*0.8D);
-				int blockZ = MathHelper.floor_double(this.posZ+(i/2-0.5D)*0.8D);
-				for(int j = 0; j<2; ++j){
-					int blockY = MathHelper.floor_double(this.posY)+j;
-					int id = this.worldObj.getBlockId(blockX,blockY,blockZ);
-					if(id==Block.snow.blockID){
-						this.worldObj.setBlockToAir(blockX,blockY,blockZ);
-					}else if(id==Block.waterlily.blockID){
-						this.worldObj.destroyBlock(blockX,blockY,blockZ,true);
-					}
-				}
-			}
-			if(this.riddenByEntity!=null&&this.riddenByEntity.isDead){
-				this.riddenByEntity = null;
-			}
+		this.motionX *= 0.98;
+		this.motionY *= 0.98;
+		this.motionZ *= 0.98;
+		if(this.onGround){
+			this.motionX *= 0.7;
+			this.motionZ *= 0.7;
+			this.motionY *= -0.5;
 		}
+		//
+		// super.onUpdate();
+		// if(!this.worldObj.isRemote && (this.riddenByEntity!=null)){
+		// float dyaw = 0;
+		// if(Keyboard.isKeyDown(Keyboard.KEY_W)){
+		// this.motionX = Math.cos(this.rotationYaw*speed);
+		// this.motionZ = Math.sin(this.rotationYaw*speed);
+		// }else{
+		// this.motionX = 0;
+		// this.motionZ = 0;
+		// }
+		// if(Keyboard.isKeyDown(Keyboard.KEY_A)){
+		// dyaw = 5;
+		// }
+		// if(Keyboard.isKeyDown(Keyboard.KEY_D)){
+		// dyaw = -5;
+		// }
+		// this.setRotation(this.rotationPitch, this.rotationYaw+dyaw);
+		// }
+		// if(!this.worldObj.isRemote){
+		// this.motionY -= 0.04;
+		// }
+		// this.moveEntity(this.motionX,this.motionY,this.motionZ);
+		// // List list =
+		// this.worldObj.getEntitiesWithinAABBExcludingEntity(this,this.boundingBox.expand(0.2,0,0.2));
+		// // if(list!=null&&!list.isEmpty()){
+		// // for(int i = 0; i<list.size(); ++i){
+		// // Entity entity = (Entity) list.get(i);
+		// // if(entity!=this.riddenByEntity&&entity.canBePushed()&&!(entity
+		// instanceof EntitySecret)){
+		// // entity.applyEntityCollision(this);
+		// // }
+		// // }
+		// // }
+		// for(int i = 0; i<4; ++i){
+		// int blockX = MathHelper.floor_double(this.posX+(i%2-0.5D)*0.8D);
+		// int blockZ = MathHelper.floor_double(this.posZ+(i/2-0.5D)*0.8D);
+		// for(int j = 0; j<2; ++j){
+		// int blockY = MathHelper.floor_double(this.posY)+j;
+		// int id = this.worldObj.getBlockId(blockX,blockY,blockZ);
+		// if(id==Block.snow.blockID){
+		// this.worldObj.setBlockToAir(blockX,blockY,blockZ);
+		// }else if(id==Block.waterlily.blockID){
+		// this.worldObj.destroyBlock(blockX,blockY,blockZ,true);
+		// }
+		// }
+		// }
+		// if(this.riddenByEntity!=null&&this.riddenByEntity.isDead){
+		// this.riddenByEntity = null;
+		// }
 	}
 
 	@Override
@@ -167,17 +181,36 @@ public class EntitySecret extends Entity{
 	}
 
 	/**
-	 * Called when a player interacts with a mob. e.g. gets milk from a cow, gets into the saddle on a pig.
+	 * Called when a player interacts with a mob. e.g. gets milk from a cow,
+	 * gets into the saddle on a pig.
 	 */
 	@Override
 	public boolean interact(EntityPlayer par1EntityPlayer){
-		if(this.riddenByEntity!=null&&this.riddenByEntity instanceof EntityPlayer&&this.riddenByEntity!=par1EntityPlayer){
-			return true;
-		}else{
+		if(this.riddenByEntity!=null&&this.riddenByEntity instanceof EntityPlayer&&this.riddenByEntity!=par1EntityPlayer) return true;
+		else{
 			if(!this.worldObj.isRemote){
 				par1EntityPlayer.mountEntity(this);
 			}
 			return true;
 		}
+	}
+
+	@Override
+	public void setPositionAndRotation2(double x, double y, double z, float yaw, float pitch, int par9){
+		this.tractorX = x;
+		this.tractorY = y;
+		this.tractorZ = z;
+		this.tractorYaw = yaw;
+		this.tractorPitch = pitch;
+		this.motionX = this.velX;
+		this.motionY = this.velY;
+		this.motionZ = this.velZ;
+	}
+
+	@Override
+	public void setVelocity(double dx, double dy, double dz){
+		this.velX = this.motionX = dx;
+		this.velY = this.motionY = dy;
+		this.velZ = this.motionZ = dz;
 	}
 }

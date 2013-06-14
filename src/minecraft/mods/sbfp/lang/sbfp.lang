@@ -52,7 +52,7 @@ dyeGrey.name=Grey Dye
 
 solarCharger.name=Redstone Flux Infuser
 
-itemSecret.name=Secret
+item.itemSecret.name=Secret
 ########################
 es_ES
 oreThorium.name=Monacita
