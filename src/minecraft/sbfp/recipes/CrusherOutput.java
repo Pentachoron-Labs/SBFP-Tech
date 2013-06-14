@@ -6,12 +6,16 @@ import net.minecraft.item.ItemStack;
 public class CrusherOutput implements IOutput{
 	private ItemStack primary;
 	private ItemStack secondary;
-	private float secondaryChance;
+	private float secondaryChance = 0.0F;
 
 	public CrusherOutput(ItemStack p, ItemStack s, float c){
 		this.primary = p;
-		if(c != 0F) this.secondary = s;
+		this.secondary = s;
 		this.secondaryChance = c;
+	}
+	
+	public CrusherOutput(ItemStack i){
+		this.primary = i;
 	}
 	
 	public Object[] getData(){
