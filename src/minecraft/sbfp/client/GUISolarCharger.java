@@ -38,6 +38,6 @@ public class GUISolarCharger extends GuiContainer{
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(int par1, int par2){
-		this.fontRenderer.drawString(this.tileEntity.getInvName(),55,6,4210752);
+		this.fontRenderer.drawString(this.tileEntity.getInvName(),40,6,4210752);
 	}
 }

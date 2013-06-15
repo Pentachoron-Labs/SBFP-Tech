@@ -3,7 +3,7 @@ package sbfp.recipes;
 import net.minecraft.item.ItemStack;
 
 
-public class CrusherOutput implements IOutput{
+public class CrusherOutput implements IMachineOutput{
 	private ItemStack primary;
 	private ItemStack secondary;
 	private float secondaryChance = 0.0F;

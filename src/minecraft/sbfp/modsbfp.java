@@ -91,10 +91,10 @@ public class modsbfp{
 		for(int i = 0; i<blockOre.names.length; i++){
 			OreDictionary.registerOre(blockOre.names[i],new ItemStack(blockOre.blockID,1,i));
 		}
+		new ProcessorRecipeManager().intialize();
 		this.addRecipes();
 		modsbfp.instance.loadLang();
 		proxy.init();
-		new ProcessorRecipeManager().intialize();
 	}
 
 	private void loadLang(){
