@@ -6,6 +6,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
+
+import org.lwjgl.input.Keyboard;
+
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -13,6 +16,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class EntitySecret extends Entity{
 
 	private static final double speed = 0.1;
+	private static final double modelmaxX = (7/16.),modelmaxY = (10/16.), modelmaxZ = (10/16.);
+	private static final double modelminX = (-34/16.), modelminY = (-2/16.), modelminZ = (-8/16.);
 	protected double tractorX, tractorY, tractorZ, tractorYaw, tractorPitch;
 	@SideOnly(Side.CLIENT)
 	protected double velX, velY, velZ;
@@ -27,12 +32,6 @@ public class EntitySecret extends Entity{
 	@Override
 	protected boolean canTriggerWalking(){
 		return true;
-	}
-	
-	@Override
-	public boolean canBePushed(){
-		FMLLog.info("%s",this.boundingBox);
-		return false;
 	}
 
 	@Override
@@ -53,7 +52,8 @@ public class EntitySecret extends Entity{
 		this.posX = x;
 		this.posY = y;
 		this.posZ = z;
-		this.boundingBox.setBounds(x-0.375,y,z-0.75,x+0.375,y+1.125,z+0.75);
+		this.boundingBox.setBounds(x+modelminX,y+modelminY,z+modelminZ,x+modelmaxX,y+modelmaxY,z+modelmaxZ);
+		FMLLog.info("%s %f %f %f",this.boundingBox,posX,posY,posZ);
 	}
 
 	public EntitySecret(World w, double x, double y, double z){
@@ -91,66 +91,25 @@ public class EntitySecret extends Entity{
 		this.prevPosX = this.posX;
 		this.prevPosY = this.posY;
 		this.prevPosZ = this.posZ;
-		this.motionY -= 0.04;
+		this.motionY -= 1/32.;
 		this.moveEntity(this.motionX,this.motionY,this.motionZ);
-		this.motionX *= 0.98;
-		this.motionY *= 0.98;
-		this.motionZ *= 0.98;
-		if(this.onGround){
-			this.motionX *= 0.7;
-			this.motionZ *= 0.7;
-			this.motionY *= -0.5;
+		if(this.riddenByEntity != null){
+			if(Keyboard.isKeyDown(Keyboard.KEY_W)){
+				this.motionX = Math.cos(this.rotationYaw)*speed;
+				this.motionZ = Math.sin(this.rotationYaw)*speed;
+			}else{
+				this.motionX = 0;
+				this.motionZ = 0;
+			}
+			float dyaw = 0;
+			if(Keyboard.isKeyDown(Keyboard.KEY_A)){
+				dyaw = 1;
+			}
+			if(Keyboard.isKeyDown(Keyboard.KEY_D)){
+				dyaw = -1;
+			}
+			this.setRotation(this.rotationPitch, this.rotationYaw+dyaw);
 		}
-		//
-		// super.onUpdate();
-		// if(!this.worldObj.isRemote && (this.riddenByEntity!=null)){
-		// float dyaw = 0;
-		// if(Keyboard.isKeyDown(Keyboard.KEY_W)){
-		// this.motionX = Math.cos(this.rotationYaw*speed);
-		// this.motionZ = Math.sin(this.rotationYaw*speed);
-		// }else{
-		// this.motionX = 0;
-		// this.motionZ = 0;
-		// }
-		// if(Keyboard.isKeyDown(Keyboard.KEY_A)){
-		// dyaw = 5;
-		// }
-		// if(Keyboard.isKeyDown(Keyboard.KEY_D)){
-		// dyaw = -5;
-		// }
-		// this.setRotation(this.rotationPitch, this.rotationYaw+dyaw);
-		// }
-		// if(!this.worldObj.isRemote){
-		// this.motionY -= 0.04;
-		// }
-		// this.moveEntity(this.motionX,this.motionY,this.motionZ);
-		// // List list =
-		// this.worldObj.getEntitiesWithinAABBExcludingEntity(this,this.boundingBox.expand(0.2,0,0.2));
-		// // if(list!=null&&!list.isEmpty()){
-		// // for(int i = 0; i<list.size(); ++i){
-		// // Entity entity = (Entity) list.get(i);
-		// // if(entity!=this.riddenByEntity&&entity.canBePushed()&&!(entity
-		// instanceof EntitySecret)){
-		// // entity.applyEntityCollision(this);
-		// // }
-		// // }
-		// // }
-		// for(int i = 0; i<4; ++i){
-		// int blockX = MathHelper.floor_double(this.posX+(i%2-0.5D)*0.8D);
-		// int blockZ = MathHelper.floor_double(this.posZ+(i/2-0.5D)*0.8D);
-		// for(int j = 0; j<2; ++j){
-		// int blockY = MathHelper.floor_double(this.posY)+j;
-		// int id = this.worldObj.getBlockId(blockX,blockY,blockZ);
-		// if(id==Block.snow.blockID){
-		// this.worldObj.setBlockToAir(blockX,blockY,blockZ);
-		// }else if(id==Block.waterlily.blockID){
-		// this.worldObj.destroyBlock(blockX,blockY,blockZ,true);
-		// }
-		// }
-		// }
-		// if(this.riddenByEntity!=null&&this.riddenByEntity.isDead){
-		// this.riddenByEntity = null;
-		// }
 	}
 
 	@Override
