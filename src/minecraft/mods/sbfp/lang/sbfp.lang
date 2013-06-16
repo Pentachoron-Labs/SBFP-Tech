@@ -52,7 +52,7 @@ dyeGrey.name=Grey Dye
 
 solarCharger.name=Redstone Flux Infuser
 
-item.itemSecret.name=Tractor
+item.itemTractor.name=Tractor
 ########################
 es_ES
 oreThorium.name=Monacita
