@@ -17,8 +17,8 @@ import sbfp.machines.BlockMachine;
 import sbfp.machines.ItemBlockMachine;
 import sbfp.machines.ItemRedflux;
 import sbfp.machines.tiles.TileSolarCharger;
-import sbfp.secret.EntitySecret;
-import sbfp.secret.ItemSecret;
+import sbfp.tractor.EntityTractor;
+import sbfp.tractor.ItemTractor;
 import sbfp.world.BlockOre;
 import sbfp.world.GeneratorOres;
 import sbfp.world.ItemBlockOre;
@@ -64,7 +64,7 @@ public class modsbfp{
 	public static final ItemRedflux itemRedflux = new ItemRedflux(getItemID("itemRedfluxID",0x4c1),new String[]{"redFluxAmp","redFluxAbsorber","redFluxStabilizer","chargedRedstone"});
 	public static final ItemDye itemDye = new ItemDye(getItemID("itemDyeID",0x4c2),new String[]{"dyeTiO2","dyeVermillion","dyeOchre","dyeUltramarine","dyeMnO2","dyeGreen","dyePurple","dyeOrange","dyeGrey"});
 	public static final BlockMachine blockMachine = new BlockMachine(getBlockID("blockMachinesID",0x4c3),new String[]{"solarCharger"});
-	public static final ItemSecret itemSecret = new ItemSecret(getItemID("itemSecretID",0x4c4),"itemSecret");
+	public static final ItemTractor itemTractor = new ItemTractor(getItemID("itemTractorID",0x4c4),"itemTractor");
 
 	@PreInit
 	public void preInit(FMLPreInitializationEvent event){
@@ -78,8 +78,8 @@ public class modsbfp{
 		GameRegistry.registerBlock(blockMachine,ItemBlockMachine.class,"blockMachines");
 		GameRegistry.registerTileEntity(TileSolarCharger.class,"sunlightCollector");
 		GameRegistry.registerItem(itemRedflux,"itemRedflux");
-		GameRegistry.registerItem(itemSecret,"itemSecret");
-		EntityRegistry.registerModEntity(EntitySecret.class,"entitySecret",0,this,256,1,true);
+		GameRegistry.registerItem(itemTractor,"itemSecret");
+		EntityRegistry.registerModEntity(EntityTractor.class,"entitySecret",0,this,256,1,true);
 		this.addRecipes();
 		GameRegistry.registerWorldGenerator(this.wGen);
 		NetworkRegistry.instance().registerGuiHandler(this,modsbfp.proxy);

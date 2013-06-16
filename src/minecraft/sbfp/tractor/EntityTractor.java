@@ -1,4 +1,4 @@
-package sbfp.secret;
+package sbfp.tractor;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -13,7 +13,7 @@ import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class EntitySecret extends Entity{
+public class EntityTractor extends Entity{
 
 	private static final double speed = 0.1;
 	private static final double modelmaxX = (7/16.),modelmaxY = (10/16.), modelmaxZ = (10/16.);
@@ -22,7 +22,7 @@ public class EntitySecret extends Entity{
 	@SideOnly(Side.CLIENT)
 	protected double velX, velY, velZ;
 
-	public EntitySecret(World w){
+	public EntityTractor(World w){
 		super(w);
 		this.preventEntitySpawning = true;
 		this.entityCollisionReduction = 1;
@@ -56,7 +56,7 @@ public class EntitySecret extends Entity{
 		FMLLog.info("%s %f %f %f",this.boundingBox,posX,posY,posZ);
 	}
 
-	public EntitySecret(World w, double x, double y, double z){
+	public EntityTractor(World w, double x, double y, double z){
 		this(w);
 		this.setPosition(x,y+this.yOffset,z);
 		this.motionX = 0;

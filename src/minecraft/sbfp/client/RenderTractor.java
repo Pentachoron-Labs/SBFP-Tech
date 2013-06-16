@@ -6,22 +6,22 @@ import net.minecraft.entity.Entity;
 
 import org.lwjgl.opengl.GL11;
 
-import sbfp.secret.EntitySecret;
+import sbfp.tractor.EntityTractor;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class RenderSecret extends Render{
+public class RenderTractor extends Render{
 
-	protected final ModelSecret model = new ModelSecret();
+	protected final ModelTractor model = new ModelTractor();
 
-	public RenderSecret(){
+	public RenderTractor(){
 		this.shadowSize = .5f;
 	}
 
 	@Override
 	public void doRender(Entity entity, double x, double y, double z, float yaw, float pitch){
-		EntitySecret es = (EntitySecret) entity;
+		EntityTractor es = (EntityTractor) entity;
 		GL11.glPushMatrix();
 		GL11.glTranslated(x,y,z);
 		GL11.glRotatef(yaw,0,1,0);

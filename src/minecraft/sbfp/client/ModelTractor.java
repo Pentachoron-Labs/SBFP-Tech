@@ -4,11 +4,11 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
-public class ModelSecret extends ModelBase{
+public class ModelTractor extends ModelBase{
 
 	final ModelRenderer[] mr = new ModelRenderer[16];
 
-	public ModelSecret(){
+	public ModelTractor(){
 		textureWidth = 128;
 		textureHeight = 128;
 		mr[0] = new ModelRenderer(this,0,102);
