@@ -18,6 +18,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 import sbfp.BlockSub;
 import sbfp.modsbfp;
+import sbfp.machines.crusher.TileEntityCrusher;
 import sbfp.machines.solar.TileEntitySolarCharger;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.relauncher.Side;
@@ -114,25 +115,39 @@ public class BlockMachine extends BlockSub implements ITileEntityProvider{
 	@SideOnly(Side.CLIENT)
 	public Icon getIcon(int side, int meta){
 		return icons[meta][side];
+		
+		//TODO Make machines rotate
 	}
 
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityPlayer, int side, float hitX, float hitY, float hitZ){
-		int metadata = world.getBlockMetadata(x,y,z);
 		FMLLog.info("Block Activated");
 		// System.out.println("Client Side");
-		entityPlayer.openGui(modsbfp.getInstance(),metadata,world,x,y,z);
+		entityPlayer.openGui(modsbfp.getInstance(),-1,world,x,y,z);
 		return true;
 
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World w){
-		return new TileEntitySolarCharger();
+	public TileEntity createTileEntity(World w, int meta){
+		FMLLog.info("Meta is "+meta);
+		switch(meta){
+			case 0: return new TileEntitySolarCharger(); //Flux Infuser
+			case 1: return new TileEntityCrusher(); //Crusher
+		}
+		FMLLog.info("Metadata is not 0 or 1");
+		return null;
 	}
 
 	@Override
 	public boolean isOpaqueCube(){
 		return false;
 	}
+
+	@Override
+	public TileEntity createNewTileEntity(World world){
+		//Is this necessary?
+		return null;
+	}
+
 }

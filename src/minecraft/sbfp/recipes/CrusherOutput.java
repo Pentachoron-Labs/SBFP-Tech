@@ -2,21 +2,21 @@ package sbfp.recipes;
 
 import net.minecraft.item.ItemStack;
 
-public class CrusherOutput implements IOutput{
-
+public class CrusherOutput implements IMachineOutput{
 	private ItemStack primary;
 	private ItemStack secondary;
-	private float secondaryChance;
+	private float secondaryChance = 0.0F;
 
 	public CrusherOutput(ItemStack p, ItemStack s, float c){
 		this.primary = p;
-		if(c!=0F){
-			this.secondary = s;
-		}
+		this.secondary = s;
 		this.secondaryChance = c;
 	}
-
-	@Override
+	
+	public CrusherOutput(ItemStack i){
+		this.primary = i;
+	}
+	
 	public Object[] getData(){
 		return new Object[]{this.primary,this.secondary,this.secondaryChance};
 	}

@@ -125,10 +125,10 @@ public class modsbfp{
 		GameRegistry.addShapelessRecipe(new ItemStack(itemDye,2,6),new ItemStack(itemDye,1,1),new ItemStack(itemDye,1,3));
 		GameRegistry.addShapelessRecipe(new ItemStack(itemDye,2,7),new ItemStack(itemDye,1,1),new ItemStack(itemDye,1,2));
 		GameRegistry.addShapelessRecipe(new ItemStack(itemDye,2,8),new ItemStack(itemDye,1,0),new ItemStack(itemDye,1,4));
-
-		ProcessorRecipeManager.instance.addRecipe(new ItemStack(Block.stone,1),new CrusherOutput(new ItemStack(Block.cobblestone,1),recipePlaceholder,0));
-		ProcessorRecipeManager.instance.addRecipe(new ItemStack(Block.cobblestone,1),new CrusherOutput(new ItemStack(Block.gravel,1),recipePlaceholder,0));
-		ProcessorRecipeManager.instance.addRecipe(new ItemStack(Block.gravel,1),new CrusherOutput(new ItemStack(Block.sand,1),recipePlaceholder,0));
+		
+		ProcessorRecipeManager.instance.addRecipe(new ItemStack(Block.stone, 1), new CrusherOutput(new ItemStack(Block.cobblestone, 1)));
+		ProcessorRecipeManager.instance.addRecipe(new ItemStack(Block.cobblestone, 1), new CrusherOutput(new ItemStack(Block.gravel, 1)));
+		ProcessorRecipeManager.instance.addRecipe(new ItemStack(Block.gravel, 1), new CrusherOutput(new ItemStack(Block.sand, 1)));
 	}
 
 	private static int getBlockID(String name, int defaultid){
