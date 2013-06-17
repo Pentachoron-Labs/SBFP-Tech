@@ -1,26 +1,28 @@
-package sbfp.secret;
+package sbfp.tractor;
 
-import java.util.List;
-
-import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 import org.lwjgl.input.Keyboard;
 
+import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class EntitySecret extends Entity{
+public class EntityTractor extends Entity{
 
-	public static final double speed = 0.25;
+	private static final double speed = 0.1;
+	private static final double modelmaxX = (7/16.),modelmaxY = (10/16.), modelmaxZ = (10/16.);
+	private static final double modelminX = (-34/16.), modelminY = (-2/16.), modelminZ = (-8/16.);
+	protected double tractorX, tractorY, tractorZ, tractorYaw, tractorPitch;
+	@SideOnly(Side.CLIENT)
+	protected double velX, velY, velZ;
 
-	public EntitySecret(World w){
+	public EntityTractor(World w){
 		super(w);
 		this.preventEntitySpawning = true;
 		this.entityCollisionReduction = 1;
@@ -50,10 +52,11 @@ public class EntitySecret extends Entity{
 		this.posX = x;
 		this.posY = y;
 		this.posZ = z;
-		this.boundingBox.setBounds(x-0.375,y,z-0.75,x+0.375,y+1.125,z+0.75);
+		this.boundingBox.setBounds(x+modelminX,y+modelminY,z+modelminZ,x+modelmaxX,y+modelmaxY,z+modelmaxZ);
+		FMLLog.info("%s %f %f %f",this.boundingBox,posX,posY,posZ);
 	}
 
-	public EntitySecret(World w, double x, double y, double z){
+	public EntityTractor(World w, double x, double y, double z){
 		this(w);
 		this.setPosition(x,y+this.yOffset,z);
 		this.motionX = 0;
@@ -85,56 +88,27 @@ public class EntitySecret extends Entity{
 
 	@Override
 	public void onUpdate(){
-		super.onUpdate();
-		if(this.riddenByEntity!=null){
-			float dyaw = 0;
+		this.prevPosX = this.posX;
+		this.prevPosY = this.posY;
+		this.prevPosZ = this.posZ;
+		this.motionY -= 1/32.;
+		this.moveEntity(this.motionX,this.motionY,this.motionZ);
+		if(this.riddenByEntity != null){
 			if(Keyboard.isKeyDown(Keyboard.KEY_W)){
-				this.motionX = Math.cos(this.rotationYaw*speed);
-				this.motionZ = Math.sin(this.rotationYaw*speed);
+				this.motionX = Math.cos(this.rotationYaw)*speed;
+				this.motionZ = Math.sin(this.rotationYaw)*speed;
 			}else{
 				this.motionX = 0;
 				this.motionZ = 0;
 			}
+			float dyaw = 0;
 			if(Keyboard.isKeyDown(Keyboard.KEY_A)){
-				dyaw = 5;
+				dyaw = 1;
 			}
 			if(Keyboard.isKeyDown(Keyboard.KEY_D)){
-				dyaw = -5;
+				dyaw = -1;
 			}
 			this.setRotation(this.rotationPitch,this.rotationYaw+dyaw);
-		}
-		if(!this.onGround){
-			this.motionY -= 0.098;
-		}else{
-			this.motionY = 0;
-		}
-		this.moveEntity(this.motionX,this.motionY,this.motionZ);
-		if(!this.worldObj.isRemote){
-			List list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this,this.boundingBox.expand(0.2,0,0.2));
-			if(list!=null&&!list.isEmpty()){
-				for(int i = 0; i<list.size(); ++i){
-					Entity entity = (Entity) list.get(i);
-					if(entity!=this.riddenByEntity&&entity.canBePushed()&&!(entity instanceof EntitySecret)){
-						entity.applyEntityCollision(this);
-					}
-				}
-			}
-			for(int i = 0; i<4; ++i){
-				int blockX = MathHelper.floor_double(this.posX+(i%2-0.5D)*0.8D);
-				int blockZ = MathHelper.floor_double(this.posZ+(i/2-0.5D)*0.8D);
-				for(int j = 0; j<2; ++j){
-					int blockY = MathHelper.floor_double(this.posY)+j;
-					int id = this.worldObj.getBlockId(blockX,blockY,blockZ);
-					if(id==Block.snow.blockID){
-						this.worldObj.setBlockToAir(blockX,blockY,blockZ);
-					}else if(id==Block.waterlily.blockID){
-						this.worldObj.destroyBlock(blockX,blockY,blockZ,true);
-					}
-				}
-			}
-			if(this.riddenByEntity!=null&&this.riddenByEntity.isDead){
-				this.riddenByEntity = null;
-			}
 		}
 	}
 
@@ -178,5 +152,24 @@ public class EntitySecret extends Entity{
 			}
 			return true;
 		}
+	}
+
+	@Override
+	public void setPositionAndRotation2(double x, double y, double z, float yaw, float pitch, int par9){
+		this.tractorX = x;
+		this.tractorY = y;
+		this.tractorZ = z;
+		this.tractorYaw = yaw;
+		this.tractorPitch = pitch;
+		this.motionX = this.velX;
+		this.motionY = this.velY;
+		this.motionZ = this.velZ;
+	}
+
+	@Override
+	public void setVelocity(double dx, double dy, double dz){
+		this.velX = this.motionX = dx;
+		this.velY = this.motionY = dy;
+		this.velZ = this.motionZ = dz;
 	}
 }

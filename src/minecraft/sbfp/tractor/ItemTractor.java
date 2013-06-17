@@ -1,4 +1,4 @@
-package sbfp.secret;
+package sbfp.tractor;
 
 import java.util.List;
 
@@ -16,9 +16,9 @@ import net.minecraft.world.World;
 import sbfp.ItemSB;
 import cpw.mods.fml.common.FMLLog;
 
-public class ItemSecret extends ItemSB{
+public class ItemTractor extends ItemSB{
 
-	public ItemSecret(int id, String name){
+	public ItemTractor(int id, String name){
 		super(id,name);
 		this.maxStackSize = 1;
 		this.setCreativeTab(CreativeTabs.tabTransport);
@@ -60,7 +60,7 @@ public class ItemSecret extends ItemSB{
 			if(w.getBlockId(i,j,k)==Block.snow.blockID){
 				--j;
 			}
-			EntitySecret entitysecret = new EntitySecret(w,i+0.5F,j+1.0F,k+0.5F);
+			EntityTractor entitysecret = new EntityTractor(w,i+0.5F,j+1.0F,k+0.5F);
 			entitysecret.rotationYaw = ((MathHelper.floor_double(p.rotationYaw*4.0F/360.0F+0.5D)&3)-1)*90;
 			if(!w.getCollidingBoundingBoxes(entitysecret,entitysecret.boundingBox.expand(-0.1D,-0.1D,-0.1D)).isEmpty()) return stack;
 			if(!w.isRemote){
