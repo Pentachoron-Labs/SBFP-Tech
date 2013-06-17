@@ -135,5 +135,4 @@ public class BlockMachine extends BlockSub implements ITileEntityProvider{
 	public boolean isOpaqueCube(){
 		return false;
 	}
-
 }

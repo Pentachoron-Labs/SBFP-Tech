@@ -97,7 +97,7 @@ public class ContainerSolarCharger extends Container{
 					if(l<=stack.getMaxStackSize()){
 						quantity -= slotstack.stackSize;
 					}else if(slotstack.stackSize<stack.getMaxStackSize()){
-						quantity -= (stack.getMaxStackSize() - slotstack.stackSize);
+						quantity -= stack.getMaxStackSize()-slotstack.stackSize;
 					}
 				}
 				if(reverse) --i;

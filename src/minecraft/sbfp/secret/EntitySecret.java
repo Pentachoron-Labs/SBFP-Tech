@@ -33,8 +33,7 @@ public class EntitySecret extends Entity{
 	}
 
 	@Override
-	protected void entityInit(){
-	}
+	protected void entityInit(){}
 
 	@Override
 	public AxisAlignedBB getCollisionBox(Entity e){
@@ -102,7 +101,7 @@ public class EntitySecret extends Entity{
 			if(Keyboard.isKeyDown(Keyboard.KEY_D)){
 				dyaw = -5;
 			}
-			this.setRotation(this.rotationPitch, this.rotationYaw+dyaw);
+			this.setRotation(this.rotationPitch,this.rotationYaw+dyaw);
 		}
 		if(!this.onGround){
 			this.motionY -= 0.098;
