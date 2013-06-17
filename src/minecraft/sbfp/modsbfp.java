@@ -14,12 +14,13 @@ import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.Property;
 import net.minecraftforge.oredict.OreDictionary;
 import sbfp.chemistry.ItemDye;
+import sbfp.flux.BlockFluxwire;
 import sbfp.machines.BlockMachine;
 import sbfp.machines.ItemBlockMachine;
 import sbfp.machines.ItemRedflux;
+import sbfp.machines.solar.TileEntitySolarCharger;
 import sbfp.recipes.CrusherOutput;
 import sbfp.recipes.ProcessorRecipeManager;
-import sbfp.machines.solar.TileEntitySolarCharger;
 import sbfp.secret.EntitySecret;
 import sbfp.secret.ItemSecret;
 import sbfp.world.BlockOre;
@@ -70,6 +71,7 @@ public class modsbfp{
 	public static final ItemDye itemDye = new ItemDye(getItemID("itemDyeID",0x4c2),new String[]{"dyeTiO2","dyeVermillion","dyeOchre","dyeUltramarine","dyeMnO2","dyeGreen","dyePurple","dyeOrange","dyeGrey"});
 	public static final BlockMachine blockMachine = new BlockMachine(getBlockID("blockMachinesID",0x4c3),new String[]{"solarCharger", "crusher"});
 	public static final ItemSecret itemSecret = new ItemSecret(getItemID("itemSecretID",0x4c4),"itemSecret");
+	public static final BlockFluxwire blockFluxwire = new BlockFluxwire(getBlockID("blockFluxwireID",0x4c5),new String[]{"wireRedstone"});
 
 	@PreInit
 	public void preInit(FMLPreInitializationEvent event){
@@ -81,6 +83,7 @@ public class modsbfp{
 		FMLLog.info("SHAZAP!!!");
 		GameRegistry.registerBlock(blockOre,ItemBlockOre.class,"blockOre");
 		GameRegistry.registerBlock(blockMachine,ItemBlockMachine.class,"blockMachines");
+		GameRegistry.registerBlock(blockFluxwire,"blockFluxwire");
 		GameRegistry.registerTileEntity(TileEntitySolarCharger.class,"sunlightCollector");
 		GameRegistry.registerItem(itemRedflux,"itemRedflux");
 		GameRegistry.registerItem(itemSecret,"itemSecret");
