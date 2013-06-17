@@ -58,7 +58,7 @@ public class modsbfp{
 	@Instance(modid)
 	private static modsbfp instance;
 	private final GeneratorOres wGen = new GeneratorOres();
-	private static final Configuration config = new Configuration(new File("minecraft/config/SBFP/SBFP.cfg"));
+	private static final Configuration config = new Configuration(new File("config/SBFP/SBFP.cfg"));
 	private static final HashMap<String,HashMap<String,String>> lang = new HashMap<String,HashMap<String,String>>();
 
 	@SidedProxy(clientSide = "sbfp.client.SBClientProxy", serverSide = "sbfp.SBCommonProxy")
@@ -66,10 +66,11 @@ public class modsbfp{
 
 	// blocks and items (sort by ID please)
 	public static final BlockOre blockOre = new BlockOre(getBlockID("blockOreID",0x4c0),new String[]{"oreMonazite","oreFluorite","oreMolybdenite","oreRutile","oreCinnabar","oreLimonite","orePyrolusite","oreArsenopyrite"});
-	public static final ItemRedflux itemRedflux = new ItemRedflux(getItemID("itemRedfluxID",0x4c1),new String[]{"redFluxAmp","redFluxAbsorber","redFluxStabilizer","chargedRedstone"});
-	public static final ItemDye itemDye = new ItemDye(getItemID("itemDyeID",0x4c2),new String[]{"dyeTiO2","dyeVermillion","dyeOchre","dyeUltramarine","dyeMnO2","dyeGreen","dyePurple","dyeOrange","dyeGrey"});
-	public static final BlockMachine blockMachine = new BlockMachine(getBlockID("blockMachinesID",0x4c3),new String[]{"solarCharger", "crusher"});
-	public static final ItemSecret itemSecret = new ItemSecret(getItemID("itemSecretID",0x4c4),"itemSecret");
+	public static final BlockMachine blockMachine = new BlockMachine(getBlockID("blockMachinesID",0x4c1),new String[]{"solarCharger", "crusher"});
+
+	public static final ItemRedflux itemRedflux = new ItemRedflux(getItemID("itemRedfluxID",0x4c00),new String[]{"redFluxAmp","redFluxAbsorber","redFluxStabilizer","chargedRedstone"});
+	public static final ItemDye itemDye = new ItemDye(getItemID("itemDyeID",0x4c01),new String[]{"dyeTiO2","dyeVermillion","dyeOchre","dyeUltramarine","dyeMnO2","dyeGreen","dyePurple","dyeOrange","dyeGrey"});
+	public static final ItemSecret itemSecret = new ItemSecret(getItemID("itemSecretID",0x4c02),"itemSecret");
 
 	@PreInit
 	public void preInit(FMLPreInitializationEvent event){
