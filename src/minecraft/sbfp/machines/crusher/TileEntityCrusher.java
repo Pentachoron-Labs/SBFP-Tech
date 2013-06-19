@@ -15,10 +15,10 @@ import com.google.common.io.ByteArrayDataInput;
 public class TileEntityCrusher extends TileEntityProcessor implements IInventory{
 	private ItemStack[] inventory = new ItemStack[10];
 	
-	public static final int maxWorkTicks = 12*20; //12 seconds to crush stuff
+	public static final int maxWorkTicks = 15*20; // 15 seconds to crush things
 	public static final int maxChargeLevel = 100; // FOR NOW
 	
-	private int chargeLevel;
+	private int chargeLevel = 56;
 	
 	
 	public void updateEntity(){

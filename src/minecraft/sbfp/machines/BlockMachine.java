@@ -121,10 +121,13 @@ public class BlockMachine extends BlockSub implements ITileEntityProvider{
 
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityPlayer, int side, float hitX, float hitY, float hitZ){
-		FMLLog.info("Block Activated");
+		//FMLLog.info("Block Activated");
 		// System.out.println("Client Side");
-		entityPlayer.openGui(modsbfp.getInstance(),-1,world,x,y,z);
-		return true;
+		if(!entityPlayer.isSneaking()){
+			entityPlayer.openGui(modsbfp.getInstance(),-1,world,x,y,z);
+			return true;
+		}
+		return false;
 
 	}
 
@@ -132,8 +135,8 @@ public class BlockMachine extends BlockSub implements ITileEntityProvider{
 	public TileEntity createTileEntity(World w, int meta){
 		FMLLog.info("Meta is "+meta);
 		switch(meta){
-			case 0: return new TileEntitySolarCharger(); //Flux Infuser
-			case 1: return new TileEntityCrusher(); //Crusher
+			case 0:	FMLLog.info("Made Solar Charger"); return new TileEntitySolarCharger(); //Flux Infuser
+			case 1: FMLLog.info("Made Crusher"); return new TileEntityCrusher(); //Crusher
 		}
 		FMLLog.info("Metadata is not 0 or 1");
 		return null;

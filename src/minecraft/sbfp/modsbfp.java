@@ -11,13 +11,14 @@ import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StringTranslate;
 import net.minecraftforge.common.Configuration;
-import net.minecraftforge.common.Property;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.Property;
 import net.minecraftforge.oredict.OreDictionary;
 import sbfp.chemistry.ItemDye;
 import sbfp.machines.BlockMachine;
 import sbfp.machines.ItemBlockMachine;
 import sbfp.machines.ItemRedflux;
+import sbfp.machines.crusher.TileEntityCrusher;
 import sbfp.machines.solar.TileEntitySolarCharger;
 import sbfp.recipes.CrusherOutput;
 import sbfp.recipes.ProcessorRecipeManager;
@@ -26,7 +27,6 @@ import sbfp.tractor.ItemTractor;
 import sbfp.world.BlockOre;
 import sbfp.world.GeneratorOres;
 import sbfp.world.ItemBlockOre;
-import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.Mod.Instance;
@@ -89,6 +89,7 @@ public class modsbfp{
 		GameRegistry.registerBlock(blockMachine,ItemBlockMachine.class,"blockMachines");
 		
 		GameRegistry.registerTileEntity(TileEntitySolarCharger.class,"sunlightCollector");
+		GameRegistry.registerTileEntity(TileEntityCrusher.class,"crusher");
 		
 		GameRegistry.registerItem(itemRedflux,"itemRedflux");
 		GameRegistry.registerItem(itemTractor,"itemSecret");
