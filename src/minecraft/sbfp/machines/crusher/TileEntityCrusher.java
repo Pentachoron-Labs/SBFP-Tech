@@ -13,7 +13,13 @@ import com.google.common.io.ByteArrayDataInput;
 
 
 public class TileEntityCrusher extends TileEntityProcessor implements IInventory{
-	private ItemStack[] inventory = new ItemStack[8];
+	private ItemStack[] inventory = new ItemStack[10];
+	
+	public static final int maxWorkTicks = 12*20; //12 seconds to crush stuff
+	public static final int maxChargeLevel = 100; // FOR NOW
+	
+	private int chargeLevel;
+	
 	
 	public void updateEntity(){
 		super.updateEntity();
@@ -23,6 +29,10 @@ public class TileEntityCrusher extends TileEntityProcessor implements IInventory
 		if(ProcessorRecipeManager.instance.getRecipe(this.inventory[slot]) == null) return false;
 		
 		return true;
+	}
+	
+	public int getChargeLevel(){
+		return this.chargeLevel;
 	}
 	@Override
 	public void handleData(INetworkManager network, int packetTypeID, Packet250CustomPayload packet, EntityPlayer entityPlayer, ByteArrayDataInput dataStream){

@@ -13,6 +13,7 @@ public abstract class TileEntityProcessor extends TileEntity implements IPacketR
 
 	public int workTicks = 0;
 	protected long ticks = 0;
+	public ContainerProcessor container;
 	public final Set<EntityPlayer> playersUsing = new HashSet<EntityPlayer>();
 
 	@Override
@@ -44,5 +45,9 @@ public abstract class TileEntityProcessor extends TileEntity implements IPacketR
 
 	public int getWorkTicks(){
 		return this.workTicks;
+	}
+	
+	public boolean isUseableByPlayer(EntityPlayer player){
+		return this.worldObj.getBlockTileEntity(this.xCoord,this.yCoord,this.zCoord)!=this ? false : player.getDistanceSq(this.xCoord+0.5D,this.yCoord+0.5D,this.zCoord+0.5D)<=64.0D;
 	}
 }

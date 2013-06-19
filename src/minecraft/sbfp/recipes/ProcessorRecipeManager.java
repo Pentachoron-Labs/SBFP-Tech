@@ -11,7 +11,6 @@ public class ProcessorRecipeManager{
 	private HashMap<ItemStack, IMachineOutput> recipes;
 	
 	public ProcessorRecipeManager(){
-		FMLLog.info("Crusher Manager Loading");
 		instance = this;
 		recipes = new HashMap();
 	}
