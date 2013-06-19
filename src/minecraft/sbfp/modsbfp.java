@@ -85,16 +85,20 @@ public class modsbfp{
 
 	@Init
 	public void init(FMLInitializationEvent event){
-		FMLLog.info("SHAZAP!!!");
 		GameRegistry.registerBlock(blockOre,ItemBlockOre.class,"blockOre");
 		GameRegistry.registerBlock(blockMachine,ItemBlockMachine.class,"blockMachines");
+		
 		GameRegistry.registerTileEntity(TileEntitySolarCharger.class,"sunlightCollector");
+		
 		GameRegistry.registerItem(itemRedflux,"itemRedflux");
 		GameRegistry.registerItem(itemTractor,"itemSecret");
+		
 		MinecraftForge.setBlockHarvestLevel(blockOre, 0, "pickaxe", HarvestLevels.IRON.ordinal());
 		MinecraftForge.setBlockHarvestLevel(blockOre, 1, "pickaxe", HarvestLevels.STONE.ordinal());
 		MinecraftForge.setBlockHarvestLevel(blockOre, 2, "pickaxe", HarvestLevels.DIAMOND.ordinal());
 		MinecraftForge.setBlockHarvestLevel(blockOre, 3, "pickaxe", HarvestLevels.STONE.ordinal());
+		MinecraftForge.setBlockHarvestLevel(blockMachine,"pickaxe",HarvestLevels.IRON.ordinal());
+		
 		
 		EntityRegistry.registerModEntity(EntityTractor.class,"entityTractor",0,this,256,1,true);
 		GameRegistry.registerWorldGenerator(this.wGen);
