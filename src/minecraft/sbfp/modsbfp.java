@@ -22,7 +22,9 @@ import sbfp.recipes.CrusherOutput;
 import sbfp.recipes.ProcessorRecipeManager;
 import sbfp.tractor.EntityTractor;
 import sbfp.tractor.ItemTractor;
+import sbfp.world.BlockMethane;
 import sbfp.world.BlockOre;
+import sbfp.world.GeneratorMe;
 import sbfp.world.GeneratorOres;
 import sbfp.world.ItemBlockOre;
 import cpw.mods.fml.common.FMLLog;
@@ -57,7 +59,8 @@ public class modsbfp{
 	// mechanics constants
 	@Instance(modid)
 	private static modsbfp instance;
-	private final GeneratorOres wGen = new GeneratorOres();
+	private final GeneratorOres wgenOres = new GeneratorOres();
+	private final GeneratorMe wgenMe = new GeneratorMe();
 	private static final Configuration config = new Configuration(new File("config/SBFP/SBFP.cfg"));
 	private static final HashMap<String,HashMap<String,String>> lang = new HashMap<String,HashMap<String,String>>();
 
@@ -67,6 +70,7 @@ public class modsbfp{
 	// blocks and items (sort by ID please)
 	public static final BlockOre blockOre = new BlockOre(getBlockID("blockOreID",0x4c0),new String[]{"oreMonazite","oreFluorite","oreMolybdenite","oreRutile","oreCinnabar","oreLimonite","orePyrolusite","oreArsenopyrite"});
 	public static final BlockMachine blockMachine = new BlockMachine(getBlockID("blockMachinesID",0x4c1),new String[]{"solarCharger", "crusher"});
+	public static final BlockMethane blockMethane = new BlockMethane(getBlockID("blockMethaneID",0x4c2),new String[]{"methaneStill"});
 
 	public static final ItemRedflux itemRedflux = new ItemRedflux(getItemID("itemRedfluxID",0x4c00),new String[]{"redFluxAmp","redFluxAbsorber","redFluxStabilizer","chargedRedstone"});
 	public static final ItemDye itemDye = new ItemDye(getItemID("itemDyeID",0x4c01),new String[]{"dyeTiO2","dyeVermillion","dyeOchre","dyeUltramarine","dyeMnO2","dyeGreen","dyePurple","dyeOrange","dyeGrey"});
@@ -86,7 +90,8 @@ public class modsbfp{
 		GameRegistry.registerItem(itemRedflux,"itemRedflux");
 		GameRegistry.registerItem(itemTractor,"itemSecret");
 		EntityRegistry.registerModEntity(EntityTractor.class,"entitySecret",0,this,256,1,true);
-		GameRegistry.registerWorldGenerator(this.wGen);
+		GameRegistry.registerWorldGenerator(this.wgenOres);
+		GameRegistry.registerWorldGenerator(this.wgenMe);
 		NetworkRegistry.instance().registerGuiHandler(this,modsbfp.proxy);
 		for(int i = 0; i<blockOre.names.length; i++){
 			OreDictionary.registerOre(blockOre.names[i],new ItemStack(blockOre.blockID,1,i));
