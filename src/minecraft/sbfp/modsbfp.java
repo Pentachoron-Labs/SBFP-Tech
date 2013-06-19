@@ -12,6 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.StringTranslate;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.Property;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
 import sbfp.chemistry.ItemDye;
 import sbfp.machines.BlockMachine;
@@ -71,6 +72,11 @@ public class modsbfp{
 	public static final ItemRedflux itemRedflux = new ItemRedflux(getItemID("itemRedfluxID",0x4c00),new String[]{"redFluxAmp","redFluxAbsorber","redFluxStabilizer","chargedRedstone"});
 	public static final ItemDye itemDye = new ItemDye(getItemID("itemDyeID",0x4c01),new String[]{"dyeTiO2","dyeVermillion","dyeOchre","dyeUltramarine","dyeMnO2","dyeGreen","dyePurple","dyeOrange","dyeGrey"});
 	public static final ItemTractor itemTractor = new ItemTractor(getItemID("itemSecretID",0x4c02),"itemSecret");
+	
+	//For setting harvest levels of various blocks.
+	public enum HarvestLevels{
+		WOOD, STONE, IRON, DIAMOND
+	}
 
 	@PreInit
 	public void preInit(FMLPreInitializationEvent event){
@@ -85,7 +91,12 @@ public class modsbfp{
 		GameRegistry.registerTileEntity(TileEntitySolarCharger.class,"sunlightCollector");
 		GameRegistry.registerItem(itemRedflux,"itemRedflux");
 		GameRegistry.registerItem(itemTractor,"itemSecret");
-		EntityRegistry.registerModEntity(EntityTractor.class,"entitySecret",0,this,256,1,true);
+		MinecraftForge.setBlockHarvestLevel(blockOre, 0, "pickaxe", HarvestLevels.IRON.ordinal());
+		MinecraftForge.setBlockHarvestLevel(blockOre, 1, "pickaxe", HarvestLevels.STONE.ordinal());
+		MinecraftForge.setBlockHarvestLevel(blockOre, 2, "pickaxe", HarvestLevels.DIAMOND.ordinal());
+		MinecraftForge.setBlockHarvestLevel(blockOre, 3, "pickaxe", HarvestLevels.STONE.ordinal());
+		
+		EntityRegistry.registerModEntity(EntityTractor.class,"entityTractor",0,this,256,1,true);
 		GameRegistry.registerWorldGenerator(this.wGen);
 		NetworkRegistry.instance().registerGuiHandler(this,modsbfp.proxy);
 		for(int i = 0; i<blockOre.names.length; i++){
