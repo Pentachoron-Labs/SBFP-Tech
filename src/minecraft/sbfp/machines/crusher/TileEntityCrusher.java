@@ -1,12 +1,13 @@
 package sbfp.machines.crusher;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.util.StringTranslate;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
 import sbfp.machines.TileEntityProcessor;
+import sbfp.recipes.ProcessorRecipeManager;
 
 import com.google.common.io.ByteArrayDataInput;
 
@@ -16,10 +17,22 @@ public class TileEntityCrusher extends TileEntityProcessor implements IInventory
 	
 	public void updateEntity(){
 		super.updateEntity();
+		
+	}
+	private boolean canWorkSlot(int slot){
+		if(ProcessorRecipeManager.instance.getRecipe(this.inventory[slot]) == null) return false;
+		
+		return true;
 	}
 	@Override
-	public void handleData(INetworkManager network, int packetTypeID, Packet250CustomPayload packet, EntityPlayer entityPlayer, ByteArrayDataInput data){
-		// TODO Auto-generated method stub
+	public void handleData(INetworkManager network, int packetTypeID, Packet250CustomPayload packet, EntityPlayer entityPlayer, ByteArrayDataInput dataStream){
+		try{
+			if(this.worldObj.isRemote){
+				this.workTicks = dataStream.readInt();
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		
 	}
 
