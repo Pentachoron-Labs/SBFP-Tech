@@ -1,39 +1,63 @@
-package sbfp.machines.crusher;
+package sbfp.machines.processor.crusher;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.util.StringTranslate;
-import sbfp.machines.TileEntityProcessor;
-import sbfp.recipes.ProcessorRecipeManager;
+import sbfp.modsbfp;
+import sbfp.machines.Recipe;
+import sbfp.machines.processor.TileEntityProcessor;
 
 import com.google.common.io.ByteArrayDataInput;
 
-
 public class TileEntityCrusher extends TileEntityProcessor implements IInventory{
+
 	private ItemStack[] inventory = new ItemStack[10];
-	
-	public static final int maxWorkTicks = 15*20; // 15 seconds to crush things
+
 	public static final int maxChargeLevel = 100; // FOR NOW
-	
+
 	private int chargeLevel = 56;
-	
-	
-	public void updateEntity(){
-		super.updateEntity();
-		
+
+	@Override
+	protected void mergeOutputs(){
+		boolean b = this.container.mergeItemStack(this.waitingOutputs[0],40,42,false,false);
+		if(this.waitingOutputs.length==2){
+			this.container.mergeItemStack(this.waitingOutputs[1],42,44,false,false);
+		}
 	}
-	private boolean canWorkSlot(int slot){
-		if(ProcessorRecipeManager.instance.getRecipe(this.inventory[slot]) == null) return false;
-		
-		return true;
+
+	@Override
+	protected boolean dryMergeOutputsAndFeed(){
+		for(int i = 0; i<4; i++){
+			if(this.inventory[i]!=null){
+				this.activeRecipe = modsbfp.prmCrusher.getRecipe(this.inventory[i]);
+				this.waitingOutputs = this.activeRecipe.getOutputs(this);
+				boolean flag = true;
+				if(this.activeRecipe!=null){
+					flag = flag&&this.container.dryMerge(this.waitingOutputs[0],40,42,false)>=this.waitingOutputs[0].stackSize;
+					if(this.waitingOutputs.length==2){
+						flag = flag&&this.container.dryMerge(this.waitingOutputs[1],42,44,false)>=this.waitingOutputs[1].stackSize;
+					}
+					if(flag){
+						this.decrStackSize(i,this.activeRecipe.getInputs()[0].stackSize);
+						return true;
+					}
+				}
+			}
+		}
+		this.activeRecipe = null;
+		this.waitingOutputs = null;
+		return false;
 	}
-	
+
 	public int getChargeLevel(){
 		return this.chargeLevel;
 	}
+
 	@Override
 	public void handleData(INetworkManager network, int packetTypeID, Packet250CustomPayload packet, EntityPlayer entityPlayer, ByteArrayDataInput dataStream){
 		try{
@@ -43,7 +67,7 @@ public class TileEntityCrusher extends TileEntityProcessor implements IInventory
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	@Override
@@ -93,7 +117,7 @@ public class TileEntityCrusher extends TileEntityProcessor implements IInventory
 
 	@Override
 	public String getInvName(){
-		return StringTranslate.getInstance().translateKey("solarcharger.name");
+		return StringTranslate.getInstance().translateKey("crusher.name");
 	}
 
 	@Override
@@ -119,8 +143,39 @@ public class TileEntityCrusher extends TileEntityProcessor implements IInventory
 
 	@Override
 	public boolean isStackValidForSlot(int i, ItemStack is){
-		return true;
-		//return this.container.getSlot(0).isItemValid(is);
+		return this.container.getSlot(i).isItemValid(is);
 	}
 
+	@Override
+	public void writeToNBT(NBTTagCompound tagCompound){
+		super.writeToNBT(tagCompound);
+		NBTTagList tagList = new NBTTagList();
+		for(int i = 0; i<this.inventory.length; ++i){
+			if(this.inventory[i]!=null){
+				NBTTagCompound ntc3 = new NBTTagCompound();
+				ntc3.setByte("slot",(byte) i);
+				this.inventory[i].writeToNBT(ntc3);
+				tagList.appendTag(ntc3);
+			}
+		}
+		tagCompound.setTag("items",tagList);
+	}
+
+	@Override
+	public void readFromNBT(NBTTagCompound tagCompound){
+		super.readFromNBT(tagCompound);
+		NBTTagList var2 = tagCompound.getTagList("items");
+		for(int i = 0; i<var2.tagCount(); ++i){
+			NBTTagCompound ntc3 = (NBTTagCompound) var2.tagAt(i);
+			byte slot = ntc3.getByte("slot");
+			if(slot>=0&&slot<this.inventory.length){
+				this.inventory[slot] = ItemStack.loadItemStackFromNBT(ntc3);
+			}
+		}
+	}
+
+	@Override
+	protected Recipe getRecipeByID(int i){
+		return modsbfp.prmCrusher.getRecipeByID(i);
+	}
 }

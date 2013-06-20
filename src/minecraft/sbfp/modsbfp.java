@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 import net.minecraft.block.Block;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StringTranslate;
 import net.minecraftforge.common.Configuration;
@@ -18,10 +19,11 @@ import sbfp.chemistry.ItemDye;
 import sbfp.machines.BlockMachine;
 import sbfp.machines.ItemBlockMachine;
 import sbfp.machines.ItemRedflux;
-import sbfp.machines.crusher.TileEntityCrusher;
-import sbfp.machines.solar.TileEntitySolarCharger;
-import sbfp.recipes.CrusherOutput;
-import sbfp.recipes.ProcessorRecipeManager;
+import sbfp.machines.processor.ProcessorRecipeManager;
+import sbfp.machines.processor.crusher.RecipeCrusher;
+import sbfp.machines.processor.crusher.TileEntityCrusher;
+import sbfp.machines.processor.solar.RecipeSolar;
+import sbfp.machines.processor.solar.TileEntitySolarCharger;
 import sbfp.tractor.EntityTractor;
 import sbfp.tractor.ItemTractor;
 import sbfp.world.BlockOre;
@@ -67,12 +69,15 @@ public class modsbfp{
 
 	// blocks and items (sort by ID please)
 	public static final BlockOre blockOre = new BlockOre(getBlockID("blockOreID",0x4c0),new String[]{"oreMonazite","oreFluorite","oreMolybdenite","oreRutile","oreCinnabar","oreLimonite","orePyrolusite","oreArsenopyrite"});
-	public static final BlockMachine blockMachine = new BlockMachine(getBlockID("blockMachinesID",0x4c1),new String[]{"solarCharger", "crusher"});
+	public static final BlockMachine blockMachine = new BlockMachine(getBlockID("blockMachinesID",0x4c1),new String[]{"solarCharger","crusher"});
 
 	public static final ItemRedflux itemRedflux = new ItemRedflux(getItemID("itemRedfluxID",0x4c00),new String[]{"redFluxAmp","redFluxAbsorber","redFluxStabilizer","chargedRedstone"});
 	public static final ItemDye itemDye = new ItemDye(getItemID("itemDyeID",0x4c01),new String[]{"dyeTiO2","dyeVermillion","dyeOchre","dyeUltramarine","dyeMnO2","dyeGreen","dyePurple","dyeOrange","dyeGrey"});
 	public static final ItemTractor itemTractor = new ItemTractor(getItemID("itemSecretID",0x4c02),"itemSecret");
-	
+
+	public static final ProcessorRecipeManager<TileEntitySolarCharger> prmSolar = new ProcessorRecipeManager<TileEntitySolarCharger>();
+	public static final ProcessorRecipeManager<TileEntityCrusher> prmCrusher = new ProcessorRecipeManager<TileEntityCrusher>();
+
 	//For setting harvest levels of various blocks.
 	public enum HarvestLevels{
 		WOOD, STONE, IRON, DIAMOND
@@ -87,27 +92,25 @@ public class modsbfp{
 	public void init(FMLInitializationEvent event){
 		GameRegistry.registerBlock(blockOre,ItemBlockOre.class,"blockOre");
 		GameRegistry.registerBlock(blockMachine,ItemBlockMachine.class,"blockMachines");
-		
+
 		GameRegistry.registerTileEntity(TileEntitySolarCharger.class,"sunlightCollector");
 		GameRegistry.registerTileEntity(TileEntityCrusher.class,"crusher");
-		
+
 		GameRegistry.registerItem(itemRedflux,"itemRedflux");
 		GameRegistry.registerItem(itemTractor,"itemSecret");
-		
-		MinecraftForge.setBlockHarvestLevel(blockOre, 0, "pickaxe", HarvestLevels.IRON.ordinal());
-		MinecraftForge.setBlockHarvestLevel(blockOre, 1, "pickaxe", HarvestLevels.STONE.ordinal());
-		MinecraftForge.setBlockHarvestLevel(blockOre, 2, "pickaxe", HarvestLevels.DIAMOND.ordinal());
-		MinecraftForge.setBlockHarvestLevel(blockOre, 3, "pickaxe", HarvestLevels.STONE.ordinal());
+
+		MinecraftForge.setBlockHarvestLevel(blockOre,0,"pickaxe",HarvestLevels.IRON.ordinal());
+		MinecraftForge.setBlockHarvestLevel(blockOre,1,"pickaxe",HarvestLevels.STONE.ordinal());
+		MinecraftForge.setBlockHarvestLevel(blockOre,2,"pickaxe",HarvestLevels.DIAMOND.ordinal());
+		MinecraftForge.setBlockHarvestLevel(blockOre,3,"pickaxe",HarvestLevels.STONE.ordinal());
 		MinecraftForge.setBlockHarvestLevel(blockMachine,"pickaxe",HarvestLevels.IRON.ordinal());
-		
-		
+
 		EntityRegistry.registerModEntity(EntityTractor.class,"entityTractor",0,this,256,1,true);
 		GameRegistry.registerWorldGenerator(this.wGen);
 		NetworkRegistry.instance().registerGuiHandler(this,modsbfp.proxy);
 		for(int i = 0; i<blockOre.names.length; i++){
 			OreDictionary.registerOre(blockOre.names[i],new ItemStack(blockOre.blockID,1,i));
 		}
-		new ProcessorRecipeManager().initialize();
 		this.addRecipes();
 		modsbfp.instance.loadLang();
 		proxy.init();
@@ -142,10 +145,10 @@ public class modsbfp{
 		GameRegistry.addShapelessRecipe(new ItemStack(itemDye,2,6),new ItemStack(itemDye,1,1),new ItemStack(itemDye,1,3));
 		GameRegistry.addShapelessRecipe(new ItemStack(itemDye,2,7),new ItemStack(itemDye,1,1),new ItemStack(itemDye,1,2));
 		GameRegistry.addShapelessRecipe(new ItemStack(itemDye,2,8),new ItemStack(itemDye,1,0),new ItemStack(itemDye,1,4));
-		
-		ProcessorRecipeManager.instance.addRecipe(new ItemStack(Block.stone, 1), new CrusherOutput(new ItemStack(Block.cobblestone, 1)));
-		ProcessorRecipeManager.instance.addRecipe(new ItemStack(Block.cobblestone, 1), new CrusherOutput(new ItemStack(Block.gravel, 1)));
-		ProcessorRecipeManager.instance.addRecipe(new ItemStack(Block.gravel, 1), new CrusherOutput(new ItemStack(Block.sand, 1)));
+		prmSolar.addRecipe(new RecipeSolar(new ItemStack(Item.redstone,1),new ItemStack(itemRedflux,1,3),45*20));
+		prmCrusher.addRecipe(new RecipeCrusher(new ItemStack(Block.stone,1),new ItemStack(Block.cobblestone,1),15*20));
+		prmCrusher.addRecipe(new RecipeCrusher(new ItemStack(Block.cobblestone,1),new ItemStack(Block.gravel,1),15*20));
+		prmCrusher.addRecipe(new RecipeCrusher(new ItemStack(Block.gravel,1),new ItemStack(Block.sand,1),15*20));
 	}
 
 	private static int getBlockID(String name, int defaultid){

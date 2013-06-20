@@ -1,4 +1,4 @@
-package sbfp.machines.solar;
+package sbfp.machines.processor.solar;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -9,62 +9,44 @@ import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.util.StringTranslate;
 import sbfp.modsbfp;
-import sbfp.machines.TileEntityProcessor;
+import sbfp.machines.Recipe;
+import sbfp.machines.processor.TileEntityProcessor;
 
 import com.google.common.io.ByteArrayDataInput;
-
-import cpw.mods.fml.common.FMLLog;
 
 public class TileEntitySolarCharger extends TileEntityProcessor implements IInventory{
 
 	private ItemStack[] inventory = new ItemStack[8];
-	private boolean hasItem = false;
-	public static final int maxWorkTicks = 45*20; // 45 Seconds to make 1 piece of charged redstone
-	private ItemStack waitingOutput = new ItemStack(modsbfp.itemRedflux,1,3);
-	ContainerSolarCharger container;
 
 	@Override
-	public void updateEntity(){
-		super.updateEntity();
-		if(!this.worldObj.canBlockSeeTheSky(xCoord,yCoord,zCoord)) return;
-		if(this.hasItem){
-			this.workTicks++;
-			if(this.workTicks==maxWorkTicks){
-				this.workTicks = 0;
-				this.container.mergeItemStack(this.waitingOutput.copy(),4,8,false);
-				this.hasItem = false;
-			}
-		}
-		try{
-			if(!this.hasItem&&this.container.dryMerge(this.waitingOutput.copy(),4,8,false)>=this.waitingOutput.stackSize){
-				for(int i = 0; i<4; i++){
-					if(this.inventory[i]!=null){
-						this.inventory[i].stackSize--;
-						if(this.inventory[i].stackSize<=0){
-							this.inventory[i] = null;
-						}
-						this.hasItem = true;
-						break;
+	protected void mergeOutputs(){
+		this.container.mergeItemStack(this.waitingOutputs[0],40,44,false,false);
+	}
+
+	@Override
+	protected boolean dryMergeOutputsAndFeed(){
+		for(int i = 0; i<4; i++){
+			if(this.inventory[i]!=null){
+				this.activeRecipe = modsbfp.prmSolar.getRecipe(this.inventory[i]);
+				this.waitingOutputs = this.activeRecipe.getOutputs(this);
+				if(this.activeRecipe!=null){
+					if(this.container.dryMerge(this.waitingOutputs[0],40,44,false)>=this.waitingOutputs[0].stackSize){
+						this.decrStackSize(i,this.activeRecipe.getInputs()[0].stackSize);
+						return true;
 					}
 				}
 			}
-		}catch(NullPointerException e){
-			if(this.container==null){
-				if(!this.playersUsing.isEmpty()){
-					FMLLog.warning("The TileSolarCharger.container at (%d,%d,%d) is null on side %s!",xCoord,yCoord,zCoord,this.worldObj.isRemote ? "client" : "server");
-					FMLLog.warning("Players using: %s",this.playersUsing.toArray());
-				}
-				return;
-			}else throw new RuntimeException(e);
 		}
+		this.activeRecipe = null;
+		this.waitingOutputs = null;
+		return false;
 	}
 
-	private boolean hasOutputRoom(ItemStack output){
-		for(int i = 4; i<8; i++){
-			if(this.inventory[i]==null) return true;
-			if(this.inventory[i].itemID==output.itemID&&this.inventory[i].getItemDamage()==output.getItemDamage()&&this.inventory[i].stackSize+output.stackSize<output.getItem().getItemStackLimit()) return true;
+	@Override
+	public void updateEntity(){
+		if(this.worldObj.canBlockSeeTheSky(xCoord,yCoord,zCoord)){
+			super.updateEntity();
 		}
-		return false;
 	}
 
 	@Override
@@ -151,18 +133,12 @@ public class TileEntitySolarCharger extends TileEntityProcessor implements IInve
 
 	@Override
 	public boolean isStackValidForSlot(int i, ItemStack is){
-		return this.container.getSlot(0).isItemValid(is);
+		return this.container.getSlot(i).isItemValid(is);
 	}
 
 	@Override
 	public void writeToNBT(NBTTagCompound tagCompound){
 		super.writeToNBT(tagCompound);
-		tagCompound.setInteger("workTicks",workTicks);
-		if(this.waitingOutput!=null){
-			NBTTagCompound ntc2 = new NBTTagCompound();
-			this.waitingOutput.writeToNBT(ntc2);
-			tagCompound.setTag("waitingOutput",ntc2);
-		}
 		NBTTagList tagList = new NBTTagList();
 		for(int i = 0; i<this.inventory.length; ++i){
 			if(this.inventory[i]!=null){
@@ -179,8 +155,6 @@ public class TileEntitySolarCharger extends TileEntityProcessor implements IInve
 	public void readFromNBT(NBTTagCompound tagCompound){
 		super.readFromNBT(tagCompound);
 		this.workTicks = tagCompound.getInteger("workTicks");
-		NBTTagCompound ntc2 = tagCompound.getCompoundTag("waitingOutput");
-		this.waitingOutput = ItemStack.loadItemStackFromNBT(ntc2);
 		NBTTagList var2 = tagCompound.getTagList("items");
 		for(int i = 0; i<var2.tagCount(); ++i){
 			NBTTagCompound ntc3 = (NBTTagCompound) var2.tagAt(i);
@@ -189,5 +163,10 @@ public class TileEntitySolarCharger extends TileEntityProcessor implements IInve
 				this.inventory[slot] = ItemStack.loadItemStackFromNBT(ntc3);
 			}
 		}
+	}
+
+	@Override
+	protected Recipe getRecipeByID(int i){
+		return modsbfp.prmSolar.getRecipeByID(i);
 	}
 }

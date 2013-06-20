@@ -18,8 +18,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 import sbfp.BlockSub;
 import sbfp.modsbfp;
-import sbfp.machines.crusher.TileEntityCrusher;
-import sbfp.machines.solar.TileEntitySolarCharger;
+import sbfp.machines.processor.crusher.TileEntityCrusher;
+import sbfp.machines.processor.solar.TileEntitySolarCharger;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -46,9 +46,9 @@ public class BlockMachine extends BlockSub implements ITileEntityProvider{
 	}
 
 	@Override
-	public void breakBlock(World world, int x, int y, int z, int par5, int par6){
-		this.dropEntireInventory(world,x,y,z,par5,par6);
-		super.breakBlock(world,x,y,z,par5,par6);
+	public void breakBlock(World world, int x, int y, int z, int id, int meta){
+		this.dropEntireInventory(world,x,y,z,id,meta);
+		super.breakBlock(world,x,y,z,id,meta);
 	}
 
 	/**
@@ -57,45 +57,36 @@ public class BlockMachine extends BlockSub implements ITileEntityProvider{
 	 * @param x
 	 * @param y
 	 * @param z
-	 * @param par5 Necessary for vanilla minecraft code to not crash, don't know
-	 * what it's for.
-	 * @param par6 Ditto
+	 * @param id block ID (seems unnecessary)
+	 * @param metadata block meta
 	 */
-	public void dropEntireInventory(World world, int x, int y, int z, int par5, int par6){
+	public void dropEntireInventory(World world, int x, int y, int z, int id, int metadata){
 		TileEntity tileEntity = world.getBlockTileEntity(x,y,z);
-
 		if(tileEntity!=null){
 			if(tileEntity instanceof IInventory){
 				IInventory inventory = (IInventory) tileEntity;
-
-				for(int var6 = 0; var6<inventory.getSizeInventory(); ++var6){
-					ItemStack var7 = inventory.getStackInSlot(var6);
-
-					if(var7!=null){
+				for(int i = 0; i<inventory.getSizeInventory(); ++i){
+					ItemStack stack = inventory.getStackInSlot(i);
+					if(stack!=null){
 						Random random = new Random();
-						float var8 = random.nextFloat()*0.8F+0.1F;
-						float var9 = random.nextFloat()*0.8F+0.1F;
-						float var10 = random.nextFloat()*0.8F+0.1F;
-
-						while(var7.stackSize>0){
-							int var11 = random.nextInt(21)+10;
-
-							if(var11>var7.stackSize){
-								var11 = var7.stackSize;
+						float sx = random.nextFloat()*0.8F+0.1F;
+						float sy = random.nextFloat()*0.8F+0.1F;
+						float sz = random.nextFloat()*0.8F+0.1F;
+						while(stack.stackSize>0){
+							int qty = random.nextInt(21)+10;
+							if(qty>stack.stackSize){
+								qty = stack.stackSize;
 							}
-
-							var7.stackSize -= var11;
-							EntityItem var12 = new EntityItem(world,x+var8,y+var9,z+var10,new ItemStack(var7.itemID,var11,var7.getItemDamage()));
-
-							if(var7.hasTagCompound()){
-								var12.getEntityItem().setTagCompound((NBTTagCompound) var7.getTagCompound().copy());
+							stack.stackSize -= qty;
+							EntityItem eitem = new EntityItem(world,x+sx,y+sy,z+sz,new ItemStack(stack.itemID,qty,stack.getItemDamage()));
+							if(stack.hasTagCompound()){
+								eitem.getEntityItem().setTagCompound((NBTTagCompound) stack.getTagCompound().copy());
 							}
-
-							float var13 = 0.05F;
-							var12.motionX = (float) random.nextGaussian()*var13;
-							var12.motionY = (float) random.nextGaussian()*var13+0.2F;
-							var12.motionZ = (float) random.nextGaussian()*var13;
-							world.spawnEntityInWorld(var12);
+							float displacement = 0.05F;
+							eitem.motionX = (float) random.nextGaussian()*displacement;
+							eitem.motionY = (float) random.nextGaussian()*displacement+0.2F;
+							eitem.motionZ = (float) random.nextGaussian()*displacement;
+							world.spawnEntityInWorld(eitem);
 						}
 					}
 				}
@@ -106,7 +97,6 @@ public class BlockMachine extends BlockSub implements ITileEntityProvider{
 	@Override
 	public ArrayList<ItemStack> getBlockDropped(World w, int x, int y, int z, int metadata, int fortune){
 		ArrayList<ItemStack> q = new ArrayList<ItemStack>();
-		// insert pick code
 		q.add(new ItemStack(this.blockID,1,metadata));
 		return q;
 	}
@@ -115,14 +105,11 @@ public class BlockMachine extends BlockSub implements ITileEntityProvider{
 	@SideOnly(Side.CLIENT)
 	public Icon getIcon(int side, int meta){
 		return icons[meta][side];
-		
 		//TODO Make machines rotate
 	}
 
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityPlayer, int side, float hitX, float hitY, float hitZ){
-		//FMLLog.info("Block Activated");
-		// System.out.println("Client Side");
 		if(!entityPlayer.isSneaking()){
 			entityPlayer.openGui(modsbfp.getInstance(),-1,world,x,y,z);
 			return true;
@@ -133,12 +120,13 @@ public class BlockMachine extends BlockSub implements ITileEntityProvider{
 
 	@Override
 	public TileEntity createTileEntity(World w, int meta){
-		FMLLog.info("Meta is "+meta);
 		switch(meta){
-			case 0:	FMLLog.info("Made Solar Charger"); return new TileEntitySolarCharger(); //Flux Infuser
-			case 1: FMLLog.info("Made Crusher"); return new TileEntityCrusher(); //Crusher
+			case 0:
+				return new TileEntitySolarCharger(); //Flux Infuser
+			case 1:
+				return new TileEntityCrusher(); //Crusher
 		}
-		FMLLog.info("Metadata is not 0 or 1");
+		FMLLog.warning("Tried to make a TileEntityProcessor but the metadata was %d. What gives?",meta);
 		return null;
 	}
 
@@ -149,8 +137,6 @@ public class BlockMachine extends BlockSub implements ITileEntityProvider{
 
 	@Override
 	public TileEntity createNewTileEntity(World world){
-		//Is this necessary?
 		return null;
 	}
-
 }

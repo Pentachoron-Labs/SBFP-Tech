@@ -1,20 +1,16 @@
 package sbfp.client;
 
-import net.minecraft.entity.player.InventoryPlayer;
-
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 
 import org.lwjgl.opengl.GL11;
 
 import sbfp.modsbfp;
-import sbfp.machines.crusher.ContainerCrusher;
-import sbfp.machines.crusher.TileEntityCrusher;
-import sbfp.machines.solar.ContainerSolarCharger;
-import sbfp.machines.solar.TileEntitySolarCharger;
-
+import sbfp.machines.processor.crusher.ContainerCrusher;
+import sbfp.machines.processor.crusher.TileEntityCrusher;
 
 public class GUICrusher extends GuiContainer{
+
 	private TileEntityCrusher tileEntity;
 	private int containerWidth;
 	private int containerHeight;
@@ -37,20 +33,21 @@ public class GUICrusher extends GuiContainer{
 		containerWidth = (this.width-this.xSize)/2;
 		containerHeight = (this.height-this.ySize)/2;
 		this.drawTexturedModalRect(containerWidth,containerHeight,0,0,this.xSize,this.ySize);
-		this.drawTexturedModalRect(this.containerWidth+47,this.containerHeight+39,176,0,29,12*this.tileEntity.workTicks/TileEntityCrusher.maxWorkTicks);
-		int drawHeight = 52 - 12*this.tileEntity.workTicks/TileEntityCrusher.maxWorkTicks;
-		int sourceHeight = 23 - 12*this.tileEntity.workTicks/TileEntityCrusher.maxWorkTicks;
-		this.drawTexturedModalRect(this.containerWidth+47,this.containerHeight+drawHeight,176,sourceHeight,29,23-sourceHeight);
-		
-		if(this.tileEntity.getChargeLevel() <= TileEntityCrusher.maxChargeLevel/3 && this.tileEntity.getChargeLevel() != 0){
+		if(tileEntity.activeRecipe!=null){
+			this.drawTexturedModalRect(this.containerWidth+47,this.containerHeight+39,176,0,29,12*this.tileEntity.workTicks/tileEntity.activeRecipe.getTime());
+			int drawHeight = 52-12*this.tileEntity.workTicks/tileEntity.activeRecipe.getTime();
+			int sourceHeight = 23-12*this.tileEntity.workTicks/tileEntity.activeRecipe.getTime();
+			this.drawTexturedModalRect(this.containerWidth+47,this.containerHeight+drawHeight,176,sourceHeight,29,23-sourceHeight);
+		}
+		if(this.tileEntity.getChargeLevel()<=TileEntityCrusher.maxChargeLevel/3&&this.tileEntity.getChargeLevel()!=0){
 			this.drawTexturedModalRect(this.containerWidth+140,this.containerHeight+10,205,0,11,10);
-		}else if(this.tileEntity.getChargeLevel() <= TileEntityCrusher.maxChargeLevel * (2/3)){
+		}else if(this.tileEntity.getChargeLevel()<=TileEntityCrusher.maxChargeLevel*(2/3)){
 			this.drawTexturedModalRect(this.containerWidth+140,this.containerHeight+10,205,11,11,10);
-		}else if(this.tileEntity.getChargeLevel() > TileEntityCrusher.maxChargeLevel*(2/3)){
+		}else if(this.tileEntity.getChargeLevel()>TileEntityCrusher.maxChargeLevel*(2/3)){
 			this.drawTexturedModalRect(this.containerWidth+140,this.containerHeight+10,205,22,11,10);
 		}
-		drawHeight = 113 - 89*(this.tileEntity.getChargeLevel()/TileEntityCrusher.maxChargeLevel);
-		sourceHeight = 89 - 89*(this.tileEntity.getChargeLevel()/TileEntityCrusher.maxChargeLevel);
+		int drawHeight = 113-89*(this.tileEntity.getChargeLevel()/TileEntityCrusher.maxChargeLevel);
+		int sourceHeight = 89-89*(this.tileEntity.getChargeLevel()/TileEntityCrusher.maxChargeLevel);
 		this.drawTexturedModalRect(this.containerWidth+144,this.containerHeight+drawHeight,217,sourceHeight,4,89-sourceHeight);
 	}
 

@@ -1,6 +1,5 @@
 package sbfp.client;
 
-import net.minecraft.client.model.ModelBoat;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
 
