@@ -18,6 +18,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import sbfp.chemistry.ItemDye;
 import sbfp.machines.BlockMachine;
 import sbfp.machines.ItemBlockMachine;
+import sbfp.machines.ItemChargedRedstone;
 import sbfp.machines.ItemRedflux;
 import sbfp.machines.processor.ProcessorRecipeManager;
 import sbfp.machines.processor.crusher.RecipeCrusher;
@@ -71,10 +72,10 @@ public class modsbfp{
 	public static final BlockOre blockOre = new BlockOre(getBlockID("blockOreID",0x4c0),new String[]{"oreMonazite","oreFluorite","oreMolybdenite","oreRutile","oreCinnabar","oreLimonite","orePyrolusite","oreArsenopyrite"});
 	public static final BlockMachine blockMachine = new BlockMachine(getBlockID("blockMachinesID",0x4c1),new String[]{"solarCharger","crusher"});
 
-	public static final ItemRedflux itemRedflux = new ItemRedflux(getItemID("itemRedfluxID",0x4c00),new String[]{"redFluxAmp","redFluxAbsorber","redFluxStabilizer","chargedRedstone"});
+	public static final ItemRedflux itemFluxTools = new ItemRedflux(getItemID("itemRedfluxID",0x4c00),new String[]{"redFluxAmp","redFluxAbsorber","redFluxStabilizer"});
 	public static final ItemDye itemDye = new ItemDye(getItemID("itemDyeID",0x4c01),new String[]{"dyeTiO2","dyeVermillion","dyeOchre","dyeUltramarine","dyeMnO2","dyeGreen","dyePurple","dyeOrange","dyeGrey"});
 	public static final ItemTractor itemTractor = new ItemTractor(getItemID("itemSecretID",0x4c02),"itemSecret");
-
+	public static final ItemChargedRedstone itemFlux = new ItemChargedRedstone(getItemID("itemChargedRedstoneID", 0x4c03), new String[]{"redFlux", "orangeFlux", "yellowFlux"});
 	public static final ProcessorRecipeManager<TileEntitySolarCharger> prmSolar = new ProcessorRecipeManager<TileEntitySolarCharger>();
 	public static final ProcessorRecipeManager<TileEntityCrusher> prmCrusher = new ProcessorRecipeManager<TileEntityCrusher>();
 
@@ -96,7 +97,7 @@ public class modsbfp{
 		GameRegistry.registerTileEntity(TileEntitySolarCharger.class,"sunlightCollector");
 		GameRegistry.registerTileEntity(TileEntityCrusher.class,"crusher");
 
-		GameRegistry.registerItem(itemRedflux,"itemRedflux");
+		GameRegistry.registerItem(itemFluxTools,"itemRedflux");
 		GameRegistry.registerItem(itemTractor,"itemSecret");
 
 		MinecraftForge.setBlockHarvestLevel(blockOre,0,"pickaxe",HarvestLevels.IRON.ordinal());
@@ -147,17 +148,17 @@ public class modsbfp{
 		GameRegistry.addShapelessRecipe(new ItemStack(itemDye,2,8),new ItemStack(itemDye,1,0),new ItemStack(itemDye,1,4));
 		
 		//Redflux Amplifier
-		GameRegistry.addRecipe(new ItemStack(itemRedflux, 1, 0), new Object[] { "IGI", "GRG", "IGI", 'I', Item.ingotIron, 'G', Item.ingotGold, 'R', Item.redstone});
+		GameRegistry.addRecipe(new ItemStack(itemFluxTools, 1, 0), new Object[] { "IGI", "GRG", "IGI", 'I', Item.ingotIron, 'G', Item.ingotGold, 'R', Item.redstone});
 		//Redflux Absorber
-		GameRegistry.addRecipe(new ItemStack(itemRedflux, 1, 1), new Object[] { "GgG", "gRg", "GgG", 'G', Block.glass, 'g', Item.ingotGold, 'R', Item.redstoneRepeater});
+		GameRegistry.addRecipe(new ItemStack(itemFluxTools, 1, 1), new Object[] { "GgG", "gRg", "GgG", 'G', Block.glass, 'g', Item.ingotGold, 'R', Item.redstoneRepeater});
 		//Stabilizer
-		GameRegistry.addRecipe(new ItemStack(itemRedflux, 1, 2), new Object[] { "RIR", "GAG", "IrI", 'A', new ItemStack(itemRedflux, 1, 1), 'R', Item.redstone, 'r', Item.redstoneRepeater, 'G', Item.ingotGold, 'I', Item.ingotIron});
+		GameRegistry.addRecipe(new ItemStack(itemFluxTools, 1, 2), new Object[] { "RIR", "GAG", "IrI", 'A', new ItemStack(itemFluxTools, 1, 1), 'R', Item.redstone, 'r', Item.redstoneRepeater, 'G', Item.ingotGold, 'I', Item.ingotIron});
 		//Infuser
-		GameRegistry.addRecipe(new ItemStack(blockMachine, 1, 0), new Object[] { "GGG", "IAI", "IRI", 'G', Block.glass, 'I', Item.ingotIron, 'R', Item.redstone, 'A', new ItemStack(itemRedflux, 1, 0)});
+		GameRegistry.addRecipe(new ItemStack(blockMachine, 1, 0), new Object[] { "GGG", "IAI", "IRI", 'G', Block.glass, 'I', Item.ingotIron, 'R', Item.redstone, 'A', new ItemStack(itemFluxTools, 1, 0)});
 		//Crusher
-		GameRegistry.addRecipe(new ItemStack(blockMachine, 1, 1), new Object[] { " I ", "PAP", "RaR", 'I', Block.blockIron, 'P', Block.pistonBase, 'A', new ItemStack(itemRedflux, 1, 1), 'a', Block.anvil, 'R', Item.redstone});
+		GameRegistry.addRecipe(new ItemStack(blockMachine, 1, 1), new Object[] { " I ", "PAP", "RaR", 'I', Block.blockIron, 'P', Block.pistonBase, 'A', new ItemStack(itemFluxTools, 1, 1), 'a', Block.anvil, 'R', Item.redstone});
 		
-		prmSolar.addRecipe(new RecipeSolar(new ItemStack(Item.redstone,1),new ItemStack(itemRedflux,1,3),45*20));
+		prmSolar.addRecipe(new RecipeSolar(new ItemStack(Item.redstone,1),new ItemStack(itemFlux,1,0),50*20));
 		prmCrusher.addRecipe(new RecipeCrusher(new ItemStack(Block.stone,1),new ItemStack(Block.cobblestone,1),15*20));
 		prmCrusher.addRecipe(new RecipeCrusher(new ItemStack(Block.cobblestone,1),new ItemStack(Block.gravel,1),15*20));
 		prmCrusher.addRecipe(new RecipeCrusher(new ItemStack(Block.gravel,1),new ItemStack(Block.sand,1),15*20));

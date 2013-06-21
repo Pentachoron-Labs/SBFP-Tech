@@ -20,7 +20,7 @@ public class TileEntityCrusher extends TileEntityProcessor implements IInventory
 
 	public static final int maxChargeLevel = 100; // FOR NOW
 
-	private int powerLevel = 56;
+	private int powerLevel = 0;
 
 	@Override
 	protected void mergeOutputs(){
