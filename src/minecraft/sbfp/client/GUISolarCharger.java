@@ -6,8 +6,8 @@ import net.minecraft.entity.player.InventoryPlayer;
 import org.lwjgl.opengl.GL11;
 
 import sbfp.modsbfp;
-import sbfp.machines.solar.ContainerSolarCharger;
-import sbfp.machines.solar.TileEntitySolarCharger;
+import sbfp.machines.processor.solar.ContainerSolarCharger;
+import sbfp.machines.processor.solar.TileEntitySolarCharger;
 
 public class GUISolarCharger extends GuiContainer{
 
@@ -33,7 +33,9 @@ public class GUISolarCharger extends GuiContainer{
 		containerWidth = (this.width-this.xSize)/2;
 		containerHeight = (this.height-this.ySize)/2;
 		this.drawTexturedModalRect(containerWidth,containerHeight,0,0,this.xSize,this.ySize);
-		this.drawTexturedModalRect(this.containerWidth+48,this.containerHeight+47,177,0,79*this.tileEntity.workTicks/TileEntitySolarCharger.maxWorkTicks,5);
+		if(tileEntity.activeRecipe!=null){
+			this.drawTexturedModalRect(this.containerWidth+48,this.containerHeight+47,177,0,79*this.tileEntity.workTicks/tileEntity.activeRecipe.getTime(),5);
+		}
 	}
 
 	@Override

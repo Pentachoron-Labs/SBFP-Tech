@@ -16,8 +16,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class EntityTractor extends Entity{
 
 	private static final double speed = 0.1;
-	private static final double modelmaxX = (7/16.),modelmaxY = (10/16.), modelmaxZ = (10/16.);
-	private static final double modelminX = (-34/16.), modelminY = (-2/16.), modelminZ = (-8/16.);
+	private static final double modelmaxX = 7/16., modelmaxY = 10/16., modelmaxZ = 10/16.;
+	private static final double modelminX = -34/16., modelminY = -2/16., modelminZ = -8/16.;
 	protected double tractorX, tractorY, tractorZ, tractorYaw, tractorPitch;
 	@SideOnly(Side.CLIENT)
 	protected double velX, velY, velZ;
@@ -93,7 +93,7 @@ public class EntityTractor extends Entity{
 		this.prevPosZ = this.posZ;
 		this.motionY -= 1/32.;
 		this.moveEntity(this.motionX,this.motionY,this.motionZ);
-		if(this.riddenByEntity != null){
+		if(this.riddenByEntity!=null){
 			if(Keyboard.isKeyDown(Keyboard.KEY_W)){
 				this.motionX = Math.cos(this.rotationYaw)*speed;
 				this.motionZ = Math.sin(this.rotationYaw)*speed;

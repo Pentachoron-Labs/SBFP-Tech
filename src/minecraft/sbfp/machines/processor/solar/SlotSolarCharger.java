@@ -1,4 +1,4 @@
-package sbfp.machines.solar;
+package sbfp.machines.processor.solar;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
