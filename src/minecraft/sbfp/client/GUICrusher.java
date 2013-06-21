@@ -34,20 +34,20 @@ public class GUICrusher extends GuiContainer{
 		containerHeight = (this.height-this.ySize)/2;
 		this.drawTexturedModalRect(containerWidth,containerHeight,0,0,this.xSize,this.ySize);
 		if(tileEntity.activeRecipe!=null){
-			this.drawTexturedModalRect(this.containerWidth+47,this.containerHeight+39,176,0,29,12*this.tileEntity.workTicks/tileEntity.activeRecipe.getTime());
-			int drawHeight = 52-12*this.tileEntity.workTicks/tileEntity.activeRecipe.getTime();
+			this.drawTexturedModalRect(this.containerWidth+47,this.containerHeight+29,176,0,29,12*this.tileEntity.workTicks/tileEntity.activeRecipe.getTime());
+			int drawHeight = 53-12*this.tileEntity.workTicks/tileEntity.activeRecipe.getTime();
 			int sourceHeight = 23-12*this.tileEntity.workTicks/tileEntity.activeRecipe.getTime();
 			this.drawTexturedModalRect(this.containerWidth+47,this.containerHeight+drawHeight,176,sourceHeight,29,23-sourceHeight);
 		}
-		if(this.tileEntity.getChargeLevel()<=TileEntityCrusher.maxChargeLevel/3&&this.tileEntity.getChargeLevel()!=0){
-			this.drawTexturedModalRect(this.containerWidth+140,this.containerHeight+10,205,0,11,10);
-		}else if(this.tileEntity.getChargeLevel()<=TileEntityCrusher.maxChargeLevel*(2/3)){
-			this.drawTexturedModalRect(this.containerWidth+140,this.containerHeight+10,205,11,11,10);
-		}else if(this.tileEntity.getChargeLevel()>TileEntityCrusher.maxChargeLevel*(2/3)){
-			this.drawTexturedModalRect(this.containerWidth+140,this.containerHeight+10,205,22,11,10);
+		if(this.tileEntity.getPowerLevel()<=TileEntityCrusher.maxChargeLevel/3&&this.tileEntity.getPowerLevel()!=0){
+			this.drawTexturedModalRect(this.containerWidth+140,this.containerHeight+10,205,0,12,11);
+		}else if(this.tileEntity.getPowerLevel()<=TileEntityCrusher.maxChargeLevel*(2/3)){
+			this.drawTexturedModalRect(this.containerWidth+140,this.containerHeight+10,205,11,12,11);
+		}else if(this.tileEntity.getPowerLevel()>TileEntityCrusher.maxChargeLevel*(2/3)){
+			this.drawTexturedModalRect(this.containerWidth+140,this.containerHeight+10,205,22,12,11);
 		}
-		int drawHeight = 113-89*(this.tileEntity.getChargeLevel()/TileEntityCrusher.maxChargeLevel);
-		int sourceHeight = 89-89*(this.tileEntity.getChargeLevel()/TileEntityCrusher.maxChargeLevel);
+		int drawHeight = 113-89*(this.tileEntity.getPowerLevel()/TileEntityCrusher.maxChargeLevel);
+		int sourceHeight = 89-89*(this.tileEntity.getPowerLevel()/TileEntityCrusher.maxChargeLevel);
 		this.drawTexturedModalRect(this.containerWidth+144,this.containerHeight+drawHeight,217,sourceHeight,4,89-sourceHeight);
 	}
 

@@ -20,7 +20,7 @@ public class TileEntityCrusher extends TileEntityProcessor implements IInventory
 
 	public static final int maxChargeLevel = 100; // FOR NOW
 
-	private int chargeLevel = 56;
+	private int powerLevel = 56;
 
 	@Override
 	protected void mergeOutputs(){
@@ -54,8 +54,8 @@ public class TileEntityCrusher extends TileEntityProcessor implements IInventory
 		return false;
 	}
 
-	public int getChargeLevel(){
-		return this.chargeLevel;
+	public int getPowerLevel(){
+		return this.powerLevel;
 	}
 
 	@Override
@@ -63,6 +63,7 @@ public class TileEntityCrusher extends TileEntityProcessor implements IInventory
 		try{
 			if(this.worldObj.isRemote){
 				this.workTicks = dataStream.readInt();
+				this.powerLevel = dataStream.readInt();
 			}
 		}catch(Exception e){
 			e.printStackTrace();
