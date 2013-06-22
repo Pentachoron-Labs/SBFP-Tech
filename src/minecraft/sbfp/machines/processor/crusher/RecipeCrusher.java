@@ -11,17 +11,23 @@ public class RecipeCrusher extends Recipe{
 	private final ItemStack secondary;
 	private final float secondaryChance;
 	private final int duration;
+	private final int powerCost;
 
-	public RecipeCrusher(ItemStack i, ItemStack p, ItemStack s, float c, int d){
+	public RecipeCrusher(ItemStack i, ItemStack p, ItemStack s, float c, int d, int pow){
 		this.input = i;
 		this.primary = p;
 		this.secondary = s;
 		this.secondaryChance = c;
 		this.duration = d;
+		this.powerCost = pow;
 	}
 
+	public RecipeCrusher(ItemStack i, ItemStack p, int d, int pow){
+		this(i,p,null,0,d, pow);
+	}
+	
 	public RecipeCrusher(ItemStack i, ItemStack p, int d){
-		this(i,p,null,0,d);
+		this(i,p,null,0,d, 25);
 	}
 
 	@Override
@@ -39,8 +45,8 @@ public class RecipeCrusher extends Recipe{
 	}
 
 	@Override
-	public int getFluxInput(){
-		return 1; //TODO: fix this
+	public int getFluxComponent(){
+		return powerCost;
 	}
 
 	@Override

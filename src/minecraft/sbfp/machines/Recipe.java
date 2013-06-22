@@ -15,7 +15,7 @@ public abstract class Recipe{
 	public abstract ItemStack[] getOutputs(TileEntityProcessor te);
 
 	/**Amount of flux needed.*/
-	public abstract int getFluxInput();
+	public abstract int getFluxComponent();
 
 	/**Amount of flux produced.*/
 	public abstract int getFluxOutput();

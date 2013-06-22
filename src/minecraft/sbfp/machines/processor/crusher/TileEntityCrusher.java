@@ -9,6 +9,7 @@ import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.util.StringTranslate;
 import sbfp.modsbfp;
+import sbfp.machines.ItemChargedRedstone;
 import sbfp.machines.Recipe;
 import sbfp.machines.processor.TileEntityProcessor;
 
@@ -21,6 +22,18 @@ public class TileEntityCrusher extends TileEntityProcessor implements IInventory
 	public static final int maxChargeLevel = 100; // FOR NOW
 
 	private int powerLevel = 0;
+	
+	@Override
+	protected void process(){
+		if(this.inventory[8]!= null && this.inventory[9]!= null){
+			if(this.powerLevel+ItemChargedRedstone.chargeLevels[this.inventory[8].getItemDamage()] <= maxChargeLevel) this.powerLevel += ItemChargedRedstone.chargeLevels[this.inventory[8].getItemDamage()];
+			if(this.powerLevel+ItemChargedRedstone.chargeLevels[this.inventory[9].getItemDamage()] <= maxChargeLevel) this.powerLevel += ItemChargedRedstone.chargeLevels[this.inventory[9].getItemDamage()];
+		}
+		try{
+			if(this.powerLevel < this.activeRecipe.getFluxComponent()) return;
+		}catch(RuntimeException e){}
+		super.process();
+	}
 
 	@Override
 	protected void mergeOutputs(){

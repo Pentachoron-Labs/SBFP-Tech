@@ -13,6 +13,6 @@ public class SlotChargedRedstone extends Slot{
 
 	@Override
 	public boolean isItemValid(ItemStack is){
-		return is.itemID==modsbfp.itemRedflux.itemID&&is.getItemDamage()==3;
+		return is.itemID==modsbfp.itemFlux.itemID;
 	}
 }

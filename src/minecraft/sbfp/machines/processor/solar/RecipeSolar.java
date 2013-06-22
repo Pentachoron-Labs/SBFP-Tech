@@ -27,7 +27,7 @@ public class RecipeSolar extends Recipe{
 	}
 
 	@Override
-	public int getFluxInput(){
+	public int getFluxComponent(){
 		return 0;
 	}
 

@@ -99,6 +99,7 @@ public class modsbfp{
 
 		GameRegistry.registerItem(itemFluxTools,"itemRedflux");
 		GameRegistry.registerItem(itemTractor,"itemSecret");
+		GameRegistry.registerItem(itemFlux, "itemFlux");
 
 		MinecraftForge.setBlockHarvestLevel(blockOre,0,"pickaxe",HarvestLevels.IRON.ordinal());
 		MinecraftForge.setBlockHarvestLevel(blockOre,1,"pickaxe",HarvestLevels.STONE.ordinal());
@@ -159,6 +160,7 @@ public class modsbfp{
 		GameRegistry.addRecipe(new ItemStack(blockMachine, 1, 1), new Object[] { " I ", "PAP", "RaR", 'I', Block.blockIron, 'P', Block.pistonBase, 'A', new ItemStack(itemFluxTools, 1, 1), 'a', Block.anvil, 'R', Item.redstone});
 		
 		prmSolar.addRecipe(new RecipeSolar(new ItemStack(Item.redstone,1),new ItemStack(itemFlux,1,0),50*20));
+		prmSolar.addRecipe(new RecipeSolar(new ItemStack(itemFlux,1,0),new ItemStack(itemFlux,1,1),110*20));
 		prmCrusher.addRecipe(new RecipeCrusher(new ItemStack(Block.stone,1),new ItemStack(Block.cobblestone,1),15*20));
 		prmCrusher.addRecipe(new RecipeCrusher(new ItemStack(Block.cobblestone,1),new ItemStack(Block.gravel,1),15*20));
 		prmCrusher.addRecipe(new RecipeCrusher(new ItemStack(Block.gravel,1),new ItemStack(Block.sand,1),15*20));
