@@ -23,17 +23,6 @@ public class TileEntityCrusher extends TileEntityProcessor implements IInventory
 
 	private int powerLevel = 0;
 	
-	@Override
-	protected void process(){
-		if(this.inventory[8]!= null && this.inventory[9]!= null){
-			if(this.powerLevel+ItemChargedRedstone.chargeLevels[this.inventory[8].getItemDamage()] <= maxChargeLevel) this.powerLevel += ItemChargedRedstone.chargeLevels[this.inventory[8].getItemDamage()];
-			if(this.powerLevel+ItemChargedRedstone.chargeLevels[this.inventory[9].getItemDamage()] <= maxChargeLevel) this.powerLevel += ItemChargedRedstone.chargeLevels[this.inventory[9].getItemDamage()];
-		}
-		try{
-			if(this.powerLevel < this.activeRecipe.getFluxComponent()) return;
-		}catch(RuntimeException e){}
-		super.process();
-	}
 
 	@Override
 	protected void mergeOutputs(){
