@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.Set;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StringTranslate;
@@ -91,7 +90,6 @@ public class modsbfp{
 
 	@Init
 	public void init(FMLInitializationEvent event){
-		EntityItem q = new EntityItem(null);
 		GameRegistry.registerBlock(blockOre,ItemBlockOre.class,"blockOre");
 		GameRegistry.registerBlock(blockMachine,ItemBlockMachine.class,"blockMachines");
 
@@ -147,18 +145,18 @@ public class modsbfp{
 		GameRegistry.addShapelessRecipe(new ItemStack(itemDye,2,6),new ItemStack(itemDye,1,1),new ItemStack(itemDye,1,3));
 		GameRegistry.addShapelessRecipe(new ItemStack(itemDye,2,7),new ItemStack(itemDye,1,1),new ItemStack(itemDye,1,2));
 		GameRegistry.addShapelessRecipe(new ItemStack(itemDye,2,8),new ItemStack(itemDye,1,0),new ItemStack(itemDye,1,4));
-		
+
 		//Redflux Amplifier
-		GameRegistry.addRecipe(new ItemStack(itemRedflux, 1, 0), new Object[] { "IGI", "GRG", "IGI", 'I', Item.ingotIron, 'G', Item.ingotGold, 'R', Item.redstone});
+		GameRegistry.addRecipe(new ItemStack(itemRedflux,1,0),new Object[]{"IGI","GRG","IGI",'I',Item.ingotIron,'G',Item.ingotGold,'R',Item.redstone});
 		//Redflux Absorber
-		GameRegistry.addRecipe(new ItemStack(itemRedflux, 1, 1), new Object[] { "GgG", "gRg", "GgG", 'G', Block.glass, 'g', Item.ingotGold, 'R', Item.redstoneRepeater});
+		GameRegistry.addRecipe(new ItemStack(itemRedflux,1,1),new Object[]{"GgG","gRg","GgG",'G',Block.glass,'g',Item.ingotGold,'R',Item.redstoneRepeater});
 		//Stabilizer
-		GameRegistry.addRecipe(new ItemStack(itemRedflux, 1, 2), new Object[] { "RIR", "GAG", "IrI", 'A', new ItemStack(itemRedflux, 1, 1), 'R', Item.redstone, 'r', Item.redstoneRepeater, 'G', Item.ingotGold, 'I', Item.ingotIron});
+		GameRegistry.addRecipe(new ItemStack(itemRedflux,1,2),new Object[]{"RIR","GAG","IrI",'A',new ItemStack(itemRedflux,1,1),'R',Item.redstone,'r',Item.redstoneRepeater,'G',Item.ingotGold,'I',Item.ingotIron});
 		//Infuser
-		GameRegistry.addRecipe(new ItemStack(blockMachine, 1, 0), new Object[] { "GGG", "IAI", "IRI", 'G', Block.glass, 'I', Item.ingotIron, 'R', Item.redstone, 'A', new ItemStack(itemRedflux, 1, 0)});
+		GameRegistry.addRecipe(new ItemStack(blockMachine,1,0),new Object[]{"GGG","IAI","IRI",'G',Block.glass,'I',Item.ingotIron,'R',Item.redstone,'A',new ItemStack(itemRedflux,1,0)});
 		//Crusher
-		GameRegistry.addRecipe(new ItemStack(blockMachine, 1, 1), new Object[] { " I ", "PAP", "RaR", 'I', Block.blockIron, 'P', Block.pistonBase, 'A', new ItemStack(itemRedflux, 1, 1), 'a', Block.anvil, 'R', Item.redstone});
-		
+		GameRegistry.addRecipe(new ItemStack(blockMachine,1,1),new Object[]{" I ","PAP","RaR",'I',Block.blockIron,'P',Block.pistonBase,'A',new ItemStack(itemRedflux,1,1),'a',Block.anvil,'R',Item.redstone});
+
 		prmSolar.addRecipe(new RecipeSolar(new ItemStack(Item.redstone,1),new ItemStack(itemRedflux,1,3),45*20));
 		prmCrusher.addRecipe(new RecipeCrusher(new ItemStack(Block.stone,1),new ItemStack(Block.cobblestone,1),15*20));
 		prmCrusher.addRecipe(new RecipeCrusher(new ItemStack(Block.cobblestone,1),new ItemStack(Block.gravel,1),15*20));
