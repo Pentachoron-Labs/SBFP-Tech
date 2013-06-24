@@ -74,7 +74,7 @@ public class modsbfp{
 
 	public static final ItemRedflux itemRedflux = new ItemRedflux(getItemID("itemRedfluxID",0x4c00),new String[]{"redFluxAmp","redFluxAbsorber","redFluxStabilizer","chargedRedstone"});
 	public static final ItemDye itemDye = new ItemDye(getItemID("itemDyeID",0x4c01),new String[]{"dyeTiO2","dyeVermillion","dyeOchre","dyeUltramarine","dyeMnO2","dyeGreen","dyePurple","dyeOrange","dyeGrey"});
-	public static final ItemTractor itemTractor = new ItemTractor(getItemID("itemSecretID",0x4c02),"itemSecret");
+	public static final ItemTractor itemTractor = new ItemTractor(getItemID("itemTractorID",0x4c02),"itemTractor");
 
 	public static final ProcessorRecipeManager<TileEntitySolarCharger> prmSolar = new ProcessorRecipeManager<TileEntitySolarCharger>();
 	public static final ProcessorRecipeManager<TileEntityCrusher> prmCrusher = new ProcessorRecipeManager<TileEntityCrusher>();
@@ -99,7 +99,7 @@ public class modsbfp{
 		GameRegistry.registerTileEntity(TileEntityCrusher.class,"crusher");
 
 		GameRegistry.registerItem(itemRedflux,"itemRedflux");
-		GameRegistry.registerItem(itemTractor,"itemSecret");
+		GameRegistry.registerItem(itemTractor,"itemTractor");
 
 		MinecraftForge.setBlockHarvestLevel(blockOre,0,"pickaxe",HarvestLevels.IRON.ordinal());
 		MinecraftForge.setBlockHarvestLevel(blockOre,1,"pickaxe",HarvestLevels.STONE.ordinal());
