@@ -160,7 +160,7 @@ public class modsbfp{
 		prmSolar.addRecipe(new RecipeSolar(new ItemStack(Item.redstone,1),new ItemStack(itemRedflux,1,3),45*20));
 		prmCrusher.addRecipe(new RecipeCrusher(new ItemStack(Block.stone,1),new ItemStack(Block.cobblestone,1),15*20));
 		prmCrusher.addRecipe(new RecipeCrusher(new ItemStack(Block.cobblestone,1),new ItemStack(Block.gravel,1),15*20));
-		prmCrusher.addRecipe(new RecipeCrusher(new ItemStack(Block.gravel,1),new ItemStack(Block.sand,1),15*20));
+		prmCrusher.addRecipe(new RecipeCrusher(new ItemStack(Block.gravel,1),new ItemStack(Block.sand,1),8*20));
 		prmCrusher.addRecipe(new RecipeCrusher(new ItemStack(blockOre,1,6),new ItemStack(itemDye,1,4),new ItemStack(Block.gravel,1),0.4F,10*20));
 		prmCrusher.addRecipe(new RecipeCrusher(new ItemStack(blockOre,1,3),new ItemStack(itemDye,1,0),new ItemStack(Block.gravel,1),0.4F,10*20));
 		prmCrusher.addRecipe(new RecipeCrusher(new ItemStack(blockOre,1,5),new ItemStack(itemDye,1,2),new ItemStack(Block.gravel,1),0.4F,10*20));
