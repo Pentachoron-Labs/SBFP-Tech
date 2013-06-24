@@ -56,7 +56,7 @@ public class modsbfp{
 
 	// data constants
 	public static final String guiDirectory = "/mods/sbfp/textures/gui/";
-	public static final String textureDirectory = "/mods/sbfp/textures/entity/";
+	public static final String entityDirectory = "/mods/sbfp/textures/entity/";
 
 	// mechanics constants
 	@Instance(modid)
