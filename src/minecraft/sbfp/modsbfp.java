@@ -51,7 +51,7 @@ public class modsbfp{
 	public static final String shortname = "SBFP Tech";
 
 	public static final ItemStack recipePlaceholder = new ItemStack(Block.stone,1);
-	public static final String version = "Aleph 1";
+	public static final String version = "Aleph 2";
 
 	// data constants
 	public static final String guiDirectory = "/mods/sbfp/textures/gui/";
