@@ -14,6 +14,7 @@ UniversalElectricity
 /src/minecraft/mods/sbfp/textures/blocks/*.db
 /src/minecraft/mods/sbfp/textures/items/*.db
 /src/minecraft/mods/sbfp/textures/gui/*.db
+/src/minecraft/mods/sbfp/textures/entity/*.db
 !/resources/
 !/modversion.txt
 !/README.md
