@@ -1,24 +1,25 @@
+#DON'T EDIT THIS FILE IN WINDOWS!
 de_DE
 oreThorium.name=Monazit
 oreFluorite.name=Fluorit
-oreMoS2.name=MolybdÃ¤nit
+oreMoS2.name=Molybdänit
 oreRutile.name=Rutil
 oreCinnabar.name=Zinnober
 oreLimonite.name=Limonit
 orePyrolusite.name=Pyrolusit
 oreAs.name=Arsenopyrit
 
-redFluxAmp.name=Redstonefluss-VerstÃ¤rker
+redFluxAmp.name=Redstonefluss-Verstärker
 redFluxAbsorber.name=Redstonefluss-Absorber
 redFluxStabilizer.name=Redstonefluss-Stabilisator
 chargedRedstone.name=Geladen Redstone
 
-dyeTiO2.name=WeiÃŸ Farbstoff
+dyeTiO2.name=Weiß Farbstoff
 dyeVermillion.name=Rot Farbstoff
 dyeOchre.name=Gelb Farbstoff
 dyeUltramarine.name=Blau Farbstoff
 dyeMnO2.name=Schwarz Farbstoff
-dyeGreen.name=GrÃ¼n Farbstoff
+dyeGreen.name=Grün Farbstoff
 dyePurple.name=Purpur Farbstoff
 dyeOrange.name=Orange Farbstoff
 dyeGrey.name=Grau Farbstoff
@@ -26,14 +27,14 @@ dyeGrey.name=Grau Farbstoff
 solarCharger.name=Redstonefluss-Infuser
 ########################
 el_GR
-oreThorium.name=ÎœÎ¿Î½Î±Î¶Î¯Ï„Î·Ï‚
-oreFluorite.name=Î¦Î¸Î¿Ï�Î¯Ï„Î·Ï‚
-oreMoS2.name=ÎœÎ¿Î»Ï…Î²Î´Î±Î¹Î½Î¯Ï„Î·Ï‚
-oreRutile.name=Î¡Î¿Ï…Ï„Î¯Î»Î¹Î¿
-oreCinnabar.name=ÎšÎ¹Î½Î½Î±Î²Î±Ï�Î¯Ï„Î·Ï‚
-oreLimonite.name=Î»ÎµÎ¹Î¼Ï‰Î½Î¯Ï„Î·Ï‚
-orePyrolusite.name=Î Ï…Ï�Î¿Î›oÏ…ÏƒÎ¯Ï„Î·Ï‚
-oreAs.name=Î‘Ï�ÏƒÎµÎ½Î¿Ï€Ï…Ï�Î¯Ï„Î·Ï‚
+oreThorium.name=Μοναζίτης
+oreFluorite.name=Φθορίτης
+oreMoS2.name=Μολυβδαινίτης
+oreRutile.name=Ρουτίλιο
+oreCinnabar.name=Κινναβαρίτης
+oreLimonite.name=λειμωνίτης
+orePyrolusite.name=ΠυροΛoυσίτης
+oreAs.name=Αρσενοπυρίτης
 
 redFluxAmp.name=Redstone Flux Amplifier
 redFluxAbsorber.name=Redstone Flux Absorber
@@ -98,16 +99,16 @@ redFluxStabilizer.name=Estabilizador del Flujo de Redstone
 chargedRedstone.name=Redstone Chargado
 
 dyeTiO2.name=Blanco del Titanio
-dyeVermillion.name=BermellÃ³n
+dyeVermillion.name=Bermellón
 dyeOchre.name=Ocre
 dyeUltramarine.name=Azul Ultramar
 dyeMnO2.name=Negro del Manganeso
 dyeGreen.name=Tinte Verde
-dyePurple.name=Tinte PÃºrpura
+dyePurple.name=Tinte Púrpura
 dyeOrange.name=Tinte Anaranjado
 dyeGrey.name=Tinte Gris
 
 #solarCharger.name=
 ########################
 la_CL
-oreThorium.name=monazÄ«ta
+oreThorium.name=monazīta

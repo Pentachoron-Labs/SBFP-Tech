@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StringTranslate;
@@ -90,6 +91,7 @@ public class modsbfp{
 
 	@Init
 	public void init(FMLInitializationEvent event){
+		EntityItem q = new EntityItem(null);
 		GameRegistry.registerBlock(blockOre,ItemBlockOre.class,"blockOre");
 		GameRegistry.registerBlock(blockMachine,ItemBlockMachine.class,"blockMachines");
 
