@@ -16,6 +16,11 @@ public abstract class Recipe{
 
 	/**Amount of flux needed.*/
 	public abstract int getFluxComponent();
+	
+	/**Amount of flux needed per tick.*/
+	public int getFluxComponentPerTick(){
+		return this.getFluxComponent()/this.getTime();
+	}
 
 	/**Amount of flux produced.*/
 	public abstract int getFluxOutput();

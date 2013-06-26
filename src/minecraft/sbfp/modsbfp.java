@@ -52,11 +52,11 @@ public class modsbfp{
 	public static final String shortname = "SBFP Tech";
 
 	public static final ItemStack recipePlaceholder = new ItemStack(Block.stone,1);
-	public static final String version = "Aleph 1";
+	public static final String version = "Aleph 2";
 
 	// data constants
 	public static final String guiDirectory = "/mods/sbfp/textures/gui/";
-	public static final String textureDirectory = "/mods/sbfp/textures/entity/";
+	public static final String entityDirectory = "/mods/sbfp/textures/entity/";
 
 	// mechanics constants
 	@Instance(modid)
@@ -98,7 +98,7 @@ public class modsbfp{
 		GameRegistry.registerTileEntity(TileEntityCrusher.class,"crusher");
 
 		GameRegistry.registerItem(itemFluxTools,"itemRedflux");
-		GameRegistry.registerItem(itemTractor,"itemSecret");
+		GameRegistry.registerItem(itemTractor,"itemTractor");
 		GameRegistry.registerItem(itemFlux, "itemFlux");
 
 		MinecraftForge.setBlockHarvestLevel(blockOre,0,"pickaxe",HarvestLevels.IRON.ordinal());
@@ -147,7 +147,7 @@ public class modsbfp{
 		GameRegistry.addShapelessRecipe(new ItemStack(itemDye,2,6),new ItemStack(itemDye,1,1),new ItemStack(itemDye,1,3));
 		GameRegistry.addShapelessRecipe(new ItemStack(itemDye,2,7),new ItemStack(itemDye,1,1),new ItemStack(itemDye,1,2));
 		GameRegistry.addShapelessRecipe(new ItemStack(itemDye,2,8),new ItemStack(itemDye,1,0),new ItemStack(itemDye,1,4));
-		
+
 		//Redflux Amplifier
 		GameRegistry.addRecipe(new ItemStack(itemFluxTools, 1, 0), new Object[] { "IGI", "GRG", "IGI", 'I', Item.ingotIron, 'G', Item.ingotGold, 'R', Item.redstone});
 		//Redflux Absorber
@@ -163,7 +163,10 @@ public class modsbfp{
 		prmSolar.addRecipe(new RecipeSolar(new ItemStack(itemFlux,1,0),new ItemStack(itemFlux,1,1),110*20));
 		prmCrusher.addRecipe(new RecipeCrusher(new ItemStack(Block.stone,1),new ItemStack(Block.cobblestone,1),15*20));
 		prmCrusher.addRecipe(new RecipeCrusher(new ItemStack(Block.cobblestone,1),new ItemStack(Block.gravel,1),15*20));
-		prmCrusher.addRecipe(new RecipeCrusher(new ItemStack(Block.gravel,1),new ItemStack(Block.sand,1),15*20));
+		prmCrusher.addRecipe(new RecipeCrusher(new ItemStack(Block.gravel,1),new ItemStack(Block.sand,1),8*20));
+		prmCrusher.addRecipe(new RecipeCrusher(new ItemStack(blockOre,1,6),new ItemStack(itemDye,1,4),new ItemStack(Block.gravel,1),0.4F,10*20));
+		prmCrusher.addRecipe(new RecipeCrusher(new ItemStack(blockOre,1,3),new ItemStack(itemDye,1,0),new ItemStack(Block.gravel,1),0.4F,10*20));
+		prmCrusher.addRecipe(new RecipeCrusher(new ItemStack(blockOre,1,5),new ItemStack(itemDye,1,2),new ItemStack(Block.gravel,1),0.4F,10*20));
 	}
 
 	private static int getBlockID(String name, int defaultid){

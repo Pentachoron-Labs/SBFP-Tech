@@ -29,6 +29,9 @@ public class RecipeCrusher extends Recipe{
 	public RecipeCrusher(ItemStack i, ItemStack p, int d){
 		this(i,p,null,0,d, 25);
 	}
+	public RecipeCrusher(ItemStack i, ItemStack p, ItemStack s, float c, int d){
+		this(i,p,s,c,d, 25);
+	}
 
 	@Override
 	public ItemStack[] getInputs(){

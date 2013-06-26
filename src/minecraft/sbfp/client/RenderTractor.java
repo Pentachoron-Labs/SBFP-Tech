@@ -25,7 +25,7 @@ public class RenderTractor extends Render{
 		GL11.glTranslated(x,y,z);
 		GL11.glRotatef(yaw,0,1,0);
 		GL11.glScalef(-1,-1,1);
-		this.loadTexture("/mods/sbfp/textures/entity/secret.png");
+		this.loadTexture("/mods/sbfp/textures/entity/tractor.png");
 		this.model.render(entity,0,0,0,0,0,.0625f);
 		GL11.glPopMatrix();
 	}
