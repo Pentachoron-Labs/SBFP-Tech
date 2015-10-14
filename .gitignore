@@ -58,3 +58,4 @@ nbproject
 *.sh
 gradlew
 /.nb-gradle/
+.nb-gradle-properties

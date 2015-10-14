@@ -1,17 +1,13 @@
 package sbfp;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.HashMap;
-import java.util.Set;
 
 import net.minecraft.block.Block;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.StringTranslate;
-import net.minecraft.world.World;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import net.minecraftforge.fml.common.Mod;
@@ -21,7 +17,8 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.common.registry.LanguageRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 import sbfp.chemistry.ItemDye;
 import sbfp.machines.BlockMachine;
@@ -47,7 +44,7 @@ public class modsbfp{
 	// data constants
 	public static final String guiDirectory = "/mods/sbfp/textures/gui/";
 	public static final String entityDirectory = "/mods/sbfp/textures/entity/";
-
+        
 	// mechanics constants
 	@Instance(modid)
 	private static modsbfp instance;
@@ -74,6 +71,16 @@ public class modsbfp{
 		WOOD, STONE, IRON, DIAMOND
 	}
 
+        public static CreativeTabs tabSBFP = new CreativeTabs("SBFP") {
+
+            @Override
+            @SideOnly(Side.CLIENT)
+            public Item getTabIconItem(){
+             ItemStack iStack = new ItemStack(Blocks.wool);
+             return iStack.getItem();
+            }
+        };
+        
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event){
 		instance = this;

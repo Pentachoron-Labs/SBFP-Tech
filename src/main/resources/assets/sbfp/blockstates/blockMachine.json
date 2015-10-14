@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "TYPE=solarcharger": { "model": "sbfp:blockSolarCharger" },
+        "TYPE=crusher": { "model": "sbfp:blockCrusher" }
+    }
+}

@@ -1,12 +1,13 @@
 package sbfp.machines;
 
-import java.util.ArrayList;
 import java.util.Random;
 
-import javax.swing.Icon;
 
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.properties.PropertyEnum;
+import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.item.EntityItem;
@@ -19,8 +20,6 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLLog;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import sbfp.BlockSub;
 import sbfp.modsbfp;
 import sbfp.machines.processor.crusher.TileEntityCrusher;
@@ -28,26 +27,12 @@ import sbfp.machines.processor.solar.TileEntitySolarCharger;
 
 public class BlockMachine extends BlockSub implements ITileEntityProvider{
 
-	@SideOnly(Side.CLIENT)
-	public Icon[][] icons;
-
+        public static final IProperty TYPE = PropertyEnum.create("TYPE", EnumMachineType.class);
+        
 	public BlockMachine(int id, String[] names){
 		super(id,Material.iron,names);
 		this.setCreativeTab(CreativeTabs.tabBlock);
 	}
-
-//	@Override
-//	@SideOnly(Side.CLIENT)
-//	public void registerIcons(IconRegister register){
-//		icons = new Icon[names.length][6];
-//		for(int i = 0; i<names.length; i++){
-//			for(int j = 0; j<6; j++){
-//				this.icons[i][j] = register.registerIcon("sbfp:"+this.names[i]+ForgeDirection.getOrientation(j).toString());
-//				// System.out.println("sbfp:"+this.names[i]+ForgeDirection.getOrientation(j).toString());
-//			}
-//		}
-//	}
-
 	@Override
 	public void breakBlock(World world, BlockPos pos, IBlockState state){
 		this.dropEntireInventory(world,pos,0,0);
@@ -105,11 +90,12 @@ public class BlockMachine extends BlockSub implements ITileEntityProvider{
 //		//TODO Make machines rotate
 //	}
 
+        @Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ){
-		if(!playerIn.isSneaking()){
-			playerIn.openGui(modsbfp.getInstance(),-1,worldIn,pos.getX(), pos.getY(), pos.getZ());
-			return true;
-		}
+//		if(!playerIn.isSneaking()){
+//			playerIn.openGui(modsbfp.getInstance(),-1,worldIn,pos.getX(), pos.getY(), pos.getZ());
+//			return true;
+//		}
 		return false;
 
 	}
@@ -130,4 +116,29 @@ public class BlockMachine extends BlockSub implements ITileEntityProvider{
 	public boolean isOpaqueCube(){
 		return false;
 	}
+        
+        @Override
+        public BlockState createBlockState(){
+            return new BlockState(this, new IProperty[]{TYPE});
+        }
+        
+        @Override
+        public IBlockState getStateFromMeta(int meta){
+            for(EnumMachineType ore : EnumMachineType.values()){
+                if(ore.getMeta() == meta){
+                    return getDefaultState().withProperty(TYPE, ore);    
+                }
+            }
+            return getDefaultState().withProperty(TYPE, 0);
+        }
+        
+        @Override
+        public int getMetaFromState(IBlockState state){
+            return ((EnumMachineType) state.getValue(TYPE)).getMeta();
+        }
+        
+         @Override
+        public int damageDropped(IBlockState state){
+            return getMetaFromState(state);
+        }
 }
