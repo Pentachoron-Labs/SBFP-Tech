@@ -1,0 +1,11 @@
+{
+    "variants": {
+        "TYPE=aresenopyrite": { "model": "sbfp:blockArsenopyrite" },
+        "TYPE=fluorite": { "model": "sbfp:blockFluorite" },
+        "TYPE=mn02": { "model": "sbfp:blockMno2" },
+        "TYPE=rutile": { "model": "sbfp:blockrutile" },
+        "TYPE=limonite": { "model": "sbfp:blockLimonite" },
+        "TYPE=pyrolusite": { "model": "sbfp:blockPyrolusite" },
+        "TYPE=monazite": { "model": "sbfp:blockMonazite" }
+    }
+}

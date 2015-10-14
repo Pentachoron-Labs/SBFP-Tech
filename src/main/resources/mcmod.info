@@ -1,0 +1,18 @@
+[{
+"modid":"SBFP",
+"name":"SBFP Tech",
+"description":"Wouldn't you like to know!",
+"version":"1.00",
+"mcversion":"1.8",
+"url":"http://127.0.0.1/",
+"updateUrl":"http://127.0.0.1/",
+"authorList":["atrain99","ObsequiousNewt"],
+"credits":"Coded and textured by atrain99 and ObsequiousNewt",
+"logoFile":"",
+"screenshots":[],
+"parent":"",
+"requiredMods":["Forge"],
+"dependencies":["Forge"],
+"dependants":[],
+"useDependencyInformation":"true",
+}]
