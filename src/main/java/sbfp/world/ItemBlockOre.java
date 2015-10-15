@@ -9,6 +9,7 @@ public class ItemBlockOre extends ItemBlock{
 
 	public ItemBlockOre(Block block){
 		super(block);
+                this.setMaxDamage(0);
 		this.setHasSubtypes(true);
 	}
 
@@ -19,6 +20,6 @@ public class ItemBlockOre extends ItemBlock{
 
 	@Override
 	public String getUnlocalizedName(ItemStack is){
-		return modsbfp.blockOre.names[is.getItemDamage()];
+		return modsbfp.blockOre.getStateFromMeta(is.getItemDamage()).getValue(BlockOre.TYPE).toString();
 	}
 }

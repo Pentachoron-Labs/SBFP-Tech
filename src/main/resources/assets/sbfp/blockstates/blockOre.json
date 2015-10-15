@@ -1,11 +1,13 @@
 {
+    "parent" : "block/cube_all",
     "variants": {
-        "TYPE=aresenopyrite": { "model": "sbfp:blockArsenopyrite" },
-        "TYPE=fluorite": { "model": "sbfp:blockFluorite" },
-        "TYPE=mn02": { "model": "sbfp:blockMno2" },
-        "TYPE=rutile": { "model": "sbfp:blockRutile" },
-        "TYPE=limonite": { "model": "sbfp:blockLimonite" },
-        "TYPE=pyrolusite": { "model": "sbfp:blockPyrolusite" },
-        "TYPE=monazite": { "model": "sbfp:blockMonazite" }
+        "type=arsenopyrite": { "model": "sbfp:blockArsenopyrite" },
+        "type=fluorite": { "model": "sbfp:blockFluorite" },
+        "type=mno2": { "model": "sbfp:blockMno2" },
+        "type=rutile": { "model": "sbfp:blockRutile" },
+        "type=limonite": { "model": "sbfp:blockLimonite" },
+        "type=pyrolusite": { "model": "sbfp:blockPyrolusite" },
+        "type=monazite": { "model": "sbfp:blockMonazite" },
+        "type=cinnabar": { "model": "sbfp:blockCinnabar" }
     }
 }

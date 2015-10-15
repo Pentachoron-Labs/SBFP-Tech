@@ -20,17 +20,16 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLLog;
-import sbfp.BlockSub;
-import sbfp.modsbfp;
+import sbfp.BlockSB;
 import sbfp.machines.processor.crusher.TileEntityCrusher;
 import sbfp.machines.processor.solar.TileEntitySolarCharger;
 
-public class BlockMachine extends BlockSub implements ITileEntityProvider{
+public class BlockMachine extends BlockSB implements ITileEntityProvider{
 
         public static final IProperty TYPE = PropertyEnum.create("TYPE", EnumMachineType.class);
         
-	public BlockMachine(int id, String[] names){
-		super(id,Material.iron,names);
+	public BlockMachine(String name){
+		super(Material.iron,name);
 		this.setCreativeTab(CreativeTabs.tabBlock);
 	}
 	@Override

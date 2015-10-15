@@ -1,18 +1,22 @@
 package sbfp.world;
 
+import java.util.List;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
-import sbfp.BlockSub;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import sbfp.BlockSB;
+import sbfp.modsbfp;
 
-public class BlockOre extends BlockSub{
+public class BlockOre extends BlockSB{
         public static final IProperty TYPE = PropertyEnum.create("TYPE", EnumOreType.class);
         
-	public BlockOre(int id, String[] names){
-		super(id,Material.rock,names);
+	public BlockOre(String name){
+		super(Material.rock,name);
 		this.setCreativeTab(CreativeTabs.tabBlock);
 		this.blockHardness = 3;
 	}
@@ -29,7 +33,7 @@ public class BlockOre extends BlockSub{
                     return getDefaultState().withProperty(TYPE, ore);    
                 }
             }
-            return getDefaultState().withProperty(TYPE, 0);
+            return getDefaultState().withProperty(TYPE, EnumOreType.RUTILE);
         }
         
         @Override
@@ -40,5 +44,12 @@ public class BlockOre extends BlockSub{
         @Override
         public int damageDropped(IBlockState state){
             return getMetaFromState(state);
+        }
+        
+        @Override
+        public void getSubBlocks(Item item, CreativeTabs tab, List list){
+            for(EnumOreType ore : EnumOreType.values()){
+                list.add(new ItemStack(item, 1, ore.getMeta()));
+            }
         }
 }

@@ -3,7 +3,6 @@ package sbfp;
 import java.io.File;
 import java.util.HashMap;
 
-import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -22,12 +21,12 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 import sbfp.chemistry.ItemDye;
 import sbfp.machines.BlockMachine;
-import sbfp.machines.ItemBlockMachine;
 import sbfp.machines.ItemRedflux;
 import sbfp.machines.processor.ProcessorRecipeManager;
 import sbfp.machines.processor.crusher.TileEntityCrusher;
 import sbfp.machines.processor.solar.TileEntitySolarCharger;
 import sbfp.world.BlockOre;
+import sbfp.world.EnumOreType;
 import sbfp.world.GeneratorOres;
 import sbfp.world.ItemBlockOre;
 
@@ -38,7 +37,7 @@ public class modsbfp{
 	public static final String modid = "sbfp"; // Channel, name, etc
 	public static final String shortname = "SBFP Tech";
 
-	public static final ItemStack recipePlaceholder = new ItemStack(Block.getBlockFromName("minecraft:stone"),1);
+	public static final ItemStack recipePlaceholder = new ItemStack(Blocks.stone,1);
 	public static final String version = "Aleph 2";
 
 	// data constants
@@ -56,8 +55,8 @@ public class modsbfp{
 	public static SBCommonProxy proxy;
 
 	// blocks and items (sort by ID please)
-	public static final BlockOre blockOre = new BlockOre(getBlockID("blockOreID",0x4c0),new String[]{"oreMonazite","oreFluorite","oreMolybdenite","oreRutile","oreCinnabar","oreLimonite","orePyrolusite","oreArsenopyrite"});
-	public static final BlockMachine blockMachine = new BlockMachine(getBlockID("blockMachinesID",0x4c1),new String[]{"solarCharger","crusher"});
+	public static final BlockOre blockOre = new BlockOre("blockOre");
+	public static final BlockMachine blockMachine = new BlockMachine("blockMachine");
 
 	public static final ItemRedflux itemRedflux = new ItemRedflux(getItemID("itemRedfluxID",0x4c00),new String[]{"redFluxAmp","redFluxAbsorber","redFluxStabilizer","chargedRedstone"});
 	public static final ItemDye itemDye = new ItemDye(getItemID("itemDyeID",0x4c01),new String[]{"dyeTiO2","dyeVermillion","dyeOchre","dyeUltramarine","dyeMnO2","dyeGreen","dyePurple","dyeOrange","dyeGrey"});
@@ -76,7 +75,7 @@ public class modsbfp{
             @Override
             @SideOnly(Side.CLIENT)
             public Item getTabIconItem(){
-             ItemStack iStack = new ItemStack(Blocks.wool);
+             ItemStack iStack = new ItemStack(Blocks.stone);
              return iStack.getItem();
             }
         };
@@ -88,13 +87,13 @@ public class modsbfp{
 
 	@EventHandler
 	public void init(FMLInitializationEvent event){
-		GameRegistry.registerBlock(blockOre,ItemBlockOre.class,"blockOre");
-		GameRegistry.registerBlock(blockMachine,ItemBlockMachine.class,"blockMachines");
+		GameRegistry.registerBlock(blockOre, ItemBlockOre.class, "blockOre");
+		//GameRegistry.registerBlock(blockMachine,ItemBlockMachine.class,"blockMachines");
 
-		GameRegistry.registerTileEntity(TileEntitySolarCharger.class,"sunlightCollector");
-		GameRegistry.registerTileEntity(TileEntityCrusher.class,"crusher");
+		//GameRegistry.registerTileEntity(TileEntitySolarCharger.class,"sunlightCollector");
+		//GameRegistry.registerTileEntity(TileEntityCrusher.class,"crusher");
 
-		GameRegistry.registerItem(itemRedflux,"itemRedflux");
+		//GameRegistry.registerItem(itemRedflux,"itemRedflux");
 //		GameRegistry.registerItem(itemTractor,"itemTractor");
 
 //		MinecraftForge.setBlockHarvestLevel(blockOre,0,"pickaxe",HarvestLevels.IRON.ordinal());
@@ -106,10 +105,10 @@ public class modsbfp{
 //		EntityRegistry.registerModEntity(EntityTractor.class,"entityTractor",0,this,256,1,true);
 //		GameRegistry.registerWorldGenerator(this.wGen);
 		//NetworkRegistry.instance().registerGuiHandler(this,modsbfp.proxy);
-		for(int i = 0; i<blockOre.names.length; i++){
-			OreDictionary.registerOre(blockOre.names[i],new ItemStack(blockOre,1,i));
+		for(EnumOreType ore : EnumOreType.values()){
+			OreDictionary.registerOre(ore.getName(),new ItemStack(blockOre,1,ore.getMeta()));
 		}
-		this.addRecipes();
+		//this.addRecipes();
 		//modsbfp.instance.loadLang();
 		
 	}

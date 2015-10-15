@@ -5,8 +5,9 @@ import net.minecraft.util.IStringSerializable;
 
 public enum EnumOreType implements IStringSerializable{
 
-    ARSENOPYRITE(0, "arsenopyrite"), MN02(1, "mno2"), FLUORITE(2, "fluorite"), 
-    LIMONITE(3, "limonite"), CINNABAR(4, "cinnabar"), RUTILE(5, "rutile"), MONAZITE(6, "monazite");
+    MONAZITE(0, "monazite"), FLUORITE(1, "fluorite"), MN02(2, "mno2"),
+    RUTILE(3, "rutile"), CINNABAR(4, "cinnabar"), LIMONITE(5, "limonite"), PYROLUSITE(6, "pyrolusite"), 
+    ARSENOPYRITE(7, "arsenopyrite");
     private final String name;
     private final int metadata;
     private EnumOreType(int meta, String name){
