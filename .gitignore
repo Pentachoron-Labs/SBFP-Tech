@@ -52,6 +52,7 @@ nbproject
 *.gradle
 *.bat
 *.txt
+!research.txt
 .project
 .classpath
 *.xml

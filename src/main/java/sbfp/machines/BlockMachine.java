@@ -1,5 +1,6 @@
 package sbfp.machines;
 
+import java.util.List;
 import java.util.Random;
 
 
@@ -13,6 +14,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -136,8 +138,15 @@ public class BlockMachine extends BlockSB implements ITileEntityProvider{
             return ((EnumMachineType) state.getValue(TYPE)).getMeta();
         }
         
-         @Override
+        @Override
         public int damageDropped(IBlockState state){
             return getMetaFromState(state);
+        }
+        
+        @Override
+        public void getSubBlocks(Item item, CreativeTabs tab, List list){
+            for(EnumMachineType ore : EnumMachineType.values()){
+                list.add(new ItemStack(item, 1, ore.getMeta()));
+            }
         }
 }

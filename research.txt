@@ -1,0 +1,11 @@
+
+Contents of Ores
+Monazite: helium (by heating), Thorium, trace uranium, lanthanum
+Rutile: Titanium Oxide (TiO2), used as a pigment/extraction of metal if necessary
+Cinnabar: Mercury. Toxic.
+Limonite: Yellow iron ore, used for pigment and iron extraction
+Arsenopyrite: Arsenic, iron, sulfur (add nitric acid), toxic and magnetic when heated
+Fluorite: Hydrofluoric acid (toxic, duh), calcium
+Molybdenite: Molybdenum(used in high-strength steels)
+Pyrolusite: Manganese
+
