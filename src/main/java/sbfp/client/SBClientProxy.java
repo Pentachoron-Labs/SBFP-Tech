@@ -25,15 +25,14 @@ import sbfp.world.EnumOreType;
 public class SBClientProxy extends SBCommonProxy{
     
     
-        @EventHandler
+        
         public void preInit(FMLPreInitializationEvent event){
             for(EnumOreType ores :EnumOreType.values()){
                 
-                ModelBakery.addVariantName(Item.getItemFromBlock(modsbfp.blockOre), "sbfp:block"+ores.getName().substring(0,1).toUpperCase()+ores.getName().substring(1));
+                ModelBakery.addVariantName(modsbfp.itemBlockOre, "sbfp:block"+ores.getModelName());
             }
         }
 	@Override
-	@EventHandler
 	public void init(FMLInitializationEvent event){
 		FMLLog.fine("SBFP Client Proxy Loading");
                 for(EnumOreType ores : EnumOreType.values()){

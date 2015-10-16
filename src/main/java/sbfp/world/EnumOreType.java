@@ -10,9 +10,11 @@ public enum EnumOreType implements IStringSerializable{
     ARSENOPYRITE(7, "arsenopyrite");
     private final String name;
     private final int metadata;
+    private final String modelName;
     private EnumOreType(int meta, String name){
         this.metadata=meta;
         this.name = name;
+        this.modelName = name.substring(0,1).toUpperCase()+name.substring(1);
     }
     @Override
     public String getName() {
@@ -25,5 +27,12 @@ public enum EnumOreType implements IStringSerializable{
     public String toString(){
         return getName();
     }
-    
+    public String getModelName(){
+        return modelName;
+    }
+    private static final EnumOreType[] TYPES_BY_META = new EnumOreType[EnumOreType.values().length];
+    public static EnumOreType typeFromMeta(int meta){
+        if(meta>=TYPES_BY_META.length||meta<0) meta = 0;
+        return TYPES_BY_META[meta];
+    }
 }

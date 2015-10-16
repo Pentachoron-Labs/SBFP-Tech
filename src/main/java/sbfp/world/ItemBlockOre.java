@@ -20,6 +20,6 @@ public class ItemBlockOre extends ItemBlock{
 
 	@Override
 	public String getUnlocalizedName(ItemStack is){
-		return modsbfp.blockOre.getStateFromMeta(is.getItemDamage()).getValue(BlockOre.TYPE).toString();
+		return super.getUnlocalizedName()+EnumOreType.typeFromMeta(is.getItemDamage());
 	}
 }

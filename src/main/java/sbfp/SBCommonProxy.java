@@ -1,16 +1,13 @@
 package sbfp;
 
-import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLLog;
-import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.IGuiHandler;
-import sbfp.client.GUICrusher;
-import sbfp.client.GUISolarCharger;
 import sbfp.machines.processor.crusher.ContainerCrusher;
 import sbfp.machines.processor.crusher.TileEntityCrusher;
 import sbfp.machines.processor.solar.ContainerSolarCharger;
@@ -18,7 +15,10 @@ import sbfp.machines.processor.solar.TileEntitySolarCharger;
 
 public class SBCommonProxy implements IGuiHandler{
 	
-	@EventHandler
+        public void preInit(FMLPreInitializationEvent event){
+            
+        }
+	
 	public void init(FMLInitializationEvent event){
 		FMLLog.fine("SBFP Common Proxy loading");
 	}

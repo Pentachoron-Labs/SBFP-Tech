@@ -21,6 +21,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 import sbfp.chemistry.ItemDye;
 import sbfp.machines.BlockMachine;
+import sbfp.machines.ItemBlockMachine;
 import sbfp.machines.ItemRedflux;
 import sbfp.machines.processor.ProcessorRecipeManager;
 import sbfp.machines.processor.crusher.TileEntityCrusher;
@@ -54,9 +55,12 @@ public class modsbfp{
 	@SidedProxy(clientSide = "sbfp.client.SBClientProxy", serverSide = "sbfp.SBCommonProxy")
 	public static SBCommonProxy proxy;
 
-	// blocks and items (sort by ID please)
+	// blocks and items
 	public static final BlockOre blockOre = new BlockOre("blockOre");
+        public static final ItemBlockOre itemBlockOre = new ItemBlockOre(blockOre);
+        
 	public static final BlockMachine blockMachine = new BlockMachine("blockMachine");
+        public static final ItemBlockMachine itemBlockMachine = new ItemBlockMachine(blockMachine);
 
 	public static final ItemRedflux itemRedflux = new ItemRedflux(getItemID("itemRedfluxID",0x4c00),new String[]{"redFluxAmp","redFluxAbsorber","redFluxStabilizer","chargedRedstone"});
 	public static final ItemDye itemDye = new ItemDye(getItemID("itemDyeID",0x4c01),new String[]{"dyeTiO2","dyeVermillion","dyeOchre","dyeUltramarine","dyeMnO2","dyeGreen","dyePurple","dyeOrange","dyeGrey"});
@@ -83,6 +87,7 @@ public class modsbfp{
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event){
 		instance = this;
+                proxy.preInit(event);
 	}
 
 	@EventHandler
@@ -109,7 +114,8 @@ public class modsbfp{
 			OreDictionary.registerOre(ore.getName(),new ItemStack(blockOre,1,ore.getMeta()));
 		}
 		//this.addRecipes();
-		//modsbfp.instance.loadLang();
+		//modsbfp.instance.loadLang();\
+                proxy.init(event);
 		
 	}
 

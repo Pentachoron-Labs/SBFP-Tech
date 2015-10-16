@@ -9,8 +9,8 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumWorldBlockLayer;
 import sbfp.BlockSB;
-import sbfp.modsbfp;
 
 public class BlockOre extends BlockSB{
         public static final IProperty TYPE = PropertyEnum.create("TYPE", EnumOreType.class);
@@ -20,6 +20,20 @@ public class BlockOre extends BlockSB{
 		this.setCreativeTab(CreativeTabs.tabBlock);
 		this.blockHardness = 3;
 	}
+        
+        @Override
+        public EnumWorldBlockLayer getBlockLayer(){
+            return EnumWorldBlockLayer.SOLID;
+        }
+        @Override
+        public boolean isOpaqueCube(){
+            return true;
+        }
+        
+        @Override
+        public int getRenderType(){
+            return 3;
+        }
         
         @Override
         public BlockState createBlockState(){
@@ -33,7 +47,7 @@ public class BlockOre extends BlockSB{
                     return getDefaultState().withProperty(TYPE, ore);    
                 }
             }
-            return getDefaultState().withProperty(TYPE, EnumOreType.RUTILE);
+            return getDefaultState().withProperty(TYPE, EnumOreType.MONAZITE);
         }
         
         @Override

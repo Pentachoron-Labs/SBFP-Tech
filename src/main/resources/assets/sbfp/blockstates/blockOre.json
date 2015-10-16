@@ -1,5 +1,4 @@
 {
-    "parent" : "block/cube_all",
     "variants": {
         "type=arsenopyrite": { "model": "sbfp:blockArsenopyrite" },
         "type=fluorite": { "model": "sbfp:blockFluorite" },

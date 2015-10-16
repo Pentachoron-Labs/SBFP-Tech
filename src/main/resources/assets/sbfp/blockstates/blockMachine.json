@@ -1,5 +1,4 @@
 {
-    "parent" : "block/cube_all",
     "variants": {
         "TYPE=solarcharger": { "model": "sbfp:blockSolarCharger" },
         "TYPE=crusher": { "model": "sbfp:blockCrusher" }
