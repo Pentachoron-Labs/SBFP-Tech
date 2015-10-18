@@ -36,7 +36,7 @@ public class BlockMachine extends BlockSB implements ITileEntityProvider{
 	}
 	@Override
 	public void breakBlock(World world, BlockPos pos, IBlockState state){
-		this.dropEntireInventory(world,pos,0,0);
+		this.dropEntireInventory(world,pos,0,getMetaFromState(state));
 		super.breakBlock(world,pos, state);
 	}
 

@@ -22,7 +22,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import sbfp.chemistry.ItemDye;
 import sbfp.machines.BlockMachine;
 import sbfp.machines.ItemBlockMachine;
-import sbfp.machines.ItemRedflux;
+import sbfp.machines.ItemRedFluxDevice;
 import sbfp.machines.processor.ProcessorRecipeManager;
 import sbfp.machines.processor.crusher.TileEntityCrusher;
 import sbfp.machines.processor.solar.TileEntitySolarCharger;
@@ -57,13 +57,11 @@ public class modsbfp{
 
 	// blocks and items
 	public static final BlockOre blockOre = new BlockOre("blockOre");
-        public static final ItemBlockOre itemBlockOre = new ItemBlockOre(blockOre);
         
 	public static final BlockMachine blockMachine = new BlockMachine("blockMachine");
-        public static final ItemBlockMachine itemBlockMachine = new ItemBlockMachine(blockMachine);
 
-	public static final ItemRedflux itemRedflux = new ItemRedflux(getItemID("itemRedfluxID",0x4c00),new String[]{"redFluxAmp","redFluxAbsorber","redFluxStabilizer","chargedRedstone"});
-	public static final ItemDye itemDye = new ItemDye(getItemID("itemDyeID",0x4c01),new String[]{"dyeTiO2","dyeVermillion","dyeOchre","dyeUltramarine","dyeMnO2","dyeGreen","dyePurple","dyeOrange","dyeGrey"});
+	//public static final ItemRedFluxDevice itemRedflux = new ItemRedFluxDevice(getItemID("itemRedfluxID",0x4c00),new String[]{"redFluxAmp","redFluxAbsorber","redFluxStabilizer","chargedRedstone"});
+	public static final ItemDye itemDye = new ItemDye("itemDye");
 //	public static final ItemTractor itemTractor = new ItemTractor(getItemID("itemTractorID",0x4c02),"itemTractor");
 
 	public static final ProcessorRecipeManager<TileEntitySolarCharger> prmSolar = new ProcessorRecipeManager<TileEntitySolarCharger>();
@@ -87,15 +85,20 @@ public class modsbfp{
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event){
 		instance = this;
-                GameRegistry.registerBlock(blockOre, ItemBlockOre.class, "blockOre");
                 
+                GameRegistry.registerBlock(blockOre, ItemBlockOre.class, "blockOre");
+                GameRegistry.registerBlock(blockMachine, ItemBlockMachine.class, "blockMachine");
+                
+                GameRegistry.registerItem(itemDye, "itemDye");
+                
+                //Do the client only/server only stuff
                 proxy.preInit(event);
 	}
 
 	@EventHandler
 	public void init(FMLInitializationEvent event){
 		
-		//GameRegistry.registerBlock(blockMachine,ItemBlockMachine.class,"blockMachines");
+		
 
 		//GameRegistry.registerTileEntity(TileEntitySolarCharger.class,"sunlightCollector");
 		//GameRegistry.registerTileEntity(TileEntityCrusher.class,"crusher");

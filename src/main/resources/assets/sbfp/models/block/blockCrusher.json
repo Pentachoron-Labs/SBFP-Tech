@@ -1,0 +1,12 @@
+{
+    "parent": "block/cube",
+    "textures": {
+        "up" : "sbfp:blocks/crusherUP",
+        "down" : "sbfp:blocks/crusherDOWN",
+        "north" : "sbfp:blocks/crusherNORTH",
+        "south" : "sbfp:blocks/crusherSOUTH",
+        "east" : "sbfp:blocks/crusherEAST",
+        "west" : "sbfp:blocks/crusherWEST",
+        "particle" : "sbfp:blocks/crusherUP"
+    }
+}
