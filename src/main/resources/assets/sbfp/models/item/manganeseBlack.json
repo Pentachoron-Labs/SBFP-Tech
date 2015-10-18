@@ -1,7 +1,7 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "sbfp:items/dyeTiO2"
+        "layer0": "sbfp:items/dyeMnO2"
     },
     "display": {
         "thirdperson": {

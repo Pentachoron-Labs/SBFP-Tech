@@ -1,11 +1,12 @@
 package sbfp.client;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
-import sbfp.modsbfp;
 import sbfp.machines.processor.solar.ContainerSolarCharger;
 import sbfp.machines.processor.solar.TileEntitySolarCharger;
 
@@ -28,7 +29,7 @@ public class GUISolarCharger extends GuiContainer{
 	 */
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3){
-		//this.mc.renderEngine.bindTexture(modsbfp.guiDirectory+"sun_collector.png");
+		Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("sbfp", "textures/gui/sun_collector.png"));
 		GL11.glColor4f(1.0F,1.0F,1.0F,1.0F);
 		containerWidth = (this.width-this.xSize)/2;
 		containerHeight = (this.height-this.ySize)/2;

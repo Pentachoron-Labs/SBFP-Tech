@@ -19,6 +19,6 @@ public class ItemBlockOre extends ItemBlock{
 
 	@Override
 	public String getUnlocalizedName(ItemStack is){
-		return EnumOreType.typeFromMeta(is.getItemDamage()).toString();
+		return OreTypes.typeFromMeta(is.getItemDamage()).toString();
 	}
 }

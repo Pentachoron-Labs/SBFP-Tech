@@ -27,6 +27,10 @@ public enum FluxDeviceTypes implements IStringSerializable {
         return metadata;
     }
     
+    public String getModelResourceName(){
+        return "sbfp:"+getName();
+    }
+    
     private static final FluxDeviceTypes[] TYPES_BY_META = new FluxDeviceTypes[FluxDeviceTypes.values().length];
     static{
         for (FluxDeviceTypes dye : FluxDeviceTypes.values()){

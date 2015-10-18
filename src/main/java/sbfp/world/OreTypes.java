@@ -3,7 +3,7 @@ package sbfp.world;
 
 import net.minecraft.util.IStringSerializable;
 
-public enum EnumOreType implements IStringSerializable{
+public enum OreTypes implements IStringSerializable{
 
     MONAZITE(0, "monazite"), FLUORITE(1, "fluorite"), MOLYBDENITE(2, "mno2"), //This is actually MoS2, but I'm an idiot... fix all the names later
     RUTILE(3, "rutile"), CINNABAR(4, "cinnabar"), LIMONITE(5, "limonite"), PYROLUSITE(6, "pyrolusite"), 
@@ -11,7 +11,7 @@ public enum EnumOreType implements IStringSerializable{
     private final String name;
     private final int metadata;
     private final String modelName;
-    private EnumOreType(int meta, String name){
+    private OreTypes(int meta, String name){
         this.metadata=meta;
         this.name = name;
         this.modelName = "sbfp:block"+name.substring(0,1).toUpperCase()+name.substring(1);
@@ -30,13 +30,13 @@ public enum EnumOreType implements IStringSerializable{
     public String getModelResourceName(){
         return modelName;
     }
-    private static final EnumOreType[] TYPES_BY_META = new EnumOreType[EnumOreType.values().length];
+    private static final OreTypes[] TYPES_BY_META = new OreTypes[OreTypes.values().length];
     static{
-        for(EnumOreType ore : EnumOreType.values()){
+        for(OreTypes ore : OreTypes.values()){
             TYPES_BY_META[ore.getMeta()] = ore;
         }
     }
-    public static EnumOreType typeFromMeta(int meta){
+    public static OreTypes typeFromMeta(int meta){
         if(meta>=TYPES_BY_META.length||meta<0) meta = 0;
         return TYPES_BY_META[meta];
     }

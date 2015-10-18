@@ -27,35 +27,35 @@ public final class GeneratorOres implements IWorldGenerator{
                                                 pos = new BlockPos(x,y,z);
 						if(SBFPHelper.getBlock(w, pos)==Blocks.stone){
 							if(SBFPHelper.getBlock(w, x,y+1,z)==Blocks.water &&r.nextInt(32)==0){
-								w.setBlockState(pos, modsbfp.blockOre.getStateFromMeta(EnumOreType.MONAZITE.getMeta()),2); // Monazite—pools
+								w.setBlockState(pos, modsbfp.blockOre.getStateFromMeta(OreTypes.MONAZITE.getMeta()),2); // Monazite—pools
 							}else if(r.nextInt(1536)==0){
-								w.setBlockState(pos, modsbfp.blockOre.getStateFromMeta(EnumOreType.MONAZITE.getMeta()),2); // Monazite—other
+								w.setBlockState(pos, modsbfp.blockOre.getStateFromMeta(OreTypes.MONAZITE.getMeta()),2); // Monazite—other
 							}else if(r.nextInt(2560)==0){
-								new LargeVeinGenerator(x,y,z,w,r,EnumOreType.FLUORITE.getMeta(),1).generate(); // Fluorite
+								new LargeVeinGenerator(x,y,z,w,r,OreTypes.FLUORITE.getMeta(),1).generate(); // Fluorite
 							}else if(r.nextInt(1536)==0){
-								w.setBlockState(pos,modsbfp.blockOre.getStateFromMeta(EnumOreType.MOLYBDENITE.getMeta()),2); // MoS₂
+								w.setBlockState(pos,modsbfp.blockOre.getStateFromMeta(OreTypes.MOLYBDENITE.getMeta()),2); // MoS₂
 								if(r.nextBoolean()){
 									int q = r.nextInt(3);
-									w.setBlockState(new BlockPos(x+(q==0 ? 1 : 0),y+(q==1 ? 1 : 0),z+(q==2 ? 1 : 0)),modsbfp.blockOre.getStateFromMeta(EnumOreType.MOLYBDENITE.getMeta()),2);
+									w.setBlockState(new BlockPos(x+(q==0 ? 1 : 0),y+(q==1 ? 1 : 0),z+(q==2 ? 1 : 0)),modsbfp.blockOre.getStateFromMeta(OreTypes.MOLYBDENITE.getMeta()),2);
 								}
 							}else if(r.nextInt(10240)==0){
-								new LargeVeinGenerator(x,y,z,w,r,EnumOreType.RUTILE.getMeta(),2).generate(); // Rutile
+								new LargeVeinGenerator(x,y,z,w,r,OreTypes.RUTILE.getMeta(),2).generate(); // Rutile
 							}else if(r.nextInt(128)==0&&bordersLava(new BlockPos(x,y,z),w)){
-								new LargeVeinGenerator(x,y,z,w,r,EnumOreType.CINNABAR.getMeta(),1.5).generate(); // Cinnabar—lava
+								new LargeVeinGenerator(x,y,z,w,r,OreTypes.CINNABAR.getMeta(),1.5).generate(); // Cinnabar—lava
 																					// pools
 							}else if(r.nextInt(2560)==0){
-								new LargeVeinGenerator(x,y,z,w,r,EnumOreType.CINNABAR.getMeta(),1.5).generate(); // Cinnabar—other
+								new LargeVeinGenerator(x,y,z,w,r,OreTypes.CINNABAR.getMeta(),1.5).generate(); // Cinnabar—other
 							}else if(r.nextInt(5120)==0){
-								new LargeVeinGenerator(x,y,z,w,r,EnumOreType.ARSENOPYRITE.getMeta(),1.5).generate(); // Arsenopyrite
+								new LargeVeinGenerator(x,y,z,w,r,OreTypes.ARSENOPYRITE.getMeta(),1.5).generate(); // Arsenopyrite
 							}
 						}
 					}
 					for(int y = 40; y<60; y++){
 						if(SBFPHelper.getBlock(w, new BlockPos(x,y,z))==Blocks.stone){
 							if(r.nextInt(5120)==0){
-								new LargeVeinGenerator(x,y,z,w,r,EnumOreType.LIMONITE.getMeta(),1,true).generate(); // Limonite
+								new LargeVeinGenerator(x,y,z,w,r,OreTypes.LIMONITE.getMeta(),1,true).generate(); // Limonite
 							}else if(r.nextInt(5120)==0){
-								new LargeVeinGenerator(x,y,z,w,r,EnumOreType.PYROLUSITE.getMeta(),1,true).generate(); // Pyrolusite
+								new LargeVeinGenerator(x,y,z,w,r,OreTypes.PYROLUSITE.getMeta(),1,true).generate(); // Pyrolusite
 							}
 						}
 					}

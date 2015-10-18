@@ -25,10 +25,11 @@ import net.minecraftforge.fml.common.FMLLog;
 import sbfp.BlockSB;
 import sbfp.machines.processor.crusher.TileEntityCrusher;
 import sbfp.machines.processor.solar.TileEntitySolarCharger;
+import sbfp.modsbfp;
 
 public class BlockMachine extends BlockSB implements ITileEntityProvider{
 
-        public static final IProperty TYPE = PropertyEnum.create("TYPE", EnumMachineType.class);
+        public static final IProperty TYPE = PropertyEnum.create("TYPE", MachineTypes.class);
         
 	public BlockMachine(String name){
 		super(Material.iron,name);
@@ -93,10 +94,11 @@ public class BlockMachine extends BlockSB implements ITileEntityProvider{
 
         @Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ){
-//		if(!playerIn.isSneaking()){
-//			playerIn.openGui(modsbfp.getInstance(),-1,worldIn,pos.getX(), pos.getY(), pos.getZ());
-//			return true;
-//		}
+                if(worldIn.isRemote) return true;
+		if(!playerIn.isSneaking()){
+			playerIn.openGui(modsbfp.getInstance(),-1,worldIn,pos.getX(), pos.getY(), pos.getZ());
+			return true;
+		}
 		return false;
 
 	}
@@ -104,12 +106,12 @@ public class BlockMachine extends BlockSB implements ITileEntityProvider{
 	@Override
 	public TileEntity createNewTileEntity(World w, int meta){
 		switch(meta){
-			case 0:
-				return new TileEntitySolarCharger(); //Flux Infuser
 			case 1:
+				return new TileEntitySolarCharger(); //Flux Infuser
+			case 0:
 				return new TileEntityCrusher(); //Crusher
 		}
-		FMLLog.warning("Tried to make a TileEntityProcessor but the metadata was %d. What gives?",meta);
+		FMLLog.info("Tried to make a TileEntityProcessor but the metadata was %d. What gives?",meta);
 		return null;
 	}
 
@@ -125,7 +127,7 @@ public class BlockMachine extends BlockSB implements ITileEntityProvider{
         
         @Override
         public IBlockState getStateFromMeta(int meta){
-            for(EnumMachineType ore : EnumMachineType.values()){
+            for(MachineTypes ore : MachineTypes.values()){
                 if(ore.getMeta() == meta){
                     return getDefaultState().withProperty(TYPE, ore);    
                 }
@@ -135,7 +137,7 @@ public class BlockMachine extends BlockSB implements ITileEntityProvider{
         
         @Override
         public int getMetaFromState(IBlockState state){
-            return ((EnumMachineType) state.getValue(TYPE)).getMeta();
+            return ((MachineTypes) state.getValue(TYPE)).getMeta();
         }
         
         @Override
@@ -145,7 +147,7 @@ public class BlockMachine extends BlockSB implements ITileEntityProvider{
         
         @Override
         public void getSubBlocks(Item item, CreativeTabs tab, List list){
-            for(EnumMachineType ore : EnumMachineType.values()){
+            for(MachineTypes ore : MachineTypes.values()){
                 list.add(new ItemStack(item, 1, ore.getMeta()));
             }
         }

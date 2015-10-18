@@ -26,6 +26,10 @@ public enum DyeTypes implements IStringSerializable{
         return metadata;
     }
     
+    public String getModelResourceName(){
+        return "sbfp:"+getName();
+    }
+    
     private static final DyeTypes[] TYPES_BY_META = new DyeTypes[DyeTypes.values().length];
     static{
         for (DyeTypes dye : DyeTypes.values()){

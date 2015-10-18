@@ -1,9 +1,11 @@
 package sbfp.client;
 
+import net.minecraft.client.Minecraft;
 import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.util.ResourceLocation;
 import sbfp.machines.processor.crusher.ContainerCrusher;
 import sbfp.machines.processor.crusher.TileEntityCrusher;
 
@@ -26,7 +28,7 @@ public class GUICrusher extends GuiContainer{
 	 */
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3){
-		//this.mc.renderEngine.getTexture(modsbfp.guiDirectory+"crusher.png");
+                Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("sbfp", "textures/gui/crusher.png"));
 		GL11.glColor4f(1.0F,1.0F,1.0F,1.0F);
 		containerWidth = (this.width-this.xSize)/2;
 		containerHeight = (this.height-this.ySize)/2;

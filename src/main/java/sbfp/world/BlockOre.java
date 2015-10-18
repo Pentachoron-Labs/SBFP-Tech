@@ -13,7 +13,7 @@ import net.minecraft.util.EnumWorldBlockLayer;
 import sbfp.BlockSB;
 
 public class BlockOre extends BlockSB{
-        public static final IProperty TYPE = PropertyEnum.create("TYPE", EnumOreType.class);
+        public static final IProperty TYPE = PropertyEnum.create("TYPE", OreTypes.class);
         
 	public BlockOre(String name){
 		super(Material.rock,name);
@@ -42,17 +42,17 @@ public class BlockOre extends BlockSB{
         
         @Override
         public IBlockState getStateFromMeta(int meta){
-            for(EnumOreType ore : EnumOreType.values()){
+            for(OreTypes ore : OreTypes.values()){
                 if(ore.getMeta() == meta){
                     return getDefaultState().withProperty(TYPE, ore);    
                 }
             }
-            return getDefaultState().withProperty(TYPE, EnumOreType.MONAZITE);
+            return getDefaultState().withProperty(TYPE, OreTypes.MONAZITE);
         }
         
         @Override
         public int getMetaFromState(IBlockState state){
-            return ((EnumOreType) state.getValue(TYPE)).getMeta();
+            return ((OreTypes) state.getValue(TYPE)).getMeta();
         }
         
         @Override
@@ -62,7 +62,7 @@ public class BlockOre extends BlockSB{
         
         @Override
         public void getSubBlocks(Item item, CreativeTabs tab, List list){
-            for(EnumOreType ore : EnumOreType.values()){
+            for(OreTypes ore : OreTypes.values()){
                 list.add(new ItemStack(item, 1, ore.getMeta()));
             }
         }

@@ -15,6 +15,7 @@ import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -27,7 +28,7 @@ import sbfp.machines.processor.ProcessorRecipeManager;
 import sbfp.machines.processor.crusher.TileEntityCrusher;
 import sbfp.machines.processor.solar.TileEntitySolarCharger;
 import sbfp.world.BlockOre;
-import sbfp.world.EnumOreType;
+import sbfp.world.OreTypes;
 import sbfp.world.GeneratorOres;
 import sbfp.world.ItemBlockOre;
 
@@ -48,8 +49,11 @@ public class modsbfp{
 	// mechanics constants
 	@Instance(modid)
 	private static modsbfp instance;
+        
 	private final GeneratorOres wGen = new GeneratorOres();
+        
 	private static final Configuration config = new Configuration(new File("config/SBFP/SBFP.cfg"));
+        
 	private static final HashMap<String,HashMap<String,String>> lang = new HashMap<String,HashMap<String,String>>();
 
 	@SidedProxy(clientSide = "sbfp.client.SBClientProxy", serverSide = "sbfp.SBCommonProxy")
@@ -57,11 +61,11 @@ public class modsbfp{
 
 	// blocks and items
 	public static final BlockOre blockOre = new BlockOre("blockOre");
-        
 	public static final BlockMachine blockMachine = new BlockMachine("blockMachine");
 
-	//public static final ItemRedFluxDevice itemRedflux = new ItemRedFluxDevice(getItemID("itemRedfluxID",0x4c00),new String[]{"redFluxAmp","redFluxAbsorber","redFluxStabilizer","chargedRedstone"});
+	public static final ItemRedFluxDevice itemRedflux = new ItemRedFluxDevice("itemFluxDevice");
 	public static final ItemDye itemDye = new ItemDye("itemDye");
+        
 //	public static final ItemTractor itemTractor = new ItemTractor(getItemID("itemTractorID",0x4c02),"itemTractor");
 
 	public static final ProcessorRecipeManager<TileEntitySolarCharger> prmSolar = new ProcessorRecipeManager<TileEntitySolarCharger>();
@@ -90,7 +94,12 @@ public class modsbfp{
                 GameRegistry.registerBlock(blockMachine, ItemBlockMachine.class, "blockMachine");
                 
                 GameRegistry.registerItem(itemDye, "itemDye");
+                GameRegistry.registerItem(itemRedflux, "itemFluxDevice");
                 
+                GameRegistry.registerTileEntity(TileEntitySolarCharger.class,"sunlightCollector");
+		GameRegistry.registerTileEntity(TileEntityCrusher.class,"crusher");
+
+                NetworkRegistry.INSTANCE.registerGuiHandler(modsbfp.getInstance(), proxy);
                 //Do the client only/server only stuff
                 proxy.preInit(event);
 	}
@@ -100,10 +109,7 @@ public class modsbfp{
 		
 		
 
-		//GameRegistry.registerTileEntity(TileEntitySolarCharger.class,"sunlightCollector");
-		//GameRegistry.registerTileEntity(TileEntityCrusher.class,"crusher");
-
-		//GameRegistry.registerItem(itemRedflux,"itemRedflux");
+		
 //		GameRegistry.registerItem(itemTractor,"itemTractor");
 
 //		MinecraftForge.setBlockHarvestLevel(blockOre,0,"pickaxe",HarvestLevels.IRON.ordinal());
@@ -116,7 +122,7 @@ public class modsbfp{
 		GameRegistry.registerWorldGenerator(this.wGen, GeneratorOres.GENERATOR_WEIGHT);
 		//NetworkRegistry.instance().registerGuiHandler(this,modsbfp.proxy);
             
-		for(EnumOreType ore : EnumOreType.values()){
+		for(OreTypes ore : OreTypes.values()){
 			OreDictionary.registerOre(ore.getName(),new ItemStack(blockOre,1,ore.getMeta()));
 		}
                 

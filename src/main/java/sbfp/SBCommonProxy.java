@@ -14,7 +14,7 @@ import sbfp.machines.processor.solar.ContainerSolarCharger;
 import sbfp.machines.processor.solar.TileEntitySolarCharger;
 
 public class SBCommonProxy implements IGuiHandler{
-	
+    
         public void preInit(FMLPreInitializationEvent event){
             
         }
@@ -29,8 +29,8 @@ public class SBCommonProxy implements IGuiHandler{
 		if(tileEntity!=null){
 			if(tileEntity instanceof TileEntitySolarCharger) return new ContainerSolarCharger(player.inventory,(TileEntitySolarCharger) tileEntity);
 			if(tileEntity instanceof TileEntityCrusher) return new ContainerCrusher(player.inventory,(TileEntityCrusher) tileEntity);
-			FMLLog.warning("An unrecognized TE ('%s') inhabits machine '%s'. Update the Common Proxy.",tileEntity.getClass().getName());
-			FMLLog.warning("This warning is for side: server");
+			FMLLog.info("An unrecognized TE ('%s') inhabits machine '%s'. Update the Common Proxy.",tileEntity.getClass().getName());
+			FMLLog.info("This warning is for side: server");
 			return null;
 		}
 		return null;
@@ -40,11 +40,6 @@ public class SBCommonProxy implements IGuiHandler{
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		return null;
 	}
-
-	public void registerRenderInformation()
-    {
-
-    }
 
     public void registerTileEntitySpecialRenderer()
     {
