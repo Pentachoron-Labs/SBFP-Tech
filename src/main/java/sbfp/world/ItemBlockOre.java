@@ -3,7 +3,6 @@ package sbfp.world;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import sbfp.modsbfp;
 
 public class ItemBlockOre extends ItemBlock{
 
@@ -20,6 +19,6 @@ public class ItemBlockOre extends ItemBlock{
 
 	@Override
 	public String getUnlocalizedName(ItemStack is){
-		return super.getUnlocalizedName()+EnumOreType.typeFromMeta(is.getItemDamage());
+		return EnumOreType.typeFromMeta(is.getItemDamage()).toString();
 	}
 }

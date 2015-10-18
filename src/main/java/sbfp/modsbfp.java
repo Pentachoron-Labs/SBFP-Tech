@@ -75,7 +75,7 @@ public class modsbfp{
 	}
 
         public static CreativeTabs tabSBFP = new CreativeTabs("SBFP") {
-
+ 
             @Override
             @SideOnly(Side.CLIENT)
             public Item getTabIconItem(){
@@ -87,12 +87,14 @@ public class modsbfp{
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event){
 		instance = this;
+                GameRegistry.registerBlock(blockOre, ItemBlockOre.class, "blockOre");
+                
                 proxy.preInit(event);
 	}
 
 	@EventHandler
 	public void init(FMLInitializationEvent event){
-		GameRegistry.registerBlock(blockOre, ItemBlockOre.class, "blockOre");
+		
 		//GameRegistry.registerBlock(blockMachine,ItemBlockMachine.class,"blockMachines");
 
 		//GameRegistry.registerTileEntity(TileEntitySolarCharger.class,"sunlightCollector");
@@ -108,13 +110,16 @@ public class modsbfp{
 //		MinecraftForge.setBlockHarvestLevel(blockMachine,"pickaxe",HarvestLevels.IRON.ordinal());
 
 //		EntityRegistry.registerModEntity(EntityTractor.class,"entityTractor",0,this,256,1,true);
-//		GameRegistry.registerWorldGenerator(this.wGen);
+		GameRegistry.registerWorldGenerator(this.wGen, GeneratorOres.GENERATOR_WEIGHT);
 		//NetworkRegistry.instance().registerGuiHandler(this,modsbfp.proxy);
+            
 		for(EnumOreType ore : EnumOreType.values()){
 			OreDictionary.registerOre(ore.getName(),new ItemStack(blockOre,1,ore.getMeta()));
 		}
+                
 		//this.addRecipes();
-		//modsbfp.instance.loadLang();\
+		//modsbfp.instance.loadLang();
+                
                 proxy.init(event);
 		
 	}

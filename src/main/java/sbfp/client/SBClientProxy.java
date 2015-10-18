@@ -9,15 +9,14 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLLog;
-import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import sbfp.SBCommonProxy;
 import sbfp.machines.processor.crusher.TileEntityCrusher;
 import sbfp.machines.processor.solar.TileEntitySolarCharger;
-import sbfp.modsbfp;
 import sbfp.world.EnumOreType;
 
 
@@ -25,18 +24,21 @@ import sbfp.world.EnumOreType;
 public class SBClientProxy extends SBCommonProxy{
     
     
-        
+        @Override
         public void preInit(FMLPreInitializationEvent event){
-            for(EnumOreType ores :EnumOreType.values()){
-                
-                ModelBakery.addVariantName(modsbfp.itemBlockOre, "sbfp:block"+ores.getModelName());
-            }
+            Item itemBlockOre = GameRegistry.findItem("sbfp", "blockOre");
+            ModelBakery.addVariantName(itemBlockOre, EnumOreType.ARSENOPYRITE.getModelResourceName(), EnumOreType.CINNABAR.getModelResourceName(), EnumOreType.FLUORITE.getModelResourceName(),
+                    EnumOreType.LIMONITE.getModelResourceName(), EnumOreType.MOLYBDENITE.getModelResourceName(), EnumOreType.MONAZITE.getModelResourceName(), EnumOreType.PYROLUSITE.getModelResourceName(),
+                    EnumOreType.RUTILE.getModelResourceName());
         }
 	@Override
 	public void init(FMLInitializationEvent event){
+            
 		FMLLog.fine("SBFP Client Proxy Loading");
+                Item itemBlockOre = GameRegistry.findItem("sbfp", "blockOre"); //WHO'S THE IDIOT NOW, HUH?
                 for(EnumOreType ores : EnumOreType.values()){
-                    Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(modsbfp.blockOre), ores.getMeta(), new ModelResourceLocation("sbfp:"+ores.toString(), "inventory"));
+                    FMLLog.info(ores.getModelResourceName()+" "+ores.getMeta());
+                    Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(itemBlockOre, ores.getMeta(), new ModelResourceLocation(ores.getModelResourceName(), "inventory"));
                 }
 	}
 	@Override

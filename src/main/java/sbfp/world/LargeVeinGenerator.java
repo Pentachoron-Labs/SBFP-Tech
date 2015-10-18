@@ -5,6 +5,7 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import sbfp.SBFPHelper;
@@ -37,7 +38,7 @@ class LargeVeinGenerator{
 	}
 
 	void generate(){
-		world.setBlockState(new BlockPos(seedX, seedY, seedZ),(IBlockState)modsbfp.blockOre.getBlockState(),2);
+		world.setBlockState(new BlockPos(seedX, seedY, seedZ),modsbfp.blockOre.getStateFromMeta(this.meta),2);
 		int iter = 0;
 		blocks = new ArrayList<Integer[]>();
 		blocksNew = new ArrayList<Integer[]>();
@@ -57,7 +58,7 @@ class LargeVeinGenerator{
 			}
 			blocks = blocksNew;
 			blocksNew = new ArrayList<Integer[]>();
-			if(blocks.size()==0){
+			if(blocks.isEmpty()){
 				// if(this.meta == 5)
 				// FMLLog.finer("I haz a %s deposit at (%d,%d,%d) with %d blocks",modsbfp.blockOre.names[this.meta],seedX,seedY,seedZ,iter);
 				break;
@@ -69,8 +70,8 @@ class LargeVeinGenerator{
 		int X = this.X+x, Y = this.Y+y, Z = this.Z+z;
 		BlockPos newPosition = new BlockPos(this.X+x, this.Y+y, this.Z+z);
 		int dx = X-seedX, dy = Y-seedY, dz = Z-seedZ;
-		if((SBFPHelper.getBlock(world, newPosition)==Block.getBlockFromName("minecraft:stone")||this.dirtFlag&&SBFPHelper.getBlock(world, newPosition)==Block.getBlockFromName("minecraft:dirt"))&&rand.nextDouble()<Math.pow(Math.pow(dx,16)+Math.pow(dy,16)+Math.pow(dz,16)+1,-this.veinSize)){
-			world.setBlockState(newPosition,(IBlockState) modsbfp.blockOre.getBlockState(),2);
+		if((SBFPHelper.getBlock(world, newPosition)==Blocks.stone||this.dirtFlag&&SBFPHelper.getBlock(world, newPosition)==Blocks.dirt)&&rand.nextDouble()<Math.pow(Math.pow(dx,16)+Math.pow(dy,16)+Math.pow(dz,16)+1,-this.veinSize)){
+			world.setBlockState(newPosition,modsbfp.blockOre.getStateFromMeta(this.meta),2);
 			blocksNew.add(new Integer[]{X,Y,Z});
 		}
 	}
