@@ -13,6 +13,7 @@ public class SlotCrusher extends Slot{
 
 	@Override
 	public boolean isItemValid(ItemStack is){
-		return modsbfp.prmCrusher.getRecipe(is)!=null;
+		//return modsbfp.prmCrusher.getRecipe(is)!=null;
+            return false; //temporary, until ProcessManager functional
 	}
 }

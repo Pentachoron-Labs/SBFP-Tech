@@ -11,7 +11,7 @@ import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.StringTranslate;
 import sbfp.modsbfp;
-import sbfp.machines.Recipe;
+import sbfp.machines.processor.MaterialProcess;
 import sbfp.machines.processor.TileEntityProcessor;
 
 public class TileEntitySolarCharger extends TileEntityProcessor implements IInventory{
@@ -127,8 +127,8 @@ public class TileEntitySolarCharger extends TileEntityProcessor implements IInve
 	}
 
 	@Override
-	protected Recipe getRecipeByID(int i){
-		return modsbfp.prmSolar.getRecipeByID(i);
+	protected MaterialProcess getRecipeByID(int i){
+		return modsbfp.prmSolar.getProcessByID(i);
 	}
 
 	@Override

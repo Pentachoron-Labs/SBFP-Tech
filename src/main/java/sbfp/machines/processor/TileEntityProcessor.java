@@ -11,7 +11,6 @@ import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraftforge.fml.common.FMLLog;
-import sbfp.machines.Recipe;
 
 /** This class is for machines that have an input and output */
 public abstract class TileEntityProcessor extends TileEntity implements IUpdatePlayerListBox{
@@ -20,11 +19,11 @@ public abstract class TileEntityProcessor extends TileEntity implements IUpdateP
 	protected long ticks = 0;
 	public ContainerProcessor container;
 	public final Set<EntityPlayer> playersUsing = new HashSet<EntityPlayer>();
-	protected Recipe activeRecipe;
+	protected MaterialProcess activeRecipe;
 	protected ItemStack[] waitingOutputs;
 	protected boolean hasItem;
 
-	public Recipe getActiveRecipe(){
+	public MaterialProcess getActiveRecipe(){
 		return this.activeRecipe;
 	}
 	@Override
@@ -119,7 +118,7 @@ public abstract class TileEntityProcessor extends TileEntity implements IUpdateP
 	 * This should be static, but Java is stupid. Just
 	 * call modsbfp.prmWhatever.getRecipeByID(i);
 	 */
-	protected abstract Recipe getRecipeByID(int i);
+	protected abstract MaterialProcess getRecipeByID(int i);
 
 	public boolean isUseableByPlayer(EntityPlayer player){
 		return this.getWorld().getTileEntity(new BlockPos(this.getX(), this.getY(), this.getZ()))!=this ? false : player.getDistanceSq(this.getX()+0.5D,this.getY()+0.5D,this.getZ()+0.5D)<=64.0D;

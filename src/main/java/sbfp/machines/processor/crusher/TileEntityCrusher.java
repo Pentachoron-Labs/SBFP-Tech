@@ -10,7 +10,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.StringTranslate;
 import sbfp.modsbfp;
-import sbfp.machines.Recipe;
+import sbfp.machines.processor.MaterialProcess;
 import sbfp.machines.processor.TileEntityProcessor;
 
 public class TileEntityCrusher extends TileEntityProcessor implements IInventory{
@@ -34,7 +34,7 @@ public class TileEntityCrusher extends TileEntityProcessor implements IInventory
 		for(int i = 0; i<4; i++){
 			if(this.inventory[i]!=null){
 				this.activeRecipe = modsbfp.prmCrusher.getRecipe(this.inventory[i]);
-				this.waitingOutputs = this.activeRecipe.getOutputs(this);
+				this.waitingOutputs = this.activeRecipe.getOutputs(this.worldObj.rand);
 				boolean flag = true;
 				if(this.activeRecipe!=null){
 					flag = flag&&this.container.dryMerge(this.waitingOutputs[0],40,42,false)>=this.waitingOutputs[0].stackSize;
@@ -146,8 +146,8 @@ public class TileEntityCrusher extends TileEntityProcessor implements IInventory
 	}
 
 	@Override
-	protected Recipe getRecipeByID(int i){
-		return modsbfp.prmCrusher.getRecipeByID(i);
+	protected MaterialProcess getRecipeByID(int i){
+		return modsbfp.prmCrusher.getProcessByID(i);
 	}
 
 	@Override
