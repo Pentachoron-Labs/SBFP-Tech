@@ -1,6 +1,7 @@
 package sbfp.machines.processor;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,7 +21,7 @@ public abstract class TileEntityProcessor extends TileEntity implements IUpdateP
 	public ContainerProcessor container;
 	public final Set<EntityPlayer> playersUsing = new HashSet<EntityPlayer>();
 	protected MaterialProcess activeRecipe;
-	protected ItemStack[] waitingOutputs;
+	protected List<ItemStack> waitingOutputs;
 	protected boolean hasItem;
 
 	public MaterialProcess getActiveRecipe(){
@@ -94,14 +95,14 @@ public abstract class TileEntityProcessor extends TileEntity implements IUpdateP
 		super.writeToNBT(tagCompound);
 		tagCompound.setLong("ticks",this.ticks);
 		tagCompound.setInteger("workTicks",this.workTicks);
-		if(this.activeRecipe!=null) tagCompound.setInteger("recipeID",this.activeRecipe.id);
+		if(this.activeRecipe!=null) tagCompound.setString("recipeID",this.activeRecipe.getName());
 		NBTTagList tagList = new NBTTagList();
 		if(this.waitingOutputs==null) return;
-		for(int i = 0; i<this.waitingOutputs.length; ++i){
-			if(this.waitingOutputs[i]!=null){
+		for(int i = 0; i<this.waitingOutputs.size(); ++i){
+			if(this.waitingOutputs.get(i)!=null){
 				NBTTagCompound ntc3 = new NBTTagCompound();
 				ntc3.setByte("slot",(byte) i);
-				this.waitingOutputs[i].writeToNBT(ntc3);
+				this.waitingOutputs.get(i).writeToNBT(ntc3);
 				tagList.appendTag(ntc3);
 			}
 		}
@@ -113,12 +114,6 @@ public abstract class TileEntityProcessor extends TileEntity implements IUpdateP
 		super.readFromNBT(tagCompound);
 		
 	}
-
-	/**
-	 * This should be static, but Java is stupid. Just
-	 * call modsbfp.prmWhatever.getRecipeByID(i);
-	 */
-	protected abstract MaterialProcess getRecipeByID(int i);
 
 	public boolean isUseableByPlayer(EntityPlayer player){
 		return this.getWorld().getTileEntity(new BlockPos(this.getX(), this.getY(), this.getZ()))!=this ? false : player.getDistanceSq(this.getX()+0.5D,this.getY()+0.5D,this.getZ()+0.5D)<=64.0D;

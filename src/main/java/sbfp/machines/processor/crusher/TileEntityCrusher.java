@@ -23,9 +23,9 @@ public class TileEntityCrusher extends TileEntityProcessor implements IInventory
 
 	@Override
 	protected void mergeOutputs(){
-		boolean b = this.container.mergeItemStack(this.waitingOutputs[0],40,42,false,false);
-		if(this.waitingOutputs.length==2){
-			this.container.mergeItemStack(this.waitingOutputs[1],42,44,false,false);
+		boolean b = this.container.mergeItemStack(this.waitingOutputs.get(0),40,42,false,false);
+		if(this.waitingOutputs.size()==2){
+			this.container.mergeItemStack(this.waitingOutputs.get(1),42,44,false,false);
 		}
 	}
 
@@ -33,16 +33,16 @@ public class TileEntityCrusher extends TileEntityProcessor implements IInventory
 	protected boolean dryMergeOutputsAndFeed(){
 		for(int i = 0; i<4; i++){
 			if(this.inventory[i]!=null){
-				this.activeRecipe = modsbfp.prmCrusher.getRecipe(this.inventory[i]);
-				this.waitingOutputs = this.activeRecipe.getOutputs(this.worldObj.rand);
+				this.activeRecipe = modsbfp.crushingRegistry.getProcessesByInputs(this.inventory[i]).get(0);
+				this.waitingOutputs = this.activeRecipe.getOutputsWithRandomChance(this.worldObj.rand);
 				boolean flag = true;
 				if(this.activeRecipe!=null){
-					flag = flag&&this.container.dryMerge(this.waitingOutputs[0],40,42,false)>=this.waitingOutputs[0].stackSize;
-					if(this.waitingOutputs.length==2){
-						flag = flag&&this.container.dryMerge(this.waitingOutputs[1],42,44,false)>=this.waitingOutputs[1].stackSize;
+					flag = flag&&this.container.dryMerge(this.waitingOutputs.get(0),40,42,false)>=this.waitingOutputs.get(0).stackSize;
+					if(this.waitingOutputs.size()==2){
+						flag = flag&&this.container.dryMerge(this.waitingOutputs.get(1),42,44,false)>=this.waitingOutputs.get(1).stackSize;
 					}
 					if(flag){
-						this.decrStackSize(i,this.activeRecipe.getInputs()[0].stackSize);
+						this.decrStackSize(i,this.activeRecipe.getInputs().get(0).stackSize);
 						return true;
 					}
 				}
@@ -143,11 +143,6 @@ public class TileEntityCrusher extends TileEntityProcessor implements IInventory
 	@Override
 	public void readFromNBT(NBTTagCompound tagCompound){
 		super.readFromNBT(tagCompound);
-	}
-
-	@Override
-	protected MaterialProcess getRecipeByID(int i){
-		return modsbfp.prmCrusher.getProcessByID(i);
 	}
 
 	@Override

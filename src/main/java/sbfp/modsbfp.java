@@ -24,8 +24,11 @@ import sbfp.chemistry.ItemDye;
 import sbfp.machines.BlockMachine;
 import sbfp.machines.ItemBlockMachine;
 import sbfp.machines.ItemRedFluxDevice;
+import sbfp.machines.processor.MaterialProcessRegistry;
 import sbfp.machines.processor.ProcessManager;
+import sbfp.machines.processor.crusher.CrusherProcess;
 import sbfp.machines.processor.crusher.TileEntityCrusher;
+import sbfp.machines.processor.solar.SolarInfusionProcess;
 import sbfp.machines.processor.solar.TileEntitySolarCharger;
 import sbfp.world.BlockOre;
 import sbfp.world.OreTypes;
@@ -68,8 +71,8 @@ public class modsbfp{
         
 //	public static final ItemTractor itemTractor = new ItemTractor(getItemID("itemTractorID",0x4c02),"itemTractor");
 
-	public static final ProcessManager<TileEntitySolarCharger> prmSolar = new ProcessManager<TileEntitySolarCharger>();
-	public static final ProcessManager<TileEntityCrusher> prmCrusher = new ProcessManager<TileEntityCrusher>();
+	public static final MaterialProcessRegistry<CrusherProcess> crushingRegistry = new MaterialProcessRegistry<CrusherProcess>();
+	public static final MaterialProcessRegistry<SolarInfusionProcess> solarInfusionRegistry = new MaterialProcessRegistry<SolarInfusionProcess>();
 
 	//For setting harvest levels of various blocks.
 	public enum HarvestLevels{
