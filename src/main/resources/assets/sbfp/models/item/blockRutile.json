@@ -1,5 +1,5 @@
 {
-    "parent":"sbfp:block/blockCinnabar",
+    "parent":"sbfp:block/blockRutile",
     "display": {
         "thirdperson": {
             "rotation": [ 10, -45, 170 ],
