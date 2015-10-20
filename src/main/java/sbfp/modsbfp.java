@@ -10,7 +10,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
-import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -22,13 +21,13 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
+import sbfp.chemistry.DyeTypes;
 import sbfp.chemistry.ItemDye;
 import sbfp.machines.BlockMachine;
 import sbfp.machines.FluxDeviceTypes;
 import sbfp.machines.ItemBlockMachine;
 import sbfp.machines.ItemRedFluxDevice;
 import sbfp.machines.processor.MaterialProcessRegistry;
-import sbfp.machines.processor.ProcessManager;
 import sbfp.machines.processor.crusher.CrusherProcess;
 import sbfp.machines.processor.crusher.TileEntityCrusher;
 import sbfp.machines.processor.solar.SolarInfusionProcess;
@@ -122,7 +121,8 @@ public class modsbfp {
 
 	//this.addRecipes();
         solarInfusionRegistry.addProcess(new SolarInfusionProcess("chargedRedstone", new ItemStack(Items.redstone, 1), new ItemStack(itemFluxDevice,1, FluxDeviceTypes.CHARGEDREDSTONE.getMeta()), 40));
-        //modsbfp.instance.loadLang();
+        crushingRegistry.addProcess(new CrusherProcess("stone_to_gravel", new ItemStack(Blocks.cobblestone,1),new ItemStack(Blocks.gravel,1),15*20));
+        crushingRegistry.addProcess(new CrusherProcess("pyrolusite_to_manganeseBlack", new ItemStack(blockOre,1,OreTypes.PYROLUSITE.getMeta()),new ItemStack(itemDye,1,DyeTypes.MNO2.getMeta()),new ItemStack(Blocks.gravel,1),0.4F,3*20));
         proxy.init(event);
     }
 

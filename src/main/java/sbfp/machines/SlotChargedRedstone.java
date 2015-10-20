@@ -1,4 +1,4 @@
-package sbfp.machines.processor;
+package sbfp.machines;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
@@ -13,6 +13,6 @@ public class SlotChargedRedstone extends Slot{
 
 	@Override
 	public boolean isItemValid(ItemStack is){
-		return false;
+		return is.getItem().equals(modsbfp.itemFluxDevice)&&is.getMetadata() == FluxDeviceTypes.CHARGEDREDSTONE.getMeta();
 	}
 }

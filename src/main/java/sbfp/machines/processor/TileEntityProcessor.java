@@ -61,7 +61,7 @@ public abstract class TileEntityProcessor extends TileEntity implements IUpdateP
 					FMLLog.warning("Players using: %s",this.playersUsing.toArray());
 				}
 				return;
-			}else throw new RuntimeException(e);
+			}else throw e;
 		}
 	}
 

@@ -10,7 +10,9 @@ import sbfp.modsbfp;
 import sbfp.machines.processor.TileEntityProcessor;
 
 public class TileEntitySolarCharger extends TileEntityProcessor implements IInventory {
-
+    
+    private final int INPUT_STACK_NUMBER = 4;
+    private final int OUTPUT_STACK_NUMBER = 4;
     private ItemStack[] inventory = new ItemStack[8];
 
     @Override
@@ -20,7 +22,7 @@ public class TileEntitySolarCharger extends TileEntityProcessor implements IInve
 
     @Override
     protected boolean dryMergeOutputsAndFeed() {
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < INPUT_STACK_NUMBER; i++) {
             if (this.inventory[i] != null) {
                 this.activeRecipe = modsbfp.solarInfusionRegistry.getProcessesByInputs(this.inventory[i]).get(0);
                 this.waitingOutputs = this.activeRecipe.getOutputs();
@@ -39,7 +41,7 @@ public class TileEntitySolarCharger extends TileEntityProcessor implements IInve
 
     @Override
     public void update() {
-        if (this.worldObj.canBlockSeeSky(this.getPos())) {
+        if (this.worldObj.canBlockSeeSky(this.getPos())&&this.worldObj.isDaytime() && !this.worldObj.isRaining()) {
             super.update();
         }
     }

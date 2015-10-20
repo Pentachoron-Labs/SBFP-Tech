@@ -1,6 +1,5 @@
 package sbfp.machines.processor.crusher;
 
-import com.google.common.io.ByteArrayDataInput;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -8,9 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.IChatComponent;
-import net.minecraft.util.StringTranslate;
 import sbfp.modsbfp;
-import sbfp.machines.processor.MaterialProcess;
 import sbfp.machines.processor.TileEntityProcessor;
 
 public class TileEntityCrusher extends TileEntityProcessor implements IInventory{
@@ -19,7 +16,7 @@ public class TileEntityCrusher extends TileEntityProcessor implements IInventory
 
 	public static final int maxChargeLevel = 100; // FOR NOW
 
-	private int powerLevel = 56;
+	private int powerLevel = 10;
 
 	@Override
 	protected void mergeOutputs(){

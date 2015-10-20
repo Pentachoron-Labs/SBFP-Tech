@@ -1,9 +1,9 @@
 package sbfp.machines.processor.crusher;
 
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.SlotFurnaceFuel;
+import sbfp.machines.SlotOutput;
 import sbfp.machines.processor.ContainerProcessor;
-import sbfp.machines.processor.SlotChargedRedstone;
+import sbfp.machines.SlotChargedRedstone;
 
 public class ContainerCrusher extends ContainerProcessor{
 
@@ -13,10 +13,10 @@ public class ContainerCrusher extends ContainerProcessor{
 		this.addSlotToContainer(new SlotCrusher(tileEntity,1,26,24));
 		this.addSlotToContainer(new SlotCrusher(tileEntity,2,8,42));
 		this.addSlotToContainer(new SlotCrusher(tileEntity,3,26,42));
-		this.addSlotToContainer(new SlotFurnaceFuel(tileEntity,4,80,24));
-		this.addSlotToContainer(new SlotFurnaceFuel(tileEntity,5,98,24));
-		this.addSlotToContainer(new SlotFurnaceFuel(tileEntity,6,80,46));
-		this.addSlotToContainer(new SlotFurnaceFuel(tileEntity,7,98,46));
+		this.addSlotToContainer(new SlotOutput(tileEntity,4,80,24));
+		this.addSlotToContainer(new SlotOutput(tileEntity,5,98,24));
+		this.addSlotToContainer(new SlotOutput(tileEntity,6,80,46));
+		this.addSlotToContainer(new SlotOutput(tileEntity,7,98,46));
 		this.addSlotToContainer(new SlotChargedRedstone(tileEntity,8,152,80));
 		this.addSlotToContainer(new SlotChargedRedstone(tileEntity,9,152,98));
 	}
