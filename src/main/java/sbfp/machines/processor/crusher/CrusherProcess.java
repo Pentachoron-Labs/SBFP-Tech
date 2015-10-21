@@ -5,9 +5,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import net.minecraft.item.ItemStack;
-import sbfp.machines.processor.MaterialProcess;
+import sbfp.machines.processor.IMaterialProcess;
 
-public class CrusherProcess implements MaterialProcess {
+public class CrusherProcess implements IMaterialProcess {
     
     private final String name;
     private final ItemStack input;

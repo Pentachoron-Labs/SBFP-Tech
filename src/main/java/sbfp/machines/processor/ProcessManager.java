@@ -8,13 +8,13 @@ import net.minecraft.item.ItemStack;
 
 public class ProcessManager<E extends TileEntityProcessor>{
 
-	private List<MaterialProcess> recipes;
+	private List<IMaterialProcess> recipes;
 
 	public ProcessManager(){
-		recipes = new ArrayList<MaterialProcess>();
+		recipes = new ArrayList<IMaterialProcess>();
 	}
 
-	public void addProcess(MaterialProcess recipe){
+	public void addProcess(IMaterialProcess recipe){
 		if(recipe!=null) this.recipes.add(recipe);
 		//recipe.getID() = this.recipes.size()-1;
 	}

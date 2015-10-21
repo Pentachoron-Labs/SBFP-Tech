@@ -20,11 +20,11 @@ public abstract class TileEntityProcessor extends TileEntity implements IUpdateP
 	protected long ticks = 0;
 	public ContainerProcessor container;
 	public final Set<EntityPlayer> playersUsing = new HashSet<EntityPlayer>();
-	protected MaterialProcess activeRecipe;
+	protected IMaterialProcess activeRecipe;
 	protected List<ItemStack> waitingOutputs;
 	protected boolean hasItem;
 
-	public MaterialProcess getActiveRecipe(){
+	public IMaterialProcess getActiveRecipe(){
 		return this.activeRecipe;
 	}
 	@Override

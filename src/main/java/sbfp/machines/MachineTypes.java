@@ -5,7 +5,7 @@ import net.minecraft.util.IStringSerializable;
 
 public enum MachineTypes implements IStringSerializable{
 
-    CRUSHER(0, "crusher"), SOLARCHARGER(1, "solarcharger");
+    CRUSHER(0, "crusher"), SOLARCHARGER(1, "solarcharger"), DISSOCIATOR(2, "dissociator"), FOUNDRY(3, "foundry");
     
     private final String name;
     private final int metadata;

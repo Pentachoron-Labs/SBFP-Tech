@@ -9,7 +9,7 @@ import net.minecraft.item.ItemStack;
  * refine raw material.
  *
  */
-public interface MaterialProcess {
+public interface IMaterialProcess {
 
     /**
     * Gets the id of the recipe

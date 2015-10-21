@@ -5,13 +5,12 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.FMLLog;
 
 /**
  * 
  * @param <E> The type of processes this registry manages
  */
-public class MaterialProcessRegistry<E extends MaterialProcess> {
+public class MaterialProcessRegistry<E extends IMaterialProcess> {
     
     private HashMap<String, E> processes;
     

@@ -1,4 +1,4 @@
-package sbfp.machines.processor.solar;
+package sbfp.machines.processor.foundry;
 
 import java.util.Arrays;
 import java.util.List;
@@ -6,23 +6,32 @@ import java.util.Random;
 import net.minecraft.item.ItemStack;
 import sbfp.machines.processor.IMaterialProcess;
 
-public class SolarInfusionProcess implements IMaterialProcess {
-
+/**
+ *
+ * 
+ */
+public class FoundryProcess implements IMaterialProcess{
     private final String name;
     private final ItemStack input;
     private final ItemStack output;
     private final int duration;
-
-    public SolarInfusionProcess(String name, ItemStack i, ItemStack o, int t) {
-        this.name = name;
-        this.input = i;
-        this.output = o;
-        this.duration = t;
+    private final int fluxInput;
+    
+    public FoundryProcess(String n, ItemStack in, ItemStack out, int time, int fluxIn){
+        this.name = n;
+        this.input = in;
+        this.output = out;
+        this.duration = time;
+        this.fluxInput = fluxIn;
+    }
+    @Override
+    public String getName() {
+        return this.name;
     }
 
     @Override
     public List<ItemStack> getInputs() {
-        return Arrays.asList(this.input.copy());
+        return Arrays.asList(this.input);
     }
 
     @Override
@@ -31,8 +40,13 @@ public class SolarInfusionProcess implements IMaterialProcess {
     }
 
     @Override
+    public List<ItemStack> getOutputs() {
+        return Arrays.asList(this.output);
+    }
+
+    @Override
     public int getFluxInput() {
-        return 0;
+        return this.fluxInput;
     }
 
     @Override
@@ -45,13 +59,4 @@ public class SolarInfusionProcess implements IMaterialProcess {
         return this.duration;
     }
 
-    @Override
-    public String getName() {
-        return this.name;
-    }
-
-    @Override
-    public List<ItemStack> getOutputs() {
-        return Arrays.asList(this.output.copy());
-    }
 }
