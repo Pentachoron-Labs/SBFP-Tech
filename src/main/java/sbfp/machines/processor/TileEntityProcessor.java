@@ -60,7 +60,6 @@ public abstract class TileEntityProcessor extends TileEntity implements IUpdateP
 					FMLLog.warning("The %s.container at (%d,%d,%d) is null on side %s!",this.getClass().getName(),this.getX(), this.getY(), this.getZ() ,this.worldObj.isRemote ? "client" : "server");
 					FMLLog.warning("Players using: %s",this.playersUsing.toArray());
 				}
-				return;
 			}else throw e;
 		}
 	}

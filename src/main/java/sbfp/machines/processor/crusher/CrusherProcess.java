@@ -15,18 +15,20 @@ public class CrusherProcess implements MaterialProcess {
     private final ItemStack secondary;
     private final float secondaryChance;
     private final int duration;
+    private final int fluxInput;
 
-    public CrusherProcess(String name, ItemStack i, ItemStack p, ItemStack s, float c, int d) {
+    public CrusherProcess(String name, ItemStack i, ItemStack p, ItemStack s, float c, int d, int flux) {
         this.name = name;
         this.input = i;
         this.primary = p;
         this.secondary = s;
         this.secondaryChance = c;
         this.duration = d;
+        this.fluxInput = flux;
     }
 
-    public CrusherProcess(String name, ItemStack i, ItemStack p, int d) {
-        this(name, i, p, null, 0, d);
+    public CrusherProcess(String name, ItemStack i, ItemStack p, int d, int flux) {
+        this(name, i, p, null, 0, d, flux);
     }
 
     @Override
@@ -48,7 +50,7 @@ public class CrusherProcess implements MaterialProcess {
 
     @Override
     public int getFluxInput() {
-        return 1; //TODO: make this work
+        return this.fluxInput;
     }
 
     @Override

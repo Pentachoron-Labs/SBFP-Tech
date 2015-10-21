@@ -1,6 +1,12 @@
 {
     "variants": {
-        "type=solarcharger": { "model": "sbfp:blockSolarcharger" },
-        "type=crusher": { "model": "sbfp:blockCrusher" }
+        "facing=north,type=solarcharger": { "model": "sbfp:blockSolarcharger" },
+        "facing=south,type=solarcharger": { "model": "sbfp:blockSolarcharger" , "y": 180},
+        "facing=east,type=solarcharger": { "model": "sbfp:blockSolarcharger", "y": 90 },
+        "facing=west,type=solarcharger": { "model": "sbfp:blockSolarcharger", "y": 270 },
+        "facing=north,type=crusher": { "model": "sbfp:blockCrusher" },
+        "facing=south,type=crusher": { "model": "sbfp:blockCrusher" , "y": 180 },
+        "facing=east,type=crusher": { "model": "sbfp:blockCrusher" , "y": 90 },
+        "facing=west,type=crusher": { "model": "sbfp:blockCrusher" , "y": 270 }
     }
 }

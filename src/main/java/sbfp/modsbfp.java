@@ -74,7 +74,6 @@ public class modsbfp {
 //	public static final ItemTractor itemTractor = new ItemTractor(getItemID("itemTractorID",0x4c02),"itemTractor");
     public static final MaterialProcessRegistry<CrusherProcess> crushingRegistry = new MaterialProcessRegistry<CrusherProcess>();
     public static final MaterialProcessRegistry<SolarInfusionProcess> solarInfusionRegistry = new MaterialProcessRegistry<SolarInfusionProcess>();
-
     //For setting harvest levels of various blocks.
     public enum HarvestLevels {
 
@@ -114,15 +113,15 @@ public class modsbfp {
 
         GameRegistry.registerWorldGenerator(this.wGen, GeneratorOres.GENERATOR_WEIGHT);
 		//NetworkRegistry.instance().registerGuiHandler(this,modsbfp.proxy);
-
+        
         for (OreTypes ore : OreTypes.values()) {
             OreDictionary.registerOre(ore.getName(), new ItemStack(blockOre, 1, ore.getMeta()));
         }
 
 	//this.addRecipes();
         solarInfusionRegistry.addProcess(new SolarInfusionProcess("chargedRedstone", new ItemStack(Items.redstone, 1), new ItemStack(itemFluxDevice,1, FluxDeviceTypes.CHARGEDREDSTONE.getMeta()), 40));
-        crushingRegistry.addProcess(new CrusherProcess("stone_to_gravel", new ItemStack(Blocks.cobblestone,1),new ItemStack(Blocks.gravel,1),15*20));
-        crushingRegistry.addProcess(new CrusherProcess("pyrolusite_to_manganeseBlack", new ItemStack(blockOre,1,OreTypes.PYROLUSITE.getMeta()),new ItemStack(itemDye,1,DyeTypes.MNO2.getMeta()),new ItemStack(Blocks.gravel,1),0.4F,3*20));
+        crushingRegistry.addProcess(new CrusherProcess("stone_to_gravel", new ItemStack(Blocks.cobblestone,1),new ItemStack(Blocks.gravel,1),15*20, 15));
+        crushingRegistry.addProcess(new CrusherProcess("pyrolusite_to_manganeseBlack", new ItemStack(blockOre,1,OreTypes.PYROLUSITE.getMeta()),new ItemStack(itemDye,1,DyeTypes.MNO2.getMeta()),new ItemStack(Blocks.gravel,1),0.4F,3*20, 10));
         proxy.init(event);
     }
 
