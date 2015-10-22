@@ -9,3 +9,13 @@ Fluorite: Hydrofluoric acid (toxic, duh), calcium
 Molybdenite: Molybdenum(used in high-strength steels)
 Pyrolusite: Manganese
 
+
+
+
+Uses of ores
+
+//
+
+
+Uses of refined product:
+Molybdenum + iron blocks -> Molybdenum alloy plate for (better?) foundry walls?
