@@ -30,6 +30,8 @@ import sbfp.machines.ItemRedFluxDevice;
 import sbfp.machines.processor.MaterialProcessRegistry;
 import sbfp.machines.processor.crusher.CrusherProcess;
 import sbfp.machines.processor.crusher.TileEntityCrusher;
+import sbfp.machines.processor.foundry.BlockFoundry;
+import sbfp.machines.processor.foundry.ItemBlockFoundry;
 import sbfp.machines.processor.solar.SolarInfusionProcess;
 import sbfp.machines.processor.solar.TileEntitySolarCharger;
 import sbfp.world.BlockOre;
@@ -67,6 +69,7 @@ public class modsbfp {
     // blocks and items
     public static final BlockOre blockOre = new BlockOre("blockOre");
     public static final BlockMachine blockMachine = new BlockMachine("blockMachine");
+    public static final BlockFoundry blockFoundry = new BlockFoundry("blockFoundry");
 
     public static final ItemRedFluxDevice itemFluxDevice = new ItemRedFluxDevice("itemFluxDevice");
     public static final ItemDye itemDye = new ItemDye("itemDye");
@@ -96,7 +99,7 @@ public class modsbfp {
 
         GameRegistry.registerBlock(blockOre, ItemBlockOre.class, "blockOre");
         GameRegistry.registerBlock(blockMachine, ItemBlockMachine.class, "blockMachine");
-
+        GameRegistry.registerBlock(blockFoundry, ItemBlockFoundry.class, "blockFoundry");
         GameRegistry.registerItem(itemDye, "itemDye");
         GameRegistry.registerItem(itemFluxDevice, "itemFluxDevice");
 

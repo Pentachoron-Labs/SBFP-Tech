@@ -1,0 +1,12 @@
+{
+    "parent": "block/cube",
+    "textures": {
+        "up" : "sbfp:blocks/foundryUDEW",
+        "down" : "sbfp:blocks/foundryUDEW",
+        "north" : "sbfp:blocks/foundryErrNORTH",
+        "south" : "sbfp:blocks/crusherDOWN",
+        "east" : "sbfp:blocks/foundryUDEW",
+        "west" : "sbfp:blocks/foundryUDEW",
+        "particle" : "sbfp:blocks/foundryErrNORTH"
+    }
+}

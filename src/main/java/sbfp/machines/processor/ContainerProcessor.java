@@ -121,7 +121,7 @@ public abstract class ContainerProcessor extends Container{
 			ItemStack slotstack = slot.getStack();
 			if(slotstack==null){
 				return stack.stackSize;
-			}else if(slotstack!=null&&slotstack.getItem()==stack.getItem()&&(!stack.getHasSubtypes()||stack.getItemDamage()==slotstack.getItemDamage())&&ItemStack.areItemStackTagsEqual(stack,slotstack)&&(!checkValidity||slot.isItemValid(stack))){
+			}else if(slotstack.getItem()==stack.getItem()&&(!stack.getHasSubtypes()||stack.getItemDamage()==slotstack.getItemDamage())&&ItemStack.areItemStackTagsEqual(stack,slotstack)&&(!checkValidity||slot.isItemValid(stack))){
 				quantity -= slotstack.getMaxStackSize()-slotstack.stackSize;
 				if(quantity<=0) return stack.stackSize;
 			}

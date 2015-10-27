@@ -21,7 +21,7 @@ public class TileEntitySolarCharger extends TileEntityProcessor implements IInve
     }
 
     @Override
-    protected boolean dryMergeOutputsAndFeed() {
+    protected boolean feedAndDryMergeOutputs() {
         for (int i = 0; i < INPUT_STACK_NUMBER; i++) {
             if (this.inventory[i] != null) {
                 this.activeRecipe = modsbfp.solarInfusionRegistry.getProcessesByInputs(this.inventory[i]).get(0);
@@ -79,9 +79,9 @@ public class TileEntitySolarCharger extends TileEntityProcessor implements IInve
     @Override
     public ItemStack getStackInSlotOnClosing(int index) {
         if (this.inventory[index] != null) {
-            ItemStack var2 = this.inventory[index];
+            ItemStack stack = this.inventory[index];
             this.inventory[index] = null;
-            return var2;
+            return stack;
         } else {
             return null;
         }
@@ -89,10 +89,10 @@ public class TileEntitySolarCharger extends TileEntityProcessor implements IInve
 
     @Override
     public void setInventorySlotContents(int index, ItemStack stack) {
-        this.inventory[index] = stack;
         if (stack != null && stack.stackSize > this.getInventoryStackLimit()) {
             stack.stackSize = this.getInventoryStackLimit();
         }
+        this.inventory[index] = stack;
     }
 
     public boolean isInvNameLocalized() {

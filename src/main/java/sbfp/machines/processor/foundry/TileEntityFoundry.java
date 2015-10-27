@@ -11,13 +11,13 @@ import sbfp.machines.processor.TileEntityProcessor;
  * 
  */
 public class TileEntityFoundry extends TileEntityProcessor implements IInventory{
-
+    private ItemStack[] inventory = new ItemStack[10]; //0-3 = inputs, 4-7 = outputs, 8&9 = flux slots
     @Override
     protected void mergeOutputs() {
     }
 
     @Override
-    protected boolean dryMergeOutputsAndFeed() {
+    protected boolean feedAndDryMergeOutputs() {
         return false;
     }
 
@@ -32,8 +32,23 @@ public class TileEntityFoundry extends TileEntityProcessor implements IInventory
     }
 
     @Override
-    public ItemStack decrStackSize(int index, int count) {
-        return null;
+    public ItemStack decrStackSize(int slot, int amount) {
+        if (this.inventory[slot] != null) {
+            ItemStack stack;
+            if (this.inventory[slot].stackSize <= amount) {
+                stack = this.inventory[slot];
+                this.inventory[slot] = null;
+                return stack;
+            } else {
+                stack = this.inventory[slot].splitStack(amount);
+                if (this.inventory[slot].stackSize == 0) {
+                    this.inventory[slot] = null;
+                }
+                return stack;
+            }
+        } else {
+            return null;
+        }
     }
 
     @Override
@@ -81,6 +96,7 @@ public class TileEntityFoundry extends TileEntityProcessor implements IInventory
 
     @Override
     public void clear() {
+        this.inventory = new ItemStack[10];
     }
 
     @Override

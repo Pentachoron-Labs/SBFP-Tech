@@ -22,9 +22,9 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.util.IStringSerializable;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import sbfp.BlockSB;
-import sbfp.machines.MachineTypes;
 import sbfp.modsbfp;
 
 public class BlockFoundry extends BlockSB implements ITileEntityProvider {
@@ -133,6 +133,13 @@ public class BlockFoundry extends BlockSB implements ITileEntityProvider {
         return new BlockState(this, new IProperty[]{STATE, FACING});
     }
     
+    @Override
+    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos){
+        boolean isValidFoundry = checkValidFoundry((EnumFacing)state.getValue(FACING), worldIn, pos);
+        
+        return state.withProperty(STATE, FoundryStates.stateFromMeta(isValidFoundry ? 1 : 0));
+    }
+    
     //Metadata of format A1A2B1B2 where bits A are the facing direction and bits b are the state of the foundry
     @Override
     public IBlockState getStateFromMeta(int meta) {
@@ -161,16 +168,42 @@ public class BlockFoundry extends BlockSB implements ITileEntityProvider {
     public void getSubBlocks(Item item, CreativeTabs tab, List list) {
         list.add(new ItemStack(item, 1, FoundryStates.DISCONNECTED.getMeta()));
     }
+    
+    private boolean checkValidFoundry(EnumFacing direction, IBlockAccess worldIn, BlockPos pos){
+        int xLL,yLL,zLL;
+        yLL = pos.getY()-1;
+        switch(direction){
+            case NORTH:
+                xLL = pos.getX()+1;
+                zLL = pos.getZ();
+                break;
+            case SOUTH:
+                xLL = pos.getX()-1;
+                zLL = pos.getZ();
+                break;
+            case EAST:
+                xLL = pos.getX();
+                zLL = pos.getZ()+1;
+                break;
+            case WEST:
+                xLL = pos.getX();
+                zLL = pos.getX()-1;
+                break;               
+        }
+        return false;
+    }
 
     public static enum FoundryStates implements IStringSerializable {
 
         DISCONNECTED("disconnected", 0), CONNECTED("connected", 1);
         private final String name;
         private final int meta;
+        private final String modelName;
 
         private FoundryStates(String name, int metadata) {
             this.name = name;
             this.meta = metadata;
+            this.modelName = "sbfp:blockFoundry"+name.substring(0,1).toUpperCase()+name.substring(1);
         }
 
         @Override
@@ -185,6 +218,10 @@ public class BlockFoundry extends BlockSB implements ITileEntityProvider {
         @Override
         public String toString() {
             return this.getName();
+        }
+        
+        public String getModelResourceName(){
+            return this.modelName;
         }
 
         private static final FoundryStates[] STATES_BY_META = new FoundryStates[FoundryStates.values().length];

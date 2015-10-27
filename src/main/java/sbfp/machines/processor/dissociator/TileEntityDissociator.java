@@ -18,7 +18,7 @@ public class TileEntityDissociator extends TileEntityProcessor implements IInven
     }
 
     @Override
-    protected boolean dryMergeOutputsAndFeed() {
+    protected boolean feedAndDryMergeOutputs() {
         return false;
     }
 
