@@ -16,10 +16,11 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import sbfp.SBCommonProxy;
 import sbfp.chemistry.DyeTypes;
-import sbfp.machines.FluxDeviceTypes;
+import sbfp.flux.FluxDeviceTypes;
 import sbfp.machines.MachineTypes;
 import sbfp.machines.processor.crusher.TileEntityCrusher;
 import sbfp.machines.processor.foundry.BlockFoundry;
+import sbfp.machines.processor.foundry.TileEntityFoundry;
 import sbfp.machines.processor.solar.TileEntitySolarCharger;
 import sbfp.world.OreTypes;
 
@@ -94,6 +95,9 @@ public class SBClientProxy extends SBCommonProxy {
             }
             if (tileEntity instanceof TileEntityCrusher) {
                 return new GUICrusher(player.inventory, (TileEntityCrusher) tileEntity);
+            }
+            if (tileEntity instanceof TileEntityFoundry) {
+                return new GUIFoundry(player.inventory, (TileEntityFoundry) tileEntity);
             }
             FMLLog.warning("An unrecognized TE ('%s') inhabits machine '%s'. Update the Common Proxy.", tileEntity.getClass().getName());
             FMLLog.warning("This warning is for side: client");

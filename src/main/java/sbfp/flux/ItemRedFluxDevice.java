@@ -1,5 +1,6 @@
-package sbfp.machines;
+package sbfp.flux;
 
+import sbfp.flux.FluxDeviceTypes;
 import java.util.List;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;

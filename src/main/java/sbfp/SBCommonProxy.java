@@ -10,6 +10,8 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 import sbfp.machines.processor.crusher.ContainerCrusher;
 import sbfp.machines.processor.crusher.TileEntityCrusher;
+import sbfp.machines.processor.foundry.ContainerFoundry;
+import sbfp.machines.processor.foundry.TileEntityFoundry;
 import sbfp.machines.processor.solar.ContainerSolarCharger;
 import sbfp.machines.processor.solar.TileEntitySolarCharger;
 
@@ -29,6 +31,7 @@ public class SBCommonProxy implements IGuiHandler{
 		if(tileEntity!=null){
 			if(tileEntity instanceof TileEntitySolarCharger) return new ContainerSolarCharger(player.inventory,(TileEntitySolarCharger) tileEntity);
 			if(tileEntity instanceof TileEntityCrusher) return new ContainerCrusher(player.inventory,(TileEntityCrusher) tileEntity);
+                        if(tileEntity instanceof TileEntityFoundry) return new ContainerFoundry(player.inventory, (TileEntityFoundry) tileEntity);
 			FMLLog.info("An unrecognized TE ('%s') inhabits machine '%s'. Update the Common Proxy.",tileEntity.getClass().getName());
 			FMLLog.info("This warning is for side: server");
 			return null;

@@ -1,12 +1,12 @@
 {
     "variants": {
-        "facing=north,state=connected": { "model": "sbfp:blockFoundryErr" },
-        "facing=south,state=connected": { "model": "sbfp:blockFoundryErr" , "y": 180},
-        "facing=east,state=connected": { "model": "sbfp:blockFoundryErr", "y": 90 },
-        "facing=west,state=connected": { "model": "sbfp:blockFoundryErr", "y": 270 },
-        "facing=north,state=disconnected": { "model": "sbfp:blockFoundry" },
-        "facing=south,state=disconnected": { "model": "sbfp:blockFoundry" , "y": 180 },
-        "facing=east,state=disconnected": { "model": "sbfp:blockFoundry" , "y": 90 },
-        "facing=west,state=disconnected": { "model": "sbfp:blockFoundry" , "y": 270 }
+        "facing=north,state=connected": { "model": "sbfp:blockFoundryConnected" },
+        "facing=south,state=connected": { "model": "sbfp:blockFoundryConnected" , "y": 180},
+        "facing=east,state=connected": { "model": "sbfp:blockFoundryConnected", "y": 90 },
+        "facing=west,state=connected": { "model": "sbfp:blockFoundryConnected", "y": 270 },
+        "facing=north,state=disconnected": { "model": "sbfp:blockFoundryDisconnected" },
+        "facing=south,state=disconnected": { "model": "sbfp:blockFoundryDisconnected" , "y": 180 },
+        "facing=east,state=disconnected": { "model": "sbfp:blockFoundryDisconnected" , "y": 90 },
+        "facing=west,state=disconnected": { "model": "sbfp:blockFoundryDisconnected" , "y": 270 }
     }
 }

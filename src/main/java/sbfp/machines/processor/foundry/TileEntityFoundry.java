@@ -12,8 +12,34 @@ import sbfp.machines.processor.TileEntityProcessor;
  */
 public class TileEntityFoundry extends TileEntityProcessor implements IInventory{
     private ItemStack[] inventory = new ItemStack[10]; //0-3 = inputs, 4-7 = outputs, 8&9 = flux slots
+    
+    private static final int maxChargeLevel = 400;
+    
+    private int powerLevel = 0;
+    private int fluxOverflow = 0;
+    
+    @Override
+    public void update() {
+        super.update();
+        if (this.ticks % 20 == 0) {
+            this.worldObj.markBlockForUpdate(this.pos);
+        }
+        if (this.inventory[8] != null && this.powerLevel < maxChargeLevel) {
+            this.decrStackSize(8, 1);
+            this.powerLevel += 10;
+        } else if (this.inventory[9] != null && this.powerLevel < maxChargeLevel) {
+            this.decrStackSize(9, 1);
+            this.powerLevel += 10;
+        }
+        if (this.powerLevel >= maxChargeLevel) {
+            this.fluxOverflow = powerLevel - maxChargeLevel;
+            this.powerLevel = maxChargeLevel;
+        }
+    }
+    
     @Override
     protected void mergeOutputs() {
+        
     }
 
     @Override
@@ -23,12 +49,12 @@ public class TileEntityFoundry extends TileEntityProcessor implements IInventory
 
     @Override
     public int getSizeInventory() {
-        return 0;
+        return 10;
     }
 
     @Override
     public ItemStack getStackInSlot(int index) {
-        return null;
+        return this.inventory[index];
     }
 
     @Override
@@ -53,11 +79,21 @@ public class TileEntityFoundry extends TileEntityProcessor implements IInventory
 
     @Override
     public ItemStack getStackInSlotOnClosing(int index) {
-        return null;
+        if (this.inventory[index] != null) {
+            ItemStack var2 = this.inventory[index];
+            this.inventory[index] = null;
+            return var2;
+        } else {
+            return null;
+        }
     }
 
     @Override
     public void setInventorySlotContents(int index, ItemStack stack) {
+        this.inventory[index] = stack;
+        if (stack != null && stack.stackSize > this.getInventoryStackLimit()) {
+            stack.stackSize = this.getInventoryStackLimit();
+        }
     }
 
     @Override
@@ -76,7 +112,7 @@ public class TileEntityFoundry extends TileEntityProcessor implements IInventory
 
     @Override
     public boolean isItemValidForSlot(int index, ItemStack stack) {
-        return false;
+        return this.container.getSlot(index).isItemValid(stack);
     }
 
     @Override
@@ -101,7 +137,7 @@ public class TileEntityFoundry extends TileEntityProcessor implements IInventory
 
     @Override
     public String getName() {
-        return "";
+        return "Foundry";
     }
 
     @Override

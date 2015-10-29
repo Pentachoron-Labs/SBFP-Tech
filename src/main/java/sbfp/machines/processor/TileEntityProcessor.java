@@ -14,7 +14,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraftforge.fml.common.FMLLog;
 
 /**
- * This class is for machines that have an input and output
+ * This class is for machines that process materials
  */
 public abstract class TileEntityProcessor extends TileEntity implements IUpdatePlayerListBox {
 
@@ -90,6 +90,7 @@ public abstract class TileEntityProcessor extends TileEntity implements IUpdateP
     protected abstract boolean feedAndDryMergeOutputs();
 
     protected void initialize() {
+    
     }
 
     @Override
@@ -120,6 +121,14 @@ public abstract class TileEntityProcessor extends TileEntity implements IUpdateP
         super.readFromNBT(tagCompound);
         this.ticks = tagCompound.getLong("ticks");
         this.workTicks = tagCompound.getInteger("workTicks");
+        NBTTagList wOuts = tagCompound.getTagList("waitingOutputs", 0);
+        NBTTagCompound tag;
+        int i;
+        for(i = 0; i<wOuts.tagCount(); i++){
+            tag = wOuts.getCompoundTagAt(i);
+            this.waitingOutputs.add(tag.getByte("slot"), ItemStack.loadItemStackFromNBT(tag)); 
+        }
+        
 
     }
 

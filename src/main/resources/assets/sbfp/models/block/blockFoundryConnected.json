@@ -3,10 +3,10 @@
     "textures": {
         "up" : "sbfp:blocks/foundryUDEW",
         "down" : "sbfp:blocks/foundryUDEW",
-        "north" : "sbfp:blocks/foundryConnectedNORTH",
-        "south" : "sbfp:blocks/crusherDOWN",
+        "south" : "sbfp:blocks/foundryConnectedSOUTH",
+        "north" : "sbfp:blocks/crusherDOWN",
         "east" : "sbfp:blocks/foundryUDEW",
         "west" : "sbfp:blocks/foundryUDEW",
-        "particle" : "sbfp:blocks/foundryConnectedNORTH"
+        "particle" : "sbfp:blocks/foundryConnectedSOUTH"
     }
 }

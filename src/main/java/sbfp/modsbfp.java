@@ -24,14 +24,15 @@ import net.minecraftforge.oredict.OreDictionary;
 import sbfp.chemistry.DyeTypes;
 import sbfp.chemistry.ItemDye;
 import sbfp.machines.BlockMachine;
-import sbfp.machines.FluxDeviceTypes;
+import sbfp.flux.FluxDeviceTypes;
 import sbfp.machines.ItemBlockMachine;
-import sbfp.machines.ItemRedFluxDevice;
+import sbfp.flux.ItemRedFluxDevice;
 import sbfp.machines.processor.MaterialProcessRegistry;
 import sbfp.machines.processor.crusher.CrusherProcess;
 import sbfp.machines.processor.crusher.TileEntityCrusher;
 import sbfp.machines.processor.foundry.BlockFoundry;
 import sbfp.machines.processor.foundry.ItemBlockFoundry;
+import sbfp.machines.processor.foundry.TileEntityFoundry;
 import sbfp.machines.processor.solar.SolarInfusionProcess;
 import sbfp.machines.processor.solar.TileEntitySolarCharger;
 import sbfp.world.BlockOre;
@@ -95,6 +96,7 @@ public class modsbfp {
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
+        
         instance = this;
 
         GameRegistry.registerBlock(blockOre, ItemBlockOre.class, "blockOre");
@@ -105,6 +107,7 @@ public class modsbfp {
 
         GameRegistry.registerTileEntity(TileEntitySolarCharger.class, "sunlightCollector");
         GameRegistry.registerTileEntity(TileEntityCrusher.class, "crusher");
+        GameRegistry.registerTileEntity(TileEntityFoundry.class, "foundry");
 
         NetworkRegistry.INSTANCE.registerGuiHandler(modsbfp.getInstance(), proxy);
         //Do the client only/server only stuff

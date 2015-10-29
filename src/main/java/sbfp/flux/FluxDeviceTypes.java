@@ -1,6 +1,6 @@
 
 
-package sbfp.machines;
+package sbfp.flux;
 
 import net.minecraft.util.IStringSerializable;
 

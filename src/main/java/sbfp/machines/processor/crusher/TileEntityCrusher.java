@@ -133,8 +133,9 @@ public class TileEntityCrusher extends TileEntityProcessor implements IInventory
     public boolean isUseableByPlayer(EntityPlayer player) {
         return this.worldObj.getTileEntity(this.getPos()) != this ? false : player.getDistanceSq(this.getPos().getX() + 0.5D, this.getY() + 0.5D, this.getZ() + 0.5D) <= 64.0D;
     }
-
-    public boolean isStackValidForSlot(int i, ItemStack is) {
+    
+    @Override
+    public boolean isItemValidForSlot(int i, ItemStack is) {
         return this.container.getSlot(i).isItemValid(is);
     }
 
@@ -160,7 +161,7 @@ public class TileEntityCrusher extends TileEntityProcessor implements IInventory
 
     @Override
     public String getName() {
-        return "crusher";
+        return "Crusher";
     }
 
     @Override
@@ -179,11 +180,6 @@ public class TileEntityCrusher extends TileEntityProcessor implements IInventory
 
     @Override
     public void closeInventory(EntityPlayer player) {
-    }
-
-    @Override
-    public boolean isItemValidForSlot(int index, ItemStack stack) {
-        return true;
     }
 
     @Override
