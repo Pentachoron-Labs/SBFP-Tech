@@ -88,7 +88,6 @@ public class modsbfp {
     }
 
     public static CreativeTabs tabSBFP = new CreativeTabs("SBFP") {
-
         @Override
         @SideOnly(Side.CLIENT)
         public Item getTabIconItem() {
@@ -163,6 +162,7 @@ public class modsbfp {
         solarInfusionRegistry.addProcess(new SolarInfusionProcess("chargedRedstone", new ItemStack(Items.redstone, 1), new ItemStack(itemFluxDevice, 1, FluxDeviceTypes.CHARGEDREDSTONE.getMeta()), 40));
         crushingRegistry.addProcess(new CrusherProcess("stone_to_gravel", new ItemStack(Blocks.cobblestone, 1), new ItemStack(Blocks.gravel, 1), 15 * 20, 15));
         crushingRegistry.addProcess(new CrusherProcess("pyrolusite_to_manganeseBlack", new ItemStack(blockOre, 1, OreTypes.PYROLUSITE.getMeta()), new ItemStack(itemDye, 1, DyeTypes.MNO2.getMeta()), new ItemStack(Blocks.gravel, 1), 0.4F, 3 * 20, 10));
+        
         //Redflux Amplifier
         GameRegistry.addRecipe(new ItemStack(itemFluxDevice, 1, FluxDeviceTypes.AMPLIFIER.getMeta()), new Object[]{"IGI", "GRG", "IGI", 'I', Items.iron_ingot, 'G', Items.gold_ingot, 'R', Items.redstone});
         //Redflux Absorber

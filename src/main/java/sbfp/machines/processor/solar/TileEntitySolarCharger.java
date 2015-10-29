@@ -13,7 +13,7 @@ public class TileEntitySolarCharger extends TileEntityProcessor implements IInve
     
     private final int INPUT_STACK_NUMBER = 4;
     private final int OUTPUT_STACK_NUMBER = 4;
-    private ItemStack[] inventory = new ItemStack[8];
+    private ItemStack[] inventory = new ItemStack[10];
 
     @Override
     protected void mergeOutputs() {
