@@ -25,6 +25,7 @@ import sbfp.chemistry.DyeTypes;
 import sbfp.chemistry.ItemDye;
 import sbfp.machines.BlockMachine;
 import sbfp.flux.FluxDeviceTypes;
+import sbfp.flux.ItemFluxCell;
 import sbfp.machines.ItemBlockMachine;
 import sbfp.flux.ItemRedFluxDevice;
 import sbfp.machines.MachineTypes;
@@ -75,6 +76,7 @@ public class modsbfp {
 
     public static final ItemRedFluxDevice itemFluxDevice = new ItemRedFluxDevice("itemFluxDevice");
     public static final ItemDye itemDye = new ItemDye("itemDye");
+    public static final ItemFluxCell itemLowFluxCell = new ItemFluxCell("itemLowFluxCell", 100);
 
 //	public static final ItemTractor itemTractor = new ItemTractor(getItemID("itemTractorID",0x4c02),"itemTractor");
     public static final MaterialProcessRegistry<CrusherProcess> crushingRegistry = new MaterialProcessRegistry<CrusherProcess>();
@@ -86,7 +88,7 @@ public class modsbfp {
 
         WOOD, STONE, IRON, DIAMOND
     }
-
+    
     public static CreativeTabs tabSBFP = new CreativeTabs("SBFP") {
         @Override
         @SideOnly(Side.CLIENT)
@@ -101,11 +103,15 @@ public class modsbfp {
         
         instance = this;
 
+        //register blocks, items, and tileEntities
         GameRegistry.registerBlock(blockOre, ItemBlockOre.class, "blockOre");
         GameRegistry.registerBlock(blockMachine, ItemBlockMachine.class, "blockMachine");
         GameRegistry.registerBlock(blockFoundry, ItemBlockFoundry.class, "blockFoundry");
+        
         GameRegistry.registerItem(itemDye, "itemDye");
         GameRegistry.registerItem(itemFluxDevice, "itemFluxDevice");
+        GameRegistry.registerItem(itemLowFluxCell, "itemLowFluxCell");
+        
 
         GameRegistry.registerTileEntity(TileEntitySolarCharger.class, "sunlightCollector");
         GameRegistry.registerTileEntity(TileEntityCrusher.class, "crusher");

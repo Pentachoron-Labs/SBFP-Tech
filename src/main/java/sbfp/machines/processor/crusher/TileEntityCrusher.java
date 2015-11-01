@@ -6,6 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.IChatComponent;
+import sbfp.machines.SlotFluxInput;
 import sbfp.modsbfp;
 import sbfp.machines.processor.TileEntityProcessor;
 
@@ -21,15 +22,17 @@ public class TileEntityCrusher extends TileEntityProcessor implements IInventory
     public void update() {
         super.update();
         if (this.inventory[8] != null && this.powerLevel < maxChargeLevel) {
-            this.decrStackSize(8, 1);
-            this.powerLevel += 10;
+            this.powerLevel += ((SlotFluxInput) this.container.getSlot(8)).drainFlux(maxChargeLevel - powerLevel);
         } else if (this.inventory[9] != null && this.powerLevel < maxChargeLevel) {
-            this.decrStackSize(9, 1);
-            this.powerLevel += 10;
+            this.powerLevel += this.container.drainFlux(this.container.getSlot(9), maxChargeLevel - powerLevel);
         }
         if (this.powerLevel >= maxChargeLevel) {
             this.powerLevel = maxChargeLevel;
         }
+
+    }
+
+    private void drawChargeFromSlot(int slot) {
 
     }
 
@@ -133,7 +136,7 @@ public class TileEntityCrusher extends TileEntityProcessor implements IInventory
     public boolean isUseableByPlayer(EntityPlayer player) {
         return this.worldObj.getTileEntity(this.getPos()) != this ? false : player.getDistanceSq(this.getPos().getX() + 0.5D, this.getY() + 0.5D, this.getZ() + 0.5D) <= 64.0D;
     }
-    
+
     @Override
     public boolean isItemValidForSlot(int i, ItemStack is) {
         return this.container.getSlot(i).isItemValid(is);
@@ -190,7 +193,7 @@ public class TileEntityCrusher extends TileEntityProcessor implements IInventory
 
     @Override
     public void setField(int id, int value) {
-		// TODO Auto-generated method stub
+        // TODO Auto-generated method stub
 
     }
 
@@ -202,7 +205,7 @@ public class TileEntityCrusher extends TileEntityProcessor implements IInventory
 
     @Override
     public void clear() {
-		// TODO Auto-generated method stub
+        // TODO Auto-generated method stub
 
     }
 }
