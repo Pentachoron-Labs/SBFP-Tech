@@ -12,7 +12,7 @@ public interface IFluxSourceItem{
      * Drain flux
      * @param stack ItemStack to drain from
      * @param amount The amount to drain from the ItemStack
-     * @return The overflow -- flux that cannot be drained
+     * @return The amount of flux successfully drained
      */
     public abstract int drainFlux(ItemStack stack, int amount);
     

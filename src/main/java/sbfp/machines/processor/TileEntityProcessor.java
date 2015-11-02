@@ -147,4 +147,8 @@ public abstract class TileEntityProcessor extends TileEntity implements IUpdateP
     public int getZ() {
         return this.getPos().getZ();
     }
+    
+    public void setContainer(ContainerProcessor container){
+        this.container = container;
+    }
 }

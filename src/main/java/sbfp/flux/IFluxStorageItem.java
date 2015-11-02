@@ -6,10 +6,10 @@ import net.minecraft.item.ItemStack;
  *
  * 
  */
-public interface IFluxContainerItem {
+public interface IFluxStorageItem {
     
     /**
-     * Adds flux to an itemstack
+     * Adds flux to an ItemStack
      * @param stack the ItemStack to add to
      * @return The overflow -- flux that cannot be added
      */

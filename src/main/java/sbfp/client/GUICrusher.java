@@ -40,16 +40,16 @@ public class GUICrusher extends GuiContainer{
 			int sourceHeight = 23-12*this.tileEntity.workTicks/tileEntity.getActiveRecipe().getTime();
 			this.drawTexturedModalRect(this.originX+47,this.originY+drawHeight,176,sourceHeight,29,23-sourceHeight);
 		}
-		if(this.tileEntity.getPowerLevel()<=TileEntityCrusher.maxChargeLevel/3&&this.tileEntity.getPowerLevel()!=0){
+		if(this.tileEntity.getPowerLevel()<=TileEntityCrusher.maxFluxLevel/3&&this.tileEntity.getPowerLevel()!=0){
 			this.drawTexturedModalRect(this.originX+140,this.originY+10,205,0,12,11);
-		}else if(this.tileEntity.getPowerLevel()<=TileEntityCrusher.maxChargeLevel*2/3 && this.tileEntity.getPowerLevel() != 0){
+		}else if(this.tileEntity.getPowerLevel()<=TileEntityCrusher.maxFluxLevel*2/3 && this.tileEntity.getPowerLevel() != 0){
 			this.drawTexturedModalRect(this.originX+140,this.originY+10,205,11,12,11);
-		}else if(this.tileEntity.getPowerLevel()>TileEntityCrusher.maxChargeLevel*2/3){
+		}else if(this.tileEntity.getPowerLevel()>TileEntityCrusher.maxFluxLevel*2/3){
 			this.drawTexturedModalRect(this.originX+140,this.originY+10,205,22,12,11);
 		}
                 //ll corner of bar in gui is 144,113
                 //ll corener of bar source image is 217,89
-		int drawHeight = this.tileEntity.getPowerLevel() != 0 ? 90*this.tileEntity.getPowerLevel()/TileEntityCrusher.maxChargeLevel : 0;
+		int drawHeight = this.tileEntity.getPowerLevel() != 0 ? 90*this.tileEntity.getPowerLevel()/TileEntityCrusher.maxFluxLevel : 0;
 		this.drawTexturedModalRect(this.originX+144,this.originY+114-drawHeight,217,0,4,drawHeight);
 	}
 

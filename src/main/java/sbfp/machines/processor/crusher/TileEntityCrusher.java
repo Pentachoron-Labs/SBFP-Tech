@@ -6,34 +6,30 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.IChatComponent;
-import sbfp.machines.SlotFluxInput;
+import sbfp.machines.IFluxContainer;
 import sbfp.modsbfp;
 import sbfp.machines.processor.TileEntityProcessor;
 
 public class TileEntityCrusher extends TileEntityProcessor implements IInventory {
 
     private ItemStack[] inventory = new ItemStack[10];
+    
+    public static final int maxFluxLevel = 200; // FOR NOW
 
-    public static final int maxChargeLevel = 200; // FOR NOW
-
-    private int powerLevel = 0;
+    private int fluxLevel = 0;
 
     @Override
     public void update() {
         super.update();
-        if (this.inventory[8] != null && this.powerLevel < maxChargeLevel) {
-            this.powerLevel += ((SlotFluxInput) this.container.getSlot(8)).drainFlux(maxChargeLevel - powerLevel);
-        } else if (this.inventory[9] != null && this.powerLevel < maxChargeLevel) {
-            this.powerLevel += this.container.drainFlux(this.container.getSlot(9), maxChargeLevel - powerLevel);
+        if (this.inventory[8] != null && this.fluxLevel < maxFluxLevel) {
+            this.fluxLevel += ((IFluxContainer) this.container).drainFluxFromSlot(8, maxFluxLevel - this.fluxLevel);
+        } else if (this.inventory[9] != null && this.fluxLevel < maxFluxLevel) {
+            this.fluxLevel += ((IFluxContainer) this.container).drainFluxFromSlot(9, maxFluxLevel - fluxLevel);
         }
-        if (this.powerLevel >= maxChargeLevel) {
-            this.powerLevel = maxChargeLevel;
+        if (this.fluxLevel >= maxFluxLevel) {
+            this.fluxLevel = maxFluxLevel;
         }
-
-    }
-
-    private void drawChargeFromSlot(int slot) {
-
+        
     }
 
     @Override
@@ -42,7 +38,7 @@ public class TileEntityCrusher extends TileEntityProcessor implements IInventory
         if (this.waitingOutputs.size() == 2) {
             this.container.mergeItemStack(this.waitingOutputs.get(1), 42, 44, false, false);
         }
-        this.powerLevel -= this.activeRecipe.getFluxInput();
+        this.fluxLevel -= this.activeRecipe.getFluxInput();
     }
 
     @Override
@@ -57,7 +53,7 @@ public class TileEntityCrusher extends TileEntityProcessor implements IInventory
                     if (this.waitingOutputs.size() == 2) {
                         flag = flag && this.container.dryMerge(this.waitingOutputs.get(1), 42, 44, false) >= this.waitingOutputs.get(1).stackSize;
                     }
-                    flag = flag && this.activeRecipe.getFluxInput() <= this.powerLevel;
+                    flag = flag && this.activeRecipe.getFluxInput() <= this.fluxLevel;
                     if (flag) {
                         this.decrStackSize(i, this.activeRecipe.getInputs().get(0).stackSize);
                         return true;
@@ -71,7 +67,7 @@ public class TileEntityCrusher extends TileEntityProcessor implements IInventory
     }
 
     public int getPowerLevel() {
-        return this.powerLevel;
+        return this.fluxLevel;
     }
 
     @Override

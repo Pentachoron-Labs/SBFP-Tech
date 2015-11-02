@@ -12,7 +12,7 @@ public abstract class ContainerProcessor extends Container{
 
 	public ContainerProcessor(InventoryPlayer inv, TileEntityProcessor tileEntity){
 		this.tileEntity = tileEntity;
-		this.tileEntity.container = this;
+		tileEntity.setContainer(this);
 		//Player Inventory
 		for(int i = 0; i<3; ++i){
 			for(int j = 0; j<9; ++j){

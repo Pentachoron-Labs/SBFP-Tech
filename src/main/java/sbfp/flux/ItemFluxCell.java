@@ -5,7 +5,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-public class ItemFluxCell extends Item implements IFluxSourceItem, IFluxContainerItem {
+public class ItemFluxCell extends Item implements IFluxSourceItem, IFluxStorageItem {
 
     public ItemFluxCell(String name, int maxCharge){
         super();
@@ -26,6 +26,7 @@ public class ItemFluxCell extends Item implements IFluxSourceItem, IFluxContaine
         return stack.getTagCompound() != null ? stack.getTagCompound().hasKey("charge") : false;
     }
     
+    @Override
     public int addFlux(ItemStack cell, int deltaC){
         if (deltaC < 0) return 0;
         NBTTagCompound data = cell.getTagCompound();
@@ -41,6 +42,7 @@ public class ItemFluxCell extends Item implements IFluxSourceItem, IFluxContaine
         return overflow < 0 ? 0 : overflow;
     }
     
+    @Override
     public int drainFlux(ItemStack cell, int amount){
         if(amount < 0) return 0;
         NBTTagCompound data = cell.getTagCompound();
@@ -48,12 +50,19 @@ public class ItemFluxCell extends Item implements IFluxSourceItem, IFluxContaine
             data = new NBTTagCompound();
             cell.setTagCompound(data);
         }
-        int currentCharge = cell.getMaxDamage() - cell.getItemDamage();
-        int overflow = amount - currentCharge;
-        int finalCharge = overflow <= 0 ? currentCharge - amount : 0;
-        data.setInteger("charge", finalCharge);
-        cell.setItemDamage(cell.getMaxDamage() - finalCharge);
-        return overflow < 0 ? 0 : overflow;
+        int currentFlux = cell.getMaxDamage() - cell.getItemDamage();
+        if (currentFlux == 0) return 0;
+        int fluxDrained, finalFlux;
+        if(currentFlux < amount){
+            fluxDrained = currentFlux;
+            finalFlux = 0;
+        }else{
+            fluxDrained = amount;
+            finalFlux = currentFlux - amount;
+        }
+        data.setInteger("charge", finalFlux);
+        cell.setItemDamage(cell.getMaxDamage() - finalFlux);
+        return fluxDrained;
     }
 
     @Override
