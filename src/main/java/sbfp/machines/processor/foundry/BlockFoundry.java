@@ -172,35 +172,37 @@ public class BlockFoundry extends BlockSB implements ITileEntityProvider {
     }
 
     private boolean checkValidFoundry(EnumFacing direction, IBlockAccess worldIn, BlockPos pos) {
-        int xLowerLeft, yLowerLeft, zLowerLeft;
-        yLowerLeft = pos.getY() - 1;
+        BlockPos posLL;
         switch (direction) {
             case NORTH:
-                xLowerLeft = pos.getX() - 1;
-                zLowerLeft = pos.getZ();
+                posLL = pos.west().down();
                 break;
             case SOUTH:
-                xLowerLeft = pos.getX() + 1;
-                zLowerLeft = pos.getZ();
+                posLL = pos.east().down();
                 break;
             case EAST:
-                xLowerLeft = pos.getX();
-                zLowerLeft = pos.getZ() - 1;
+                posLL = pos.north().down();
                 break;
             case WEST:
-                xLowerLeft = pos.getX();
-                zLowerLeft = pos.getZ() + 1;
+                posLL = pos.south().down();
                 break;
             default:
-                xLowerLeft = pos.getX() - 1;
-                zLowerLeft = pos.getY() - 1;
+                posLL = pos.west().down();
         }
-        BlockPos posLL = new BlockPos(xLowerLeft, yLowerLeft, zLowerLeft);
-        FMLLog.info("LL Corner is" + posLL.getX() + " " +posLL.getY() + " " +posLL.getZ());
-        if (worldIn.getBlockState(posLL).getBlock() == Blocks.iron_block) {
-            return true;
+        boolean invalid;
+        BlockPos check;
+        for(int dx = 0; dx < 3; dx++){
+            for(int dy = 0; dy < 3; dy++){
+                for(int dz = 0; dz < 3; dz++){
+                    check = posLL.offset(direction, dx).offset(direction.rotateY(), dz).up(dy);
+                    invalid = !(worldIn.getBlockState(check).getBlock() == Blocks.iron_block || (check.equals(pos.offset(direction)) && worldIn.getBlockState(check).getBlock() == Blocks.air));
+                    if(check.equals(pos)) invalid = false;
+                    //FMLLog.info("Checked Position %d, %d, %d, value was %b", check.getX(), check.getY(), check.getZ(), invalid);
+                    if(invalid) return false;
+                }
+            }
         }
-        return false;
+        return true;
     }
 
     public static enum FoundryStates implements IStringSerializable {

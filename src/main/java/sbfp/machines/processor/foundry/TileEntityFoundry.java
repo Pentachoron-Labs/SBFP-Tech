@@ -16,12 +16,11 @@ public class TileEntityFoundry extends TileEntityProcessor implements IInventory
     private static final int maxChargeLevel = 400;
     
     private int powerLevel = 0;
-    private int fluxOverflow = 0;
     
     @Override
     public void update() {
         super.update();
-        if (this.ticks % 20 == 0) {
+        if (this.ticks % 60 == 0) {
             this.worldObj.markBlockForUpdate(this.pos);
         }
         if (this.inventory[8] != null && this.powerLevel < maxChargeLevel) {
@@ -32,7 +31,6 @@ public class TileEntityFoundry extends TileEntityProcessor implements IInventory
             this.powerLevel += 10;
         }
         if (this.powerLevel >= maxChargeLevel) {
-            this.fluxOverflow = powerLevel - maxChargeLevel;
             this.powerLevel = maxChargeLevel;
         }
     }

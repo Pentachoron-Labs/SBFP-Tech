@@ -3,6 +3,7 @@ package sbfp.machines.processor.crusher;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
+import net.minecraftforge.fml.common.FMLLog;
 import sbfp.flux.IFluxSourceItem;
 import sbfp.machines.IFluxContainer;
 import sbfp.machines.SlotOutput;
@@ -35,8 +36,9 @@ public class ContainerCrusher extends ContainerProcessor implements IFluxContain
      */
     @Override
     public int drainFluxFromSlot(int slotID, int deltaF) throws ClassCastException{
-        Slot slot = this.getSlot(slotID);
+        Slot slot = this.getSlot(36+slotID);
         if (!slot.getHasStack()) {
+            FMLLog.info("No stack in slot");
             return 0;
         }
         IFluxSourceItem fluxItem = (IFluxSourceItem) slot.getStack().getItem();

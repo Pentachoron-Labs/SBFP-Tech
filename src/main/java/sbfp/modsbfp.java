@@ -83,12 +83,11 @@ public class modsbfp {
     public static final MaterialProcessRegistry<SolarInfusionProcess> solarInfusionRegistry = new MaterialProcessRegistry<SolarInfusionProcess>();
 
     //For setting harvest levels of various blocks.
-
     public enum HarvestLevels {
 
         WOOD, STONE, IRON, DIAMOND
     }
-    
+
     public static CreativeTabs tabSBFP = new CreativeTabs("SBFP") {
         @Override
         @SideOnly(Side.CLIENT)
@@ -100,18 +99,17 @@ public class modsbfp {
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-        
+
         instance = this;
 
         //register blocks, items, and tileEntities
         GameRegistry.registerBlock(blockOre, ItemBlockOre.class, "blockOre");
         GameRegistry.registerBlock(blockMachine, ItemBlockMachine.class, "blockMachine");
         GameRegistry.registerBlock(blockFoundry, ItemBlockFoundry.class, "blockFoundry");
-        
+
         GameRegistry.registerItem(itemDye, "itemDye");
         GameRegistry.registerItem(itemFluxDevice, "itemFluxDevice");
         GameRegistry.registerItem(itemLowFluxCell, "itemLowFluxCell");
-        
 
         GameRegistry.registerTileEntity(TileEntitySolarCharger.class, "sunlightCollector");
         GameRegistry.registerTileEntity(TileEntityCrusher.class, "crusher");
@@ -126,7 +124,7 @@ public class modsbfp {
     public void init(FMLInitializationEvent event) {
 
         GameRegistry.registerWorldGenerator(this.wGen, GeneratorOres.GENERATOR_WEIGHT);
-		//NetworkRegistry.instance().registerGuiHandler(this,modsbfp.proxy);
+        //NetworkRegistry.instance().registerGuiHandler(this,modsbfp.proxy);
 
         for (OreTypes ore : OreTypes.values()) {
             OreDictionary.registerOre(ore.getName(), new ItemStack(blockOre, 1, ore.getMeta()));
@@ -166,9 +164,12 @@ public class modsbfp {
 //        GameRegistry.addShapelessRecipe(new ItemStack(itemDye, 2, 7), new ItemStack(itemDye, 1, 1), new ItemStack(itemDye, 1, 2));
 //        GameRegistry.addShapelessRecipe(new ItemStack(itemDye, 2, 8), new ItemStack(itemDye, 1, 0), new ItemStack(itemDye, 1, 4));
         solarInfusionRegistry.addProcess(new SolarInfusionProcess("chargedRedstone", new ItemStack(Items.redstone, 1), new ItemStack(itemFluxDevice, 1, FluxDeviceTypes.CHARGEDREDSTONE.getMeta()), 40));
-        crushingRegistry.addProcess(new CrusherProcess("stone_to_gravel", new ItemStack(Blocks.cobblestone, 1), new ItemStack(Blocks.gravel, 1), 15 * 20, 15));
-        crushingRegistry.addProcess(new CrusherProcess("pyrolusite_to_manganeseBlack", new ItemStack(blockOre, 1, OreTypes.PYROLUSITE.getMeta()), new ItemStack(itemDye, 1, DyeTypes.MNO2.getMeta()), new ItemStack(Blocks.gravel, 1), 0.4F, 3 * 20, 10));
-        
+        crushingRegistry.addProcess(new CrusherProcess("stone_to_cobblestone", new ItemStack(Blocks.cobblestone, 1), new ItemStack(Blocks.cobblestone, 1), 15 * 20, 20));
+        crushingRegistry.addProcess(new CrusherProcess("cobblestone_to_gravel", new ItemStack(Blocks.cobblestone, 1), new ItemStack(Blocks.gravel, 1), 15 * 20, 15));
+        crushingRegistry.addProcess(new CrusherProcess("gravel_to_sand", new ItemStack(Blocks.gravel, 1), new ItemStack(Blocks.sand, 1), 5 * 20, 5));
+        crushingRegistry.addProcess(new CrusherProcess("pyrolusite_to_manganeseBlack", new ItemStack(blockOre, 1, OreTypes.PYROLUSITE.getMeta()), new ItemStack(itemDye, 1, DyeTypes.MNO2.getMeta()), new ItemStack(Blocks.gravel, 1), 0.4F, 10 * 20, 10));
+        crushingRegistry.addProcess(new CrusherProcess("rutile_to_titaniumWhite", new ItemStack(blockOre, 1, OreTypes.RUTILE.getMeta()), new ItemStack(itemDye, 1, DyeTypes.TIO2.getMeta()), new ItemStack(Blocks.gravel, 1), 0.4F, 10 * 20, 10));
+        crushingRegistry.addProcess(new CrusherProcess("limonite_to_ochre", new ItemStack(blockOre, 1, OreTypes.LIMONITE.getMeta()), new ItemStack(itemDye, 1, DyeTypes.OCHRE.getMeta()), new ItemStack(Blocks.gravel, 1), 0.4F, 10 * 20, 10));
         //Redflux Amplifier
         GameRegistry.addRecipe(new ItemStack(itemFluxDevice, 1, FluxDeviceTypes.AMPLIFIER.getMeta()), new Object[]{"IGI", "GRG", "IGI", 'I', Items.iron_ingot, 'G', Items.gold_ingot, 'R', Items.redstone});
         //Redflux Absorber
@@ -179,13 +180,6 @@ public class modsbfp {
         GameRegistry.addRecipe(new ItemStack(blockMachine, 1, MachineTypes.SOLARCHARGER.getMeta()), new Object[]{"GGG", "IAI", "IRI", 'G', Blocks.glass, 'I', Items.iron_ingot, 'R', Items.redstone, 'A', new ItemStack(itemFluxDevice, 1, FluxDeviceTypes.AMPLIFIER.getMeta())});
         //Crusher
         GameRegistry.addRecipe(new ItemStack(blockMachine, 1, MachineTypes.CRUSHER.getMeta()), new Object[]{" I ", "PAP", "RaR", 'I', Blocks.iron_block, 'P', Blocks.piston, 'A', new ItemStack(itemFluxDevice, 1, FluxDeviceTypes.ABSORBER.getMeta()), 'a', Blocks.anvil, 'R', Items.redstone});
-//		prmSolar.addRecipe(new RecipeSolar(new ItemStack(Item.redstone,1),new ItemStack(itemRedflux,1,3),45*20));
-//		prmCrusher.addRecipe(new RecipeCrusher(new ItemStack(Block.stone,1),new ItemStack(Block.cobblestone,1),15*20));
-//		prmCrusher.addRecipe(new RecipeCrusher(new ItemStack(Block.cobblestone,1),new ItemStack(Block.gravel,1),15*20));
-//		prmCrusher.addRecipe(new RecipeCrusher(new ItemStack(Block.gravel,1),new ItemStack(Block.sand,1),8*20));
-//		prmCrusher.addRecipe(new RecipeCrusher(new ItemStack(blockOre,1,6),new ItemStack(itemDye,1,4),new ItemStack(Block.gravel,1),0.4F,10*20));
-//		prmCrusher.addRecipe(new RecipeCrusher(new ItemStack(blockOre,1,3),new ItemStack(itemDye,1,0),new ItemStack(Block.gravel,1),0.4F,10*20));
-//		prmCrusher.addRecipe(new RecipeCrusher(new ItemStack(blockOre,1,5),new ItemStack(itemDye,1,2),new ItemStack(Block.gravel,1),0.4F,10*20));
     }
 
     private static int getBlockID(String name, int defaultid) {
