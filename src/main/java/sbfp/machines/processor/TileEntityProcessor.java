@@ -12,6 +12,7 @@ import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraftforge.fml.common.FMLLog;
+import sbfp.modsbfp;
 
 /**
  * This class is for machines that process materials
@@ -121,14 +122,16 @@ public abstract class TileEntityProcessor extends TileEntity implements IUpdateP
         super.readFromNBT(tagCompound);
         this.ticks = tagCompound.getLong("ticks");
         this.workTicks = tagCompound.getInteger("workTicks");
-        NBTTagList wOuts = tagCompound.getTagList("waitingOutputs", 0);
+        this.activeRecipe = modsbfp.solarInfusionRegistry.getProcessByName(tagCompound.getString("recipeID"));
+        NBTTagList wOuts = tagCompound.getTagList("waitingOutputs", 10);
         NBTTagCompound tag;
         int i;
-        for(i = 0; i<wOuts.tagCount(); i++){
-            tag = wOuts.getCompoundTagAt(i);
-            this.waitingOutputs.add(tag.getByte("slot"), ItemStack.loadItemStackFromNBT(tag)); 
+        if (wOuts.tagCount() > 0) {
+            for (i = 0; i < wOuts.tagCount(); i++) {
+                tag = wOuts.getCompoundTagAt(i);
+                this.waitingOutputs.add(tag.getByte("slot"), ItemStack.loadItemStackFromNBT(tag));
+            }
         }
-        
 
     }
 

@@ -51,6 +51,8 @@ public class SBClientProxy extends SBCommonProxy {
         registerThis = GameRegistry.findItem("sbfp", "itemFluxDevice");
         ModelBakery.addVariantName(registerThis, FluxDeviceTypes.ABSORBER.getModelResourceName(), FluxDeviceTypes.AMPLIFIER.getModelResourceName(),
                 FluxDeviceTypes.STABILIZER.getModelResourceName(), FluxDeviceTypes.CHARGEDREDSTONE.getModelResourceName());
+        registerThis = GameRegistry.findItem("sbfp", "itemLowFluxCell");
+        ModelBakery.addVariantName(registerThis, "sbfp:fluxCell");
     }
 
     @Override
@@ -84,6 +86,8 @@ public class SBClientProxy extends SBCommonProxy {
         for (FluxDeviceTypes device : FluxDeviceTypes.values()) {
             Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(registerThis, device.getMeta(), new ModelResourceLocation(device.getModelResourceName(), "inventory"));
         }
+        registerThis = GameRegistry.findItem("sbfp", "itemLowFluxCell");
+        Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(registerThis, 0, new ModelResourceLocation("sbfp:fluxCell", "inventory"));
     }
 
     @Override

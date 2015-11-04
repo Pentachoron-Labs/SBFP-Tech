@@ -5,7 +5,7 @@ import net.minecraft.util.IStringSerializable;
 
 public enum OreTypes implements IStringSerializable{
 
-    MONAZITE(0, "monazite"), FLUORITE(1, "fluorite"), MOLYBDENITE(2, "mno2"), //This is actually MoS2, but I'm an idiot... fix all the names later
+    MONAZITE(0, "monazite"), FLUORITE(1, "fluorite"), MOLYBDENITE(2, "mos2"), //This is actually MoS2, but I'm an idiot... fix all the names later
     RUTILE(3, "rutile"), CINNABAR(4, "cinnabar"), LIMONITE(5, "limonite"), PYROLUSITE(6, "pyrolusite"), 
     ARSENOPYRITE(7, "arsenopyrite");
     private final String name;

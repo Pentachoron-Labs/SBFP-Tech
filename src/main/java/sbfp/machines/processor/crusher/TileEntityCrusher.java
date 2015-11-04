@@ -6,7 +6,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.IChatComponent;
-import net.minecraftforge.fml.common.FMLLog;
 import sbfp.machines.IFluxContainer;
 import sbfp.modsbfp;
 import sbfp.machines.processor.TileEntityProcessor;
@@ -24,7 +23,6 @@ public class TileEntityCrusher extends TileEntityProcessor implements IInventory
         super.update();
         if (this.inventory[8] != null && this.fluxLevel < maxFluxLevel) {
             this.fluxLevel += ((IFluxContainer) this.container).drainFluxFromSlot(8, maxFluxLevel - this.fluxLevel);
-            FMLLog.info("Draining from 8");
         } else if (this.inventory[9] != null && this.fluxLevel < maxFluxLevel) {
             this.fluxLevel += ((IFluxContainer) this.container).drainFluxFromSlot(9, maxFluxLevel - fluxLevel);
         }
@@ -153,11 +151,19 @@ public class TileEntityCrusher extends TileEntityProcessor implements IInventory
             }
         }
         tagCompound.setTag("items", tagList);
+        tagCompound.setInteger("fluxLevel", fluxLevel);
     }
 
     @Override
     public void readFromNBT(NBTTagCompound tagCompound) {
         super.readFromNBT(tagCompound);
+        NBTTagCompound tag;
+        NBTTagList items = tagCompound.getTagList("items", 10);
+        for (int i = 0; i < items.tagCount(); i++) {
+            tag = items.getCompoundTagAt(i);
+            this.inventory[tag.getByte("slot")] = ItemStack.loadItemStackFromNBT(tag);
+        }
+        this.fluxLevel = tagCompound.getInteger("fluxLevel");
     }
 
     @Override

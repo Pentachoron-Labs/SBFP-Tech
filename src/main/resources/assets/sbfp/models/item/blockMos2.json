@@ -1,5 +1,5 @@
 {
-    "parent":"sbfp:block/blockMno2",
+    "parent":"sbfp:block/blockMos2",
     "display": {
         "thirdperson": {
             "rotation": [ 10, -45, 170 ],

@@ -1,16 +1,16 @@
 package sbfp.machines.processor.solar;
 
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.IChatComponent;
 import sbfp.modsbfp;
 import sbfp.machines.processor.TileEntityProcessor;
 
 public class TileEntitySolarCharger extends TileEntityProcessor implements IInventory {
-    
+
     private final int INPUT_STACK_NUMBER = 4;
     private final int OUTPUT_STACK_NUMBER = 4;
     private ItemStack[] inventory = new ItemStack[10];
@@ -41,7 +41,7 @@ public class TileEntitySolarCharger extends TileEntityProcessor implements IInve
 
     @Override
     public void update() {
-        if (this.worldObj.canBlockSeeSky(this.getPos())&&this.worldObj.isDaytime() && !this.worldObj.isRaining()) {
+        if (this.worldObj.canBlockSeeSky(this.getPos()) && this.worldObj.isDaytime() && !this.worldObj.isRaining()) {
             super.update();
         }
     }
@@ -116,12 +116,28 @@ public class TileEntitySolarCharger extends TileEntityProcessor implements IInve
     @Override
     public void writeToNBT(NBTTagCompound tagCompound) {
         super.writeToNBT(tagCompound);
+        NBTTagList tagList = new NBTTagList();
+        for (int i = 0; i < this.inventory.length; ++i) {
+            if (this.inventory[i] != null) {
+                NBTTagCompound ntc3 = new NBTTagCompound();
+                ntc3.setByte("slot", (byte) i);
+                this.inventory[i].writeToNBT(ntc3);
+                tagList.appendTag(ntc3);
+            }
+        }
+        tagCompound.setTag("items", tagList);
 
     }
 
     @Override
     public void readFromNBT(NBTTagCompound tagCompound) {
         super.readFromNBT(tagCompound);
+        NBTTagCompound tag;
+        NBTTagList items = tagCompound.getTagList("items", 10);
+        for (int i = 0; i < items.tagCount(); i++) {
+            tag = items.getCompoundTagAt(i);
+            this.inventory[tag.getByte("slot")] = ItemStack.loadItemStackFromNBT(tag);
+        }
 
     }
 
@@ -139,13 +155,13 @@ public class TileEntitySolarCharger extends TileEntityProcessor implements IInve
 
     @Override
     public void openInventory(EntityPlayer player) {
-		// TODO Auto-generated method stub
+        // TODO Auto-generated method stub
 
     }
 
     @Override
     public void closeInventory(EntityPlayer player) {
-		// TODO Auto-generated method stub
+        // TODO Auto-generated method stub
 
     }
 
@@ -163,7 +179,7 @@ public class TileEntitySolarCharger extends TileEntityProcessor implements IInve
 
     @Override
     public void setField(int id, int value) {
-		// TODO Auto-generated method stub
+        // TODO Auto-generated method stub
 
     }
 
@@ -175,7 +191,7 @@ public class TileEntitySolarCharger extends TileEntityProcessor implements IInve
 
     @Override
     public void clear() {
-		// TODO Auto-generated method stub
+        // TODO Auto-generated method stub
 
     }
 

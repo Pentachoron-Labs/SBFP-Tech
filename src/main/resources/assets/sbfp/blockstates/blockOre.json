@@ -2,7 +2,7 @@
     "variants": {
         "type=arsenopyrite": { "model": "sbfp:blockArsenopyrite" },
         "type=fluorite": { "model": "sbfp:blockFluorite" },
-        "type=mno2": { "model": "sbfp:blockMno2" },
+        "type=mos2": { "model": "sbfp:blockMos2" },
         "type=rutile": { "model": "sbfp:blockRutile" },
         "type=limonite": { "model": "sbfp:blockLimonite" },
         "type=pyrolusite": { "model": "sbfp:blockPyrolusite" },

@@ -16,12 +16,12 @@ public final class GeneratorOres implements IWorldGenerator {
     public static final int GENERATOR_WEIGHT = 100; //I dunno what this does, so it's 100 
 
     @Override
-    public void generate(Random r, int cx, int cz, World world, IChunkProvider cg, IChunkProvider cp) {
+    public void generate(Random r, int cx, int cz, World world, IChunkProvider chunkGenerator, IChunkProvider cp) {
         // FMLLog.finest("Chunk (%d,%d)",cx,cz);
         cx <<= 4;
         cz <<= 4;
         BlockPos pos;
-        if (cg instanceof ChunkProviderGenerate) {
+        if (chunkGenerator instanceof ChunkProviderGenerate) {
             for (int x = cx; x < cx + 16; x++) {
                 for (int z = cz; z < cz + 16; z++) {
                     for (int y = 0; y < 40; y++) {
@@ -32,7 +32,7 @@ public final class GeneratorOres implements IWorldGenerator {
                             } else if (r.nextInt(1536) == 0) {
                                 world.setBlockState(pos, modsbfp.blockOre.getStateFromMeta(OreTypes.MONAZITE.getMeta()), 2); // Monazite—other
                             } else if (r.nextInt(2560) == 0) {
-                                new LargeVeinGenerator(x, y, z, world, r, OreTypes.FLUORITE.getMeta(), 1).generate(); // Fluorite
+                                new LargeVeinGenerator(x, y, z, world, r, OreTypes.FLUORITE.getMeta(), 0.5).generate(); // Fluorite
                             } else if (r.nextInt(1536) == 0) {
                                 world.setBlockState(pos, modsbfp.blockOre.getStateFromMeta(OreTypes.MOLYBDENITE.getMeta()), 2); // MoS₂
                                 if (r.nextBoolean()) {
@@ -41,9 +41,8 @@ public final class GeneratorOres implements IWorldGenerator {
                                 }
                             } else if (r.nextInt(10240) == 0) {
                                 new LargeVeinGenerator(x, y, z, world, r, OreTypes.RUTILE.getMeta(), 2).generate(); // Rutile
-                            } else if (r.nextInt(128) == 0 && bordersLava(new BlockPos(x, y, z), world)) {
-                                new LargeVeinGenerator(x, y, z, world, r, OreTypes.CINNABAR.getMeta(), 1.5).generate(); // Cinnabar—lava
-                                // pools
+//                            } else if (r.nextInt(128) == 0 && bordersLava(new BlockPos(x, y, z), world)) {
+//                                new LargeVeinGenerator(x, y, z, world, r, OreTypes.CINNABAR.getMeta(), 1.5).generate(); // Cinnabar—lava pools
                             } else if (r.nextInt(2560) == 0) {
                                 new LargeVeinGenerator(x, y, z, world, r, OreTypes.CINNABAR.getMeta(), 1.5).generate(); // Cinnabar—other
                             } else if (r.nextInt(5120) == 0) {

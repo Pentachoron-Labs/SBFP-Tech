@@ -180,6 +180,8 @@ public class modsbfp {
         GameRegistry.addRecipe(new ItemStack(blockMachine, 1, MachineTypes.SOLARCHARGER.getMeta()), new Object[]{"GGG", "IAI", "IRI", 'G', Blocks.glass, 'I', Items.iron_ingot, 'R', Items.redstone, 'A', new ItemStack(itemFluxDevice, 1, FluxDeviceTypes.AMPLIFIER.getMeta())});
         //Crusher
         GameRegistry.addRecipe(new ItemStack(blockMachine, 1, MachineTypes.CRUSHER.getMeta()), new Object[]{" I ", "PAP", "RaR", 'I', Blocks.iron_block, 'P', Blocks.piston, 'A', new ItemStack(itemFluxDevice, 1, FluxDeviceTypes.ABSORBER.getMeta()), 'a', Blocks.anvil, 'R', Items.redstone});
+        //
+        GameRegistry.addRecipe(new ItemStack(itemLowFluxCell, 1), new Object[]{" I ", "IAI", "IRI", 'I', Items.iron_ingot, 'A', new ItemStack(itemFluxDevice, 1, FluxDeviceTypes.ABSORBER.getMeta()), 'R', Items.redstone});
     }
 
     private static int getBlockID(String name, int defaultid) {

@@ -71,7 +71,7 @@ public class ItemFluxCell extends Item implements IFluxSourceItem, IFluxStorageI
     }
 
     @Override
-    public boolean isSubtypeValidFluxContainer(int meta) {
+    public boolean canSubtypeStoreFlux(int meta) {
         return true;
     }
 
