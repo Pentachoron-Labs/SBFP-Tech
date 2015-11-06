@@ -1,11 +1,11 @@
-package sbfp.machines.processor.solar;
+package sbfp.machines.solar;
 
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import sbfp.machines.SlotOutput;
-import sbfp.machines.processor.ContainerProcessor;
+import sbfp.machines.ContainerSB;
 
-public class ContainerSolarCharger extends ContainerProcessor{
+public class ContainerSolarCharger extends ContainerSB{
 
     public ContainerSolarCharger(InventoryPlayer inv, TileEntitySolarCharger tileEntity) {
         super(inv, tileEntity);
@@ -18,6 +18,6 @@ public class ContainerSolarCharger extends ContainerProcessor{
         this.addSlotToContainer(new SlotOutput(tileEntity, 6, 134, 50));
         this.addSlotToContainer(new SlotOutput(tileEntity, 7, 152, 50));
         this.addSlotToContainer(new Slot(tileEntity, 8, 134, 72));
-        this.addSlotToContainer(new Slot(tileEntity, 8, 152, 72));
+        this.addSlotToContainer(new Slot(tileEntity, 9, 152, 72));
     }
 }

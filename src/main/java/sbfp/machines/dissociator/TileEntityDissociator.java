@@ -1,26 +1,46 @@
-package sbfp.machines.processor.dissociator;
+package sbfp.machines.dissociator;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IChatComponent;
-import sbfp.machines.processor.TileEntityProcessor;
+import sbfp.flux.IFluxSourceItem;
+import sbfp.machines.ContainerSB;
+import sbfp.machines.IFluxInventory;
+import sbfp.machines.IMaterialProcess;
+import sbfp.machines.IProcessor;
 
 /**
  *
- * 
+ *
  */
-public class TileEntityDissociator extends TileEntityProcessor implements IInventory{
+public class TileEntityDissociator extends TileEntity implements IProcessor, IFluxInventory, IUpdatePlayerListBox {
 
-    private ItemStack[] inventory = new ItemStack[8];
-    
+    private int workTicks = 0;
+    private long ticks = 0;
+    public ContainerSB container;
+    public final Set<EntityPlayer> playersUsing = new HashSet<EntityPlayer>();
+    protected IMaterialProcess activeProcess;
+    protected List<ItemStack> waitingOutputs;
+    protected boolean hasItem;
+
+    private ItemStack[] inventory = new ItemStack[10];
+
     @Override
-    protected void mergeOutputs() {
-        
+    public void update() {
     }
 
     @Override
-    protected boolean feedAndDryMergeOutputs() {
+    public void mergeOutputs() {
+
+    }
+
+    @Override
+    public boolean dryMergeAndFeed() {
         return false;
     }
 
@@ -79,19 +99,21 @@ public class TileEntityDissociator extends TileEntityProcessor implements IInven
     }
 
     @Override
-    public void openInventory(EntityPlayer player) {}
+    public void openInventory(EntityPlayer player) {
+    }
 
     @Override
-    public void closeInventory(EntityPlayer player) {}
+    public void closeInventory(EntityPlayer player) {
+    }
 
     @Override
     public boolean isItemValidForSlot(int i, ItemStack stack) {
         return this.container.getSlot(i).isItemValid(stack);
     }
-    
-        @Override
+
+    @Override
     public boolean isUseableByPlayer(EntityPlayer player) {
-        return this.worldObj.getTileEntity(this.getPos()) != this ? false : player.getDistanceSq(this.getPos().getX() + 0.5D, this.getY() + 0.5D, this.getZ() + 0.5D) <= 64.0D;
+        return this.worldObj.getTileEntity(this.getPos()) != this ? false : player.getDistanceSq(this.getPos().add(0.5D, 0.5D, 0.5D)) <= 64.0D;
     }
 
     @Override
@@ -101,7 +123,7 @@ public class TileEntityDissociator extends TileEntityProcessor implements IInven
 
     @Override
     public void setField(int id, int value) {
-        
+
     }
 
     @Override
@@ -128,6 +150,42 @@ public class TileEntityDissociator extends TileEntityProcessor implements IInven
         return null;
     }
 
-    
+    @Override
+    public IMaterialProcess getActiveProcess() {
+        return this.activeProcess;
+    }
+
+    @Override
+    public void activate() {
+    }
+
+    @Override
+    public int getWorkTicks() {
+        return this.workTicks;
+    }
+
+    @Override
+    public ContainerSB setContainer(ContainerSB container) {
+        this.container = container;
+        return this.container;
+    }
+
+    @Override
+    public int drainFluxFromSlot(int index, int deltaF) throws ClassCastException {
+        if (this.inventory[index] == null) {
+            return 0;
+        }
+        IFluxSourceItem fluxItem = (IFluxSourceItem) this.inventory[index].getItem();
+        int amount = fluxItem.drainFlux(this.inventory[index], deltaF);
+        if (fluxItem.destroyOnDrain()) {
+            this.decrStackSize(index, 1);
+        }
+        return amount;
+    }
+
+    @Override
+    public int addFluxToSlot(int slotID, int deltaF) {
+        return 0;
+    }
 
 }

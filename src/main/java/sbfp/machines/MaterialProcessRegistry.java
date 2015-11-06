@@ -1,4 +1,4 @@
-package sbfp.machines.processor;
+package sbfp.machines;
 
 import java.util.ArrayList;
 import java.util.Arrays;

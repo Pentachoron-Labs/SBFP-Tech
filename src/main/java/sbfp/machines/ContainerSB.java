@@ -1,18 +1,22 @@
-package sbfp.machines.processor;
+package sbfp.machines;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-public abstract class ContainerProcessor extends Container{
+/**
+ * The container class to use for all sbfp machines 'n stuff
+ * @author atrain99
+ */
+public abstract class ContainerSB extends Container{
 
-	protected TileEntityProcessor tileEntity;
+	protected IInventory tileEntity;
 
-	public ContainerProcessor(InventoryPlayer inv, TileEntityProcessor tileEntity){
+	public ContainerSB(InventoryPlayer inv, IInventory tileEntity){
 		this.tileEntity = tileEntity;
-		tileEntity.setContainer(this);
 		//Player Inventory
 		for(int i = 0; i<3; ++i){
 			for(int j = 0; j<9; ++j){
@@ -74,7 +78,7 @@ public abstract class ContainerProcessor extends Container{
 			while(stack.stackSize>0&&(!reverse&&i<end||reverse&&i>=start)){
 				Slot slot = (Slot) this.inventorySlots.get(i);
 				ItemStack slotstack = slot.getStack();
-				if(slotstack!=null&&slotstack.getItem()==stack.getItem()&&(!stack.getHasSubtypes()||stack.getItemDamage()==slotstack.getItemDamage())&&ItemStack.areItemStackTagsEqual(stack,slotstack)){
+				if(slotstack!=null&&ItemStack.areItemsEqual(slotstack, stack)&&ItemStack.areItemStackTagsEqual(stack,slotstack)){
 					int sum = slotstack.stackSize+stack.stackSize;
 					if(sum<=stack.getMaxStackSize()){
 						stack.stackSize = 0;
@@ -121,7 +125,7 @@ public abstract class ContainerProcessor extends Container{
 			ItemStack slotstack = slot.getStack();
 			if(slotstack==null){
 				return stack.stackSize;
-			}else if(slotstack.getItem()==stack.getItem()&&(!stack.getHasSubtypes()||stack.getItemDamage()==slotstack.getItemDamage())&&ItemStack.areItemStackTagsEqual(stack,slotstack)&&(!checkValidity||slot.isItemValid(stack))){
+			}else if(ItemStack.areItemsEqual(slotstack, stack)&&ItemStack.areItemStackTagsEqual(stack,slotstack)&&(!checkValidity||slot.isItemValid(stack))){
 				quantity -= slotstack.getMaxStackSize()-slotstack.stackSize;
 				if(quantity<=0) return stack.stackSize;
 			}

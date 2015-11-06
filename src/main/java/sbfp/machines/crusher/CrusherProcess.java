@@ -1,11 +1,11 @@
-package sbfp.machines.processor.crusher;
+package sbfp.machines.crusher;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import net.minecraft.item.ItemStack;
-import sbfp.machines.processor.IMaterialProcess;
+import sbfp.machines.IMaterialProcess;
 
 public class CrusherProcess implements IMaterialProcess {
     

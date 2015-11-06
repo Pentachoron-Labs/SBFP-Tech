@@ -6,13 +6,14 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
+import sbfp.machines.IProcessor;
 
-import sbfp.machines.processor.solar.ContainerSolarCharger;
-import sbfp.machines.processor.solar.TileEntitySolarCharger;
+import sbfp.machines.solar.ContainerSolarCharger;
+import sbfp.machines.solar.TileEntitySolarCharger;
 
 public class GUISolarCharger extends GuiContainer {
 
-    private TileEntitySolarCharger tileEntity;
+    private IProcessor tileEntity;
     private int containerWidth;
     private int containerHeight;
 
@@ -34,13 +35,13 @@ public class GUISolarCharger extends GuiContainer {
         containerWidth = (this.width - this.xSize) / 2;
         containerHeight = (this.height - this.ySize) / 2;
         this.drawTexturedModalRect(containerWidth, containerHeight, 0, 0, this.xSize, this.ySize);
-        if (tileEntity.getActiveRecipe() != null) {
-            this.drawTexturedModalRect(this.containerWidth + 48, this.containerHeight + 47, 177, 0, 79 * this.tileEntity.workTicks / tileEntity.getActiveRecipe().getTime(), 5);
+        if (tileEntity.getActiveProcess() != null) {
+            this.drawTexturedModalRect(this.containerWidth + 48, this.containerHeight + 47, 177, 0, 79 * this.tileEntity.getWorkTicks() / tileEntity.getActiveProcess().getTime(), 5);
         }
     }
 
     @Override
     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
-        this.fontRendererObj.drawString(this.tileEntity.getName(), 40, 6, 4210752);
+        this.fontRendererObj.drawString("Solar Collector", 40, 6, 4210752);
     }
 }

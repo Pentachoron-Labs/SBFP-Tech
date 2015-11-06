@@ -26,8 +26,8 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLLog;
 import sbfp.BlockSB;
-import sbfp.machines.processor.crusher.TileEntityCrusher;
-import sbfp.machines.processor.solar.TileEntitySolarCharger;
+import sbfp.machines.crusher.TileEntityCrusher;
+import sbfp.machines.solar.TileEntitySolarCharger;
 import sbfp.modsbfp;
 
 public class BlockMachine extends BlockSB implements ITileEntityProvider {

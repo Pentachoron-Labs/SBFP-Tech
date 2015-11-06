@@ -1,4 +1,4 @@
-package sbfp.machines.processor;
+package sbfp.machines;
 
 import java.util.List;
 import java.util.Random;

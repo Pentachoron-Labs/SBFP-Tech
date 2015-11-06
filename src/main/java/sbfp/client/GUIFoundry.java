@@ -1,6 +1,6 @@
 /*
 GUI COORDINATES
-SMELTING: Source(176, 90)
+SMELTING: Source(0, 222)
 SMELTING OUTS: (7, [13, 37, 61, 85])
 BAR 1 SOURCE: (188, 0)
 BAR 2 SOURCE: (192, 0)
@@ -17,14 +17,15 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
-import sbfp.machines.processor.foundry.ContainerFoundry;
-import sbfp.machines.processor.foundry.TileEntityFoundry;
+import sbfp.machines.foundry.ContainerFoundry;
+import sbfp.machines.foundry.TileEntityFoundry;
 
 
 public class GUIFoundry extends GuiContainer{
     private TileEntityFoundry tileEntity;
-    private int containerHeight;
-    private int containerWidth;
+    
+    private int originY;
+    private int originX;
 
     public GUIFoundry(InventoryPlayer inv, TileEntityFoundry tileEntity) {
         super(new ContainerFoundry(inv, tileEntity));
@@ -41,9 +42,14 @@ public class GUIFoundry extends GuiContainer{
     protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3) {
         Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("sbfp", "textures/gui/foundry.png"));
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        containerWidth = (this.width-this.xSize)/2;
-	containerHeight = (this.height-this.ySize)/2;
-        this.drawTexturedModalRect(containerWidth,containerHeight,0,0,this.xSize,this.ySize);
+        originX = (this.width-this.xSize)/2;
+	originY = (this.height-this.ySize)/2;
+        this.drawTexturedModalRect(originX,originY,0,0,this.xSize,this.ySize);
+        if(this.tileEntity.getFluxLevel() > 100){
+            
+        }else{
+            
+        }
     }
 
     @Override

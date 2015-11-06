@@ -7,8 +7,8 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.FMLLog;
-import sbfp.machines.processor.crusher.ContainerCrusher;
-import sbfp.machines.processor.crusher.TileEntityCrusher;
+import sbfp.machines.crusher.ContainerCrusher;
+import sbfp.machines.crusher.TileEntityCrusher;
 
 public class GUICrusher extends GuiContainer{
 
@@ -34,22 +34,22 @@ public class GUICrusher extends GuiContainer{
 		originX = (this.width-this.xSize)/2;
 		originY = (this.height-this.ySize)/2;
 		this.drawTexturedModalRect(originX,originY,0,0,this.xSize,this.ySize);
-		if(tileEntity.getActiveRecipe()!=null){
-			this.drawTexturedModalRect(this.originX+47,this.originY+29,176,0,29,12*this.tileEntity.workTicks/tileEntity.getActiveRecipe().getTime());
-			int drawHeight = 53-12*this.tileEntity.workTicks/tileEntity.getActiveRecipe().getTime();
-			int sourceHeight = 23-12*this.tileEntity.workTicks/tileEntity.getActiveRecipe().getTime();
+		if(tileEntity.getActiveProcess()!=null){
+			this.drawTexturedModalRect(this.originX+47,this.originY+29,176,0,29,12*this.tileEntity.getWorkTicks()/tileEntity.getActiveProcess().getTime());
+			int drawHeight = 53-12*this.tileEntity.getWorkTicks()/tileEntity.getActiveProcess().getTime();
+			int sourceHeight = 23-12*this.tileEntity.getWorkTicks()/tileEntity.getActiveProcess().getTime();
 			this.drawTexturedModalRect(this.originX+47,this.originY+drawHeight,176,sourceHeight,29,23-sourceHeight);
 		}
-		if(this.tileEntity.getPowerLevel()<=TileEntityCrusher.maxFluxLevel/3&&this.tileEntity.getPowerLevel()!=0){
+		if(this.tileEntity.getFluxLevel()<=TileEntityCrusher.maxFluxLevel/3&&this.tileEntity.getFluxLevel()!=0){
 			this.drawTexturedModalRect(this.originX+140,this.originY+10,205,0,12,11);
-		}else if(this.tileEntity.getPowerLevel()<=TileEntityCrusher.maxFluxLevel*2/3 && this.tileEntity.getPowerLevel() != 0){
+		}else if(this.tileEntity.getFluxLevel()<=TileEntityCrusher.maxFluxLevel*2/3 && this.tileEntity.getFluxLevel() != 0){
 			this.drawTexturedModalRect(this.originX+140,this.originY+10,205,11,12,11);
-		}else if(this.tileEntity.getPowerLevel()>TileEntityCrusher.maxFluxLevel*2/3){
+		}else if(this.tileEntity.getFluxLevel()>TileEntityCrusher.maxFluxLevel*2/3){
 			this.drawTexturedModalRect(this.originX+140,this.originY+10,205,22,12,11);
 		}
                 //ll corner of bar in gui is 144,113
                 //ll corener of bar source image is 217,89
-		int drawHeight = this.tileEntity.getPowerLevel() != 0 ? 90*this.tileEntity.getPowerLevel()/TileEntityCrusher.maxFluxLevel : 0;
+		int drawHeight = this.tileEntity.getFluxLevel() != 0 ? 90*this.tileEntity.getFluxLevel()/TileEntityCrusher.maxFluxLevel : 0;
 		this.drawTexturedModalRect(this.originX+144,this.originY+114-drawHeight,217,0,4,drawHeight);
 	}
 

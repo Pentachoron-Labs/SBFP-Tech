@@ -1,28 +1,33 @@
-package sbfp.machines.processor.foundry;
+package sbfp.machines.dissociator;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import net.minecraft.item.ItemStack;
-import sbfp.machines.processor.IMaterialProcess;
+import sbfp.machines.IMaterialProcess;
 
 /**
  *
  * 
  */
-public class FoundryProcess implements IMaterialProcess{
+public class DissociationProcess implements IMaterialProcess{
     private final String name;
     private final ItemStack input;
-    private final ItemStack output;
+    private final ItemStack primary;
+    private final int fluxOutput;
     private final int duration;
     private final int fluxInput;
     
-    public FoundryProcess(String n, ItemStack in, ItemStack out, int time, int fluxIn){
-        this.name = n;
+    public DissociationProcess(String name, ItemStack in, ItemStack out, int time, int fluxIn, int fluxOut){
+        this.name = name;
         this.input = in;
-        this.output = out;
+        this.primary = out;
         this.duration = time;
         this.fluxInput = fluxIn;
+        this.fluxOutput = fluxOut;
+    }
+    public DissociationProcess(String name, ItemStack in, ItemStack out, int time){
+        this(name, in, out, time, 0 ,0);
     }
     @Override
     public String getName() {
@@ -41,7 +46,7 @@ public class FoundryProcess implements IMaterialProcess{
 
     @Override
     public List<ItemStack> getOutputs() {
-        return Arrays.asList(this.output);
+        return Arrays.asList(this.primary);
     }
 
     @Override
@@ -51,7 +56,7 @@ public class FoundryProcess implements IMaterialProcess{
 
     @Override
     public int getFluxOutput() {
-        return 0;
+        return this.fluxOutput;
     }
 
     @Override

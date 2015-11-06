@@ -1,4 +1,4 @@
-package sbfp.machines.processor.crusher;
+package sbfp.machines.crusher;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;

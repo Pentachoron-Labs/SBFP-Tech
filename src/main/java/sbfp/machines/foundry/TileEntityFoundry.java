@@ -1,48 +1,103 @@
-package sbfp.machines.processor.foundry;
+package sbfp.machines.foundry;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IChatComponent;
-import sbfp.machines.processor.TileEntityProcessor;
+import sbfp.flux.IFluxSourceItem;
+import sbfp.machines.ContainerSB;
+import sbfp.machines.IFluxInventory;
+import sbfp.machines.IMaterialProcess;
+import sbfp.machines.IProcessor;
 
 /**
  *
- * 
+ *
  */
-public class TileEntityFoundry extends TileEntityProcessor implements IInventory{
+public class TileEntityFoundry extends TileEntity implements IProcessor, IFluxInventory, IUpdatePlayerListBox {
+
+    private int workTicks = 0;
+    private long ticks = 0;
+    private ContainerSB container;
+    public final Set<EntityPlayer> playersUsing = new HashSet<EntityPlayer>();
+    protected IMaterialProcess activeProcess;
+    protected List<ItemStack> waitingOutputs;
+    protected boolean hasItem;
     private ItemStack[] inventory = new ItemStack[10]; //0-3 = inputs, 4-7 = outputs, 8&9 = flux slots
-    
-    private static final int maxChargeLevel = 400;
-    
-    private int powerLevel = 0;
-    
+
+    private static final int maxFluxLevel = 400;
+
+    private int fluxLevel = 0;
+
     @Override
     public void update() {
-        super.update();
         if (this.ticks % 60 == 0) {
             this.worldObj.markBlockForUpdate(this.pos);
         }
-        if (this.inventory[8] != null && this.powerLevel < maxChargeLevel) {
-            this.decrStackSize(8, 1);
-            this.powerLevel += 10;
-        } else if (this.inventory[9] != null && this.powerLevel < maxChargeLevel) {
-            this.decrStackSize(9, 1);
-            this.powerLevel += 10;
+        if (this.inventory[8] != null && this.fluxLevel < maxFluxLevel) {
+            this.fluxLevel += this.drainFluxFromSlot(8, maxFluxLevel - this.fluxLevel);
+        } else if (this.inventory[9] != null && this.fluxLevel < maxFluxLevel) {
+            this.fluxLevel += this.drainFluxFromSlot(9, maxFluxLevel - this.fluxLevel);
         }
-        if (this.powerLevel >= maxChargeLevel) {
-            this.powerLevel = maxChargeLevel;
+        if (this.fluxLevel >= maxFluxLevel) {
+            this.fluxLevel = maxFluxLevel;
         }
-    }
-    
-    @Override
-    protected void mergeOutputs() {
-        
     }
 
     @Override
-    protected boolean feedAndDryMergeOutputs() {
+    public void mergeOutputs() {
+
+    }
+
+    @Override
+    public IMaterialProcess getActiveProcess() {
+        return this.activeProcess;
+    }
+
+    @Override
+    public void activate() {
+    }
+
+    @Override
+    public int getWorkTicks() {
+        return this.workTicks;
+    }
+
+    @Override
+    public boolean dryMergeAndFeed() {
         return false;
+    }
+
+    public int getFluxLevel() {
+        return this.fluxLevel;
+    }
+
+    @Override
+    public ContainerSB setContainer(ContainerSB c) {
+        this.container = c;
+        return this.container;
+    }
+
+    @Override
+    public int drainFluxFromSlot(int index, int deltaF) throws ClassCastException {
+        if (this.inventory[index] == null) {
+            return 0;
+        }
+        IFluxSourceItem fluxItem = (IFluxSourceItem) this.inventory[index].getItem();
+        int amount = fluxItem.drainFlux(this.inventory[index], deltaF);
+        if (fluxItem.destroyOnDrain()) {
+            this.decrStackSize(index, 1);
+        }
+        return amount;
+    }
+
+    @Override
+    public int addFluxToSlot(int slotID, int deltaF) {
+        return 0;
     }
 
     @Override
@@ -101,7 +156,7 @@ public class TileEntityFoundry extends TileEntityProcessor implements IInventory
 
     @Override
     public void openInventory(EntityPlayer player) {
-        
+
     }
 
     @Override
@@ -120,7 +175,7 @@ public class TileEntityFoundry extends TileEntityProcessor implements IInventory
 
     @Override
     public void setField(int id, int value) {
-        
+
     }
 
     @Override
@@ -146,6 +201,11 @@ public class TileEntityFoundry extends TileEntityProcessor implements IInventory
     @Override
     public IChatComponent getDisplayName() {
         return null;
+    }
+
+    @Override
+    public boolean isUseableByPlayer(EntityPlayer player) {
+        return this.worldObj.getTileEntity(this.getPos()) != this ? false : player.getDistanceSq(this.getPos().add(0.5D, 0.5D, 0.5D)) <= 64.0D;
     }
 
 }

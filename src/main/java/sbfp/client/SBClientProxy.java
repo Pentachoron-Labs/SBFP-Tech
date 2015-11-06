@@ -18,10 +18,10 @@ import sbfp.SBCommonProxy;
 import sbfp.chemistry.DyeTypes;
 import sbfp.flux.FluxDeviceTypes;
 import sbfp.machines.MachineTypes;
-import sbfp.machines.processor.crusher.TileEntityCrusher;
-import sbfp.machines.processor.foundry.BlockFoundry;
-import sbfp.machines.processor.foundry.TileEntityFoundry;
-import sbfp.machines.processor.solar.TileEntitySolarCharger;
+import sbfp.machines.crusher.TileEntityCrusher;
+import sbfp.machines.foundry.BlockFoundry;
+import sbfp.machines.foundry.TileEntityFoundry;
+import sbfp.machines.solar.TileEntitySolarCharger;
 import sbfp.world.OreTypes;
 
 @SideOnly(Side.CLIENT)
