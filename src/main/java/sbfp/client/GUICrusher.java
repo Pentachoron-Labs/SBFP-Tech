@@ -17,7 +17,7 @@ public class GUICrusher extends GuiContainer{
 	private int originY;
 
 	public GUICrusher(InventoryPlayer inv, TileEntityCrusher tileEntity){
-		super(new ContainerCrusher(inv,tileEntity));
+		super(tileEntity.setContainer(new ContainerCrusher(inv,tileEntity)));
 		this.tileEntity = tileEntity;
 		this.xSize = 175;
 		this.ySize = 221;
@@ -35,9 +35,9 @@ public class GUICrusher extends GuiContainer{
 		originY = (this.height-this.ySize)/2;
 		this.drawTexturedModalRect(originX,originY,0,0,this.xSize,this.ySize);
 		if(tileEntity.getActiveProcess()!=null){
-			this.drawTexturedModalRect(this.originX+47,this.originY+29,176,0,29,12*this.tileEntity.getWorkTicks()/tileEntity.getActiveProcess().getTime());
-			int drawHeight = 53-12*this.tileEntity.getWorkTicks()/tileEntity.getActiveProcess().getTime();
-			int sourceHeight = 23-12*this.tileEntity.getWorkTicks()/tileEntity.getActiveProcess().getTime();
+			this.drawTexturedModalRect(this.originX+47,this.originY+29,176,0,29,12*this.tileEntity.getWorkTicks()/tileEntity.getActiveProcess().getDuration());
+			int drawHeight = 53-12*this.tileEntity.getWorkTicks()/tileEntity.getActiveProcess().getDuration();
+			int sourceHeight = 23-12*this.tileEntity.getWorkTicks()/tileEntity.getActiveProcess().getDuration();
 			this.drawTexturedModalRect(this.originX+47,this.originY+drawHeight,176,sourceHeight,29,23-sourceHeight);
 		}
 		if(this.tileEntity.getFluxLevel()<=TileEntityCrusher.maxFluxLevel/3&&this.tileEntity.getFluxLevel()!=0){

@@ -22,4 +22,12 @@ public interface IFluxStorageItem {
      * @return 
      */
     public abstract boolean canSubtypeStoreFlux(int meta);
+    
+    /**
+     * Can a stack accept flux
+     * @param stack The stack in question
+     * @param amount The amount of flux to check
+     * @return Well, can it?
+     */
+    public abstract boolean canStackAcceptFlux(ItemStack stack, int amount);
 }

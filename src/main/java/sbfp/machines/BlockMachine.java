@@ -123,9 +123,13 @@ public class BlockMachine extends BlockSB implements ITileEntityProvider {
         int meta = m & 0x03;
         switch (meta) {
             case 1:
-                return new TileEntitySolarCharger(); //Flux Infuser
+                TileEntitySolarCharger solar = new TileEntitySolarCharger(); //Flux Infuser
+                solar.activate();
+                return solar;
             case 0:
-                return new TileEntityCrusher(); //Crusher
+                TileEntityCrusher crusher = new TileEntityCrusher(); //Flux Infuser
+                crusher.activate();
+                return crusher;
         }
         FMLLog.info("Tried to make a TileEntityProcessor but the metadata was %d. What gives?", meta);
         return null;

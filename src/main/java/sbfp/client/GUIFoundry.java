@@ -28,7 +28,7 @@ public class GUIFoundry extends GuiContainer{
     private int originX;
 
     public GUIFoundry(InventoryPlayer inv, TileEntityFoundry tileEntity) {
-        super(new ContainerFoundry(inv, tileEntity));
+        super(tileEntity.setContainer(new ContainerFoundry(inv,tileEntity)));
         this.tileEntity = tileEntity;
         this.xSize = 175;
         this.ySize = 221;

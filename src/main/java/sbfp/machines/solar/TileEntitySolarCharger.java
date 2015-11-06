@@ -29,21 +29,31 @@ public class TileEntitySolarCharger extends TileEntity implements IProcessor, IF
     public final Set<EntityPlayer> playersUsing = new HashSet<EntityPlayer>();
     protected IMaterialProcess activeProcess;
     protected List<ItemStack> waitingOutputs;
-    protected boolean hasItem;
+    protected boolean isWorking;
     private ItemStack[] inventory = new ItemStack[10];
 
     @Override
     public void mergeOutputs() {
-        this.container.mergeItemStack(this.waitingOutputs.get(0), 40, 44, false, false);
+        if (this.inventory[8] != null) {
+            if (((IFluxStorageItem) this.inventory[8].getItem()).canStackAcceptFlux(this.inventory[8], 10)) {
+                this.addFluxToSlot(8, 10);
+            }
+        } else if (this.inventory[9] != null) {
+            if (((IFluxStorageItem) this.inventory[9].getItem()).canStackAcceptFlux(this.inventory[9], 10)) {
+                this.addFluxToSlot(9, 10);
+            }
+        } else {
+            this.container.mergeItemStack(this.waitingOutputs.get(0), 40, 44, false, false);
+        }
     }
 
     @Override
     public boolean dryMergeAndFeed() {
         for (int i = 0; i < INPUT_STACK_NUMBER; i++) {
             if (this.inventory[i] != null) {
-                this.activeProcess = modsbfp.solarInfusionRegistry.getProcessesByInputs(this.inventory[i]).get(0);
-                this.waitingOutputs = this.activeProcess.getOutputs();
+                this.activeProcess = modsbfp.solarInfusionRegistry.getProcessesByInputs(this.inventory[i]).get(0);               
                 if (this.activeProcess != null) {
+                    this.waitingOutputs = this.activeProcess.getOutputs();
                     if (this.container.dryMerge(this.waitingOutputs.get(0), 40, 44, false) >= this.waitingOutputs.get(0).stackSize) {
                         this.decrStackSize(i, this.activeProcess.getInputs().get(0).stackSize);
                         return true;
@@ -59,7 +69,20 @@ public class TileEntitySolarCharger extends TileEntity implements IProcessor, IF
     @Override
     public void update() {
         if (this.worldObj.canBlockSeeSky(this.getPos()) && this.worldObj.isDaytime() && !this.worldObj.isRaining()) {
-            
+            if(this.ticks >= Long.MAX_VALUE){
+                this.ticks = 1;
+            }
+            this.ticks++;
+            if(this.isWorking){
+                this.workTicks++;
+                if(this.workTicks == this.activeProcess.getDuration()){
+                    this.workTicks = 0;
+                    this.mergeOutputs();
+                    this.isWorking = false;
+                }
+            }else if(this.container != null){
+                this.isWorking = this.dryMergeAndFeed();
+            }
         }
     }
 

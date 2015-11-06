@@ -1,9 +1,13 @@
 package sbfp.flux;
 
+import java.util.List;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemFluxCell extends Item implements IFluxSourceItem, IFluxStorageItem {
 
@@ -13,6 +17,10 @@ public class ItemFluxCell extends Item implements IFluxSourceItem, IFluxStorageI
         this.setCreativeTab(CreativeTabs.tabRedstone);
         this.setMaxStackSize(1);
         this.setMaxDamage(maxCharge == 0 ? 50 : maxCharge);
+    }
+    
+    private static int fluxToDamage(ItemStack stack, int flux){
+        return stack.getMaxDamage() - flux;
     }
 
     @Override
@@ -27,41 +35,60 @@ public class ItemFluxCell extends Item implements IFluxSourceItem, IFluxStorageI
     }
     
     @Override
-    public int addFlux(ItemStack cell, int deltaC){
-        if (deltaC < 0) return 0;
+    @SideOnly(Side.CLIENT)
+    public void addInformation(ItemStack cell, EntityPlayer playerIn, List tooltip, boolean advanced) 
+    {
         NBTTagCompound data = cell.getTagCompound();
         if(data == null){
             data = new NBTTagCompound();
+            data.setInteger("charge", 0);
             cell.setTagCompound(data);
+            cell.setItemDamage(fluxToDamage(cell, 0));
         }
-        int currentCharge = cell.getMaxDamage() - cell.getItemDamage();
-        int overflow = deltaC + currentCharge - cell.getMaxDamage();
-        int finalCharge = overflow <= 0 ? deltaC+currentCharge : cell.getMaxDamage();
-        data.setInteger("charge", finalCharge);
-        cell.setItemDamage(cell.getMaxDamage() - finalCharge);
+        
+        tooltip.add("Flux Level: "+cell.getTagCompound().getInteger("charge")+ "/" + cell.getMaxDamage());
+    }
+    
+    @Override
+    public int addFlux(ItemStack cell, int deltaF){
+        if (deltaF < 0) return 0;
+        NBTTagCompound data = cell.getTagCompound();
+        if(data == null){
+            data = new NBTTagCompound();
+            data.setInteger("charge", 0);
+            cell.setTagCompound(data);
+            cell.setItemDamage(fluxToDamage(cell, 0));
+        }
+        int currentFlux = cell.getTagCompound().getInteger("charge");
+        int overflow = deltaF + currentFlux - cell.getMaxDamage();
+        int finalFlux = overflow <= 0 ? deltaF+currentFlux : cell.getMaxDamage();
+        cell.getTagCompound().setInteger("charge", finalFlux);
+        cell.setItemDamage(fluxToDamage(cell,finalFlux));
         return overflow < 0 ? 0 : overflow;
     }
     
     @Override
-    public int drainFlux(ItemStack cell, int amount){
-        if(amount < 0) return 0;
+    public int drainFlux(ItemStack cell, int deltaF){
+        if(deltaF < 0) return 0;
         NBTTagCompound data = cell.getTagCompound();
         if(data == null){
             data = new NBTTagCompound();
+            data.setInteger("charge", 0);
             cell.setTagCompound(data);
+            cell.setItemDamage(fluxToDamage(cell, 0));
         }
-        int currentFlux = cell.getMaxDamage() - cell.getItemDamage();
+        int currentFlux = cell.getTagCompound().getInteger("charge");
         if (currentFlux == 0) return 0;
         int fluxDrained, finalFlux;
-        if(currentFlux < amount){
+        if(currentFlux < deltaF){
             fluxDrained = currentFlux;
             finalFlux = 0;
         }else{
-            fluxDrained = amount;
-            finalFlux = currentFlux - amount;
+            fluxDrained = deltaF;
+            finalFlux = currentFlux - deltaF;
         }
-        data.setInteger("charge", finalFlux);
-        cell.setItemDamage(cell.getMaxDamage() - finalFlux);
+        cell.getTagCompound().setInteger("charge", finalFlux);
+        cell.setItemDamage(fluxToDamage(cell, finalFlux));
         return fluxDrained;
     }
 
@@ -78,6 +105,11 @@ public class ItemFluxCell extends Item implements IFluxSourceItem, IFluxStorageI
     @Override
     public boolean destroyOnDrain() {
         return false;
+    }
+
+    @Override
+    public boolean canStackAcceptFlux(ItemStack stack, int amount) {
+        return stack.getMaxDamage() - stack.getItemDamage() >= amount;
     }
     
     

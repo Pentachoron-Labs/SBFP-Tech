@@ -35,9 +35,9 @@ public class TileEntityCrusher extends TileEntity implements IProcessor, IFluxIn
     @Override
     public void update() {
         if (this.inventory[8] != null && this.fluxLevel < maxFluxLevel) {
-            this.fluxLevel += ((IFluxInventory) this.container).drainFluxFromSlot(8, maxFluxLevel - this.fluxLevel);
+            this.fluxLevel += this.drainFluxFromSlot(8, maxFluxLevel - this.fluxLevel);
         } else if (this.inventory[9] != null && this.fluxLevel < maxFluxLevel) {
-            this.fluxLevel += ((IFluxInventory) this.container).drainFluxFromSlot(9, maxFluxLevel - fluxLevel);
+            this.fluxLevel += this.drainFluxFromSlot(9, maxFluxLevel - fluxLevel);
         }
         if (this.fluxLevel >= maxFluxLevel) {
             this.fluxLevel = maxFluxLevel;
@@ -90,7 +90,7 @@ public class TileEntityCrusher extends TileEntity implements IProcessor, IFluxIn
     }
     
     @Override
-    public int drainFluxFromSlot(int index, int deltaF) throws ClassCastException {
+    public int drainFluxFromSlot(int index, int deltaF){
         if (this.inventory[index] == null) {
             return 0;
         }

@@ -60,7 +60,7 @@ public class DissociationProcess implements IMaterialProcess{
     }
 
     @Override
-    public int getTime() {
+    public int getDuration() {
         return this.duration;
     }
 

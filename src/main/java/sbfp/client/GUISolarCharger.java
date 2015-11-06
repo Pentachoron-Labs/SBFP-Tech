@@ -18,7 +18,7 @@ public class GUISolarCharger extends GuiContainer {
     private int containerHeight;
 
     public GUISolarCharger(InventoryPlayer inv, TileEntitySolarCharger tileEntity) {
-        super(new ContainerSolarCharger(inv, tileEntity));
+        super(tileEntity.setContainer(new ContainerSolarCharger(inv,tileEntity)));
         this.tileEntity = tileEntity;
         this.xSize = 175;
         this.ySize = 221;
@@ -36,7 +36,7 @@ public class GUISolarCharger extends GuiContainer {
         containerHeight = (this.height - this.ySize) / 2;
         this.drawTexturedModalRect(containerWidth, containerHeight, 0, 0, this.xSize, this.ySize);
         if (tileEntity.getActiveProcess() != null) {
-            this.drawTexturedModalRect(this.containerWidth + 48, this.containerHeight + 47, 177, 0, 79 * this.tileEntity.getWorkTicks() / tileEntity.getActiveProcess().getTime(), 5);
+            this.drawTexturedModalRect(this.containerWidth + 48, this.containerHeight + 47, 177, 0, 79 * this.tileEntity.getWorkTicks() / tileEntity.getActiveProcess().getDuration(), 5);
         }
     }
 

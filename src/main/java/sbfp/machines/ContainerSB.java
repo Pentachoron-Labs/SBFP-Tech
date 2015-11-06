@@ -117,6 +117,7 @@ public abstract class ContainerSB extends Container{
 	 * Does the same as mergeItemStack, except does not
 	 * actually merge— just returns the number of items that can be merged
 	 * (usually either stack.stackSize or 0, but can be in between)
+         * 
 	 */
 	public int dryMerge(ItemStack stack, int start, int end, boolean checkValidity){
 		int quantity = stack.stackSize;

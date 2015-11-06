@@ -59,5 +59,5 @@ public interface IMaterialProcess {
      *
      * @return length of process, in ticks (0.05 seconds)
      */
-    public abstract int getTime();
+    public abstract int getDuration();
 }
