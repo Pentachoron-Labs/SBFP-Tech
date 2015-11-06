@@ -1,0 +1,41 @@
+monazite.name=Monazite
+fluorite.name=Fluorite
+mos2.name=Molybdenite
+rutile.name=Rutile
+cinnabar.name=Cinnabar
+limonite.name=Limonite
+pyrolusite.name=Pyrolusite
+arsenopyrite.name=Arsenopyrite
+
+redFluxAmp.name=Redstone Flux Amplifier
+redFluxAbsorber.name=Redstone Flux Absorber
+redFluxStabilizer.name=Redstone Flux Stabilizer
+chargedRedstone.name=Charged Redstone
+
+fluxCell.name=Flux Cell
+
+dye.titaniumWhite.name=Titanium White
+dye.vermillion.name=Vermillion
+dye.ochre.name=Ochre
+dye.ultramarine.name=Ultramarine
+dye.manganeseBlack.name=Manganese Black
+
+dyeGreen.name=Green Dye
+dyePurple.name=Purple Dye
+dyeOrange.name=Orange Dye
+dyeGrey.name=Grey Dye
+
+machine.solarcharger.name=Solar Infuser
+machine.solarcharger.tile.name=Solar Infuser
+
+machine.crusher.name=Crusher
+machine.crusher.tile.name=Crusher
+
+machine.dissociator.name=Thermal Dissociator
+machine.dissociator.tile.name=Thermal Dissociator
+
+machine.foundry.disconnected.name=Inoperable Foundry
+machine.foundry.connected.name=Foundry
+machine.foundry.tile.name=Foundry
+
+itemGroup.sbfp=SBFP

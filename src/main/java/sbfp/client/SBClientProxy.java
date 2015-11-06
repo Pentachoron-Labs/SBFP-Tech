@@ -20,6 +20,7 @@ import sbfp.flux.FluxDeviceTypes;
 import sbfp.machines.MachineTypes;
 import sbfp.machines.crusher.TileEntityCrusher;
 import sbfp.machines.foundry.BlockFoundry;
+import sbfp.machines.foundry.FoundryStates;
 import sbfp.machines.foundry.TileEntityFoundry;
 import sbfp.machines.solar.TileEntitySolarCharger;
 import sbfp.world.OreTypes;
@@ -40,7 +41,7 @@ public class SBClientProxy extends SBCommonProxy {
         ModelBakery.addVariantName(registerThis, MachineTypes.SOLARCHARGER.getModelResourceName(), MachineTypes.CRUSHER.getModelResourceName());
         //Register Foundry Variants
         registerThis = GameRegistry.findItem("sbfp", "blockFoundry");
-        ModelBakery.addVariantName(registerThis, BlockFoundry.FoundryStates.DISCONNECTED.getModelResourceName(), BlockFoundry.FoundryStates.CONNECTED.getModelResourceName());
+        ModelBakery.addVariantName(registerThis, FoundryStates.DISCONNECTED.getModelResourceName(), FoundryStates.CONNECTED.getModelResourceName());
 
         //Register Item Variants:Dye
         registerThis = GameRegistry.findItem("sbfp", "itemDye");
@@ -72,7 +73,7 @@ public class SBClientProxy extends SBCommonProxy {
         }
         //Register Foundry Model Locations
         registerThis = GameRegistry.findItem("sbfp", "blockFoundry");
-        for (BlockFoundry.FoundryStates state : BlockFoundry.FoundryStates.values()) {
+        for (FoundryStates state : FoundryStates.values()) {
             Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(registerThis, state.getMeta(), new ModelResourceLocation(state.getModelResourceName(), "inventory"));
         }
 

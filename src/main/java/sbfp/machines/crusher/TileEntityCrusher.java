@@ -9,6 +9,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.IChatComponent;
 import sbfp.flux.IFluxSourceItem;
 import sbfp.machines.ContainerSB;
@@ -206,17 +208,17 @@ public class TileEntityCrusher extends TileEntity implements IProcessor, IFluxIn
 
     @Override
     public String getName() {
-        return "Crusher";
+        return "machine.crusher.tile.name";
     }
 
     @Override
     public boolean hasCustomName() {
-        return true;
+        return false;
     }
 
     @Override
     public IChatComponent getDisplayName() {
-        return null;
+        return this.hasCustomName() ? new ChatComponentText(this.getName()) : new ChatComponentTranslation(this.getName());
     }
 
     @Override

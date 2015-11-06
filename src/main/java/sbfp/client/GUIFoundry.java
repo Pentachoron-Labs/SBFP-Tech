@@ -54,7 +54,7 @@ public class GUIFoundry extends GuiContainer{
 
     @Override
     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
-        this.fontRendererObj.drawString(this.tileEntity.getName(), 40, 6, 4210752);
+        this.fontRendererObj.drawString(this.tileEntity.getDisplayName().getUnformattedText(), 40, 6, 4210752);
     }
 
 }

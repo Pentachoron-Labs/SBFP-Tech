@@ -10,6 +10,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.IChatComponent;
 import sbfp.flux.IFluxStorageItem;
 import sbfp.machines.ContainerSB;
@@ -189,14 +191,12 @@ public class TileEntitySolarCharger extends TileEntity implements IProcessor, IF
 
     @Override
     public boolean hasCustomName() {
-        // TODO Auto-generated method stub
         return false;
     }
 
     @Override
     public IChatComponent getDisplayName() {
-        // TODO Auto-generated method stub
-        return null;
+        return this.hasCustomName() ? new ChatComponentText(this.getName()) : new ChatComponentTranslation(this.getName());
     }
 
     @Override
@@ -213,8 +213,7 @@ public class TileEntitySolarCharger extends TileEntity implements IProcessor, IF
 
     @Override
     public boolean isItemValidForSlot(int index, ItemStack stack) {
-        // TODO Auto-generated method stub
-        return false;
+        return this.container.getSlot(index).isItemValid(stack);
     }
 
     @Override
@@ -243,7 +242,7 @@ public class TileEntitySolarCharger extends TileEntity implements IProcessor, IF
 
     @Override
     public String getName() {
-        return "solar collector";
+        return "machine.solarcharger.tile.name";
     }
 
     @Override

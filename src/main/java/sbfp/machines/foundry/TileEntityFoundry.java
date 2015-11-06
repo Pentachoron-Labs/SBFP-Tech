@@ -7,6 +7,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.IChatComponent;
 import sbfp.flux.IFluxSourceItem;
 import sbfp.machines.ContainerSB;
@@ -190,7 +192,7 @@ public class TileEntityFoundry extends TileEntity implements IProcessor, IFluxIn
 
     @Override
     public String getName() {
-        return "Foundry";
+        return "machines.foundry.tile.name";
     }
 
     @Override
@@ -200,7 +202,7 @@ public class TileEntityFoundry extends TileEntity implements IProcessor, IFluxIn
 
     @Override
     public IChatComponent getDisplayName() {
-        return null;
+        return this.hasCustomName() ? new ChatComponentText(this.getName()) : new ChatComponentTranslation(this.getName());
     }
 
     @Override

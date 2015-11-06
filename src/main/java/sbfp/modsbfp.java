@@ -88,15 +88,8 @@ public class modsbfp {
         WOOD, STONE, IRON, DIAMOND
     }
 
-    public static CreativeTabs tabSBFP = new CreativeTabs("SBFP") {
-        @Override
-        @SideOnly(Side.CLIENT)
-        public Item getTabIconItem() {
-            ItemStack iStack = new ItemStack(GameRegistry.findItem("sbfp", "blockMachine"), 1, 1);
-            return iStack.getItem();
-        }
-    };
-
+    public static final CreativeTabs tabSBFP = new TabSBFP();
+    
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
 

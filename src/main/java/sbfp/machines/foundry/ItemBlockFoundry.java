@@ -1,6 +1,7 @@
 package sbfp.machines.foundry;
 
 import net.minecraft.block.Block;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import sbfp.modsbfp;
@@ -19,7 +20,12 @@ public class ItemBlockFoundry extends ItemBlock {
 
     @Override
     public String getUnlocalizedName(ItemStack is) {
-        return modsbfp.blockFoundry.getStateFromMeta(is.getItemDamage()).getValue(BlockFoundry.STATE).toString();
+        return "machine.foundry."+FoundryStates.stateFromMeta(is.getMetadata()).getName();
+    }
+    
+    @Override
+    public CreativeTabs[] getCreativeTabs() {
+        return new CreativeTabs[]{modsbfp.tabSBFP, this.getCreativeTab()};
     }
 
 }

@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import sbfp.modsbfp;
 
 public class ItemFluxCell extends Item implements IFluxSourceItem, IFluxStorageItem {
 
@@ -16,11 +17,21 @@ public class ItemFluxCell extends Item implements IFluxSourceItem, IFluxStorageI
         this.setUnlocalizedName(name);
         this.setCreativeTab(CreativeTabs.tabRedstone);
         this.setMaxStackSize(1);
-        this.setMaxDamage(maxCharge == 0 ? 50 : maxCharge);
+        this.setMaxDamage(maxCharge);
     }
     
     private static int fluxToDamage(ItemStack stack, int flux){
         return stack.getMaxDamage() - flux;
+    }
+    
+    @Override
+    public String getUnlocalizedName(ItemStack i){
+        return "fluxCell";
+    }
+    
+    @Override
+    public CreativeTabs[] getCreativeTabs() {
+        return new CreativeTabs[]{modsbfp.tabSBFP, this.getCreativeTab()};
     }
 
     @Override

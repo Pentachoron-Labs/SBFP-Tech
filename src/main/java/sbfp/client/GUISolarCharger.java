@@ -6,14 +6,13 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
-import sbfp.machines.IProcessor;
 
 import sbfp.machines.solar.ContainerSolarCharger;
 import sbfp.machines.solar.TileEntitySolarCharger;
 
 public class GUISolarCharger extends GuiContainer {
 
-    private IProcessor tileEntity;
+    private TileEntitySolarCharger tileEntity;
     private int containerWidth;
     private int containerHeight;
 
@@ -42,6 +41,6 @@ public class GUISolarCharger extends GuiContainer {
 
     @Override
     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
-        this.fontRendererObj.drawString("Solar Collector", 40, 6, 4210752);
+        this.fontRendererObj.drawString(this.tileEntity.getDisplayName().getUnformattedText(), 40, 6, 4210752);
     }
 }

@@ -6,7 +6,6 @@ import org.lwjgl.opengl.GL11;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.FMLLog;
 import sbfp.machines.crusher.ContainerCrusher;
 import sbfp.machines.crusher.TileEntityCrusher;
 
@@ -55,6 +54,6 @@ public class GUICrusher extends GuiContainer{
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(int par1, int par2){
-		this.fontRendererObj.drawString(this.tileEntity.getName(),33,6,4210752);
+		this.fontRendererObj.drawString(this.tileEntity.getDisplayName().getUnformattedText(), 40, 6, 4210752);
 	}
 }

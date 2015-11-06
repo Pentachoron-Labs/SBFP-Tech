@@ -7,6 +7,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.IChatComponent;
 import sbfp.flux.IFluxSourceItem;
 import sbfp.machines.ContainerSB;
@@ -137,17 +139,17 @@ public class TileEntityDissociator extends TileEntity implements IProcessor, IFl
 
     @Override
     public String getName() {
-        return "dissociator";
+        return "machines.dissociator.tile.name";
     }
 
     @Override
     public boolean hasCustomName() {
-        return true;
+        return false;
     }
 
     @Override
     public IChatComponent getDisplayName() {
-        return null;
+        return this.hasCustomName() ? new ChatComponentText(this.getName()) : new ChatComponentTranslation(this.getName());
     }
 
     @Override

@@ -6,33 +6,39 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import sbfp.modsbfp;
 
-public class ItemDye extends Item{
+public class ItemDye extends Item {
 
-	public ItemDye(String name){
-		super();
-                this.setUnlocalizedName(name);
-		this.setCreativeTab(CreativeTabs.tabDecorations);
-                this.setHasSubtypes(true);
-                this.setMaxDamage(0);
-	}
-        
-        @Override
-        public int getMetadata(int meta){
-            return meta;
+    public ItemDye(String name) {
+        super();
+        this.setUnlocalizedName(name);
+        this.setCreativeTab(CreativeTabs.tabRedstone);
+        this.setHasSubtypes(true);
+        this.setMaxDamage(0);
+    }
+
+    @Override
+    public int getMetadata(int meta) {
+        return meta;
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void getSubItems(Item itemIn, CreativeTabs tab, List subItems) {
+        for (DyeTypes dye : DyeTypes.values()) {
+            subItems.add(new ItemStack(itemIn, 1, dye.getMeta()));
         }
-        
-        @SideOnly(Side.CLIENT)
-        @Override
-        public void getSubItems(Item itemIn, CreativeTabs tab, List subItems){
-            for (DyeTypes dye : DyeTypes.values()){
-                subItems.add(new ItemStack(itemIn, 1, dye.getMeta()));
-            }
-        }
-        
-        @Override
-        public String getUnlocalizedName(ItemStack i){
-            return DyeTypes.dyeTypeByMeta(i.getMetadata()).getName();
-        }
-        
+    }
+
+    @Override
+    public String getUnlocalizedName(ItemStack i) {
+        return "dye." + DyeTypes.dyeTypeByMeta(i.getMetadata()).getName();
+    }
+
+    @Override
+    public CreativeTabs[] getCreativeTabs() {
+        return new CreativeTabs[]{modsbfp.tabSBFP, this.getCreativeTab()};
+    }
+
 }
