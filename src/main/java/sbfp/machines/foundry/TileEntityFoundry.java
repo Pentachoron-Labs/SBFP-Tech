@@ -22,23 +22,33 @@ import sbfp.machines.IProcessor;
  */
 public class TileEntityFoundry extends TileEntity implements IProcessor, IFluxInventory, IUpdatePlayerListBox {
 
+    private static final int maxFluxLevel = 400;
+    
     private int workTicks = 0;
     private long ticks = 0;
+    private int fluxLevel = 0;
+    
     private ContainerSB container;
     public final Set<EntityPlayer> playersUsing = new HashSet<EntityPlayer>();
-    protected IMaterialProcess activeProcess;
-    protected List<ItemStack> waitingOutputs;
-    protected boolean hasItem;
+    private FoundryStates state;
+    
+    private IMaterialProcess activeProcess;
+    private List<ItemStack> waitingOutputs;
+    private boolean hasItem;
+    
     private ItemStack[] inventory = new ItemStack[10]; //0-3 = inputs, 4-7 = outputs, 8&9 = flux slots
-
-    private static final int maxFluxLevel = 400;
-
-    private int fluxLevel = 0;
 
     @Override
     public void update() {
         if (this.ticks % 60 == 0) {
             this.worldObj.markBlockForUpdate(this.pos);
+            this.state = (FoundryStates) this.worldObj.getBlockState(this.pos).getValue(BlockFoundry.STATE);
+        }
+        switch(this.state){
+            case CONNECTED:
+                break;
+            case DISCONNECTED:
+                break;
         }
         if (this.inventory[8] != null && this.fluxLevel < maxFluxLevel) {
             this.fluxLevel += this.drainFluxFromSlot(8, maxFluxLevel - this.fluxLevel);
@@ -62,6 +72,7 @@ public class TileEntityFoundry extends TileEntity implements IProcessor, IFluxIn
 
     @Override
     public void activate() {
+        this.state = (FoundryStates) this.worldObj.getBlockState(this.pos).getValue(BlockFoundry.STATE);
     }
 
     @Override
@@ -192,7 +203,7 @@ public class TileEntityFoundry extends TileEntity implements IProcessor, IFluxIn
 
     @Override
     public String getName() {
-        return "machines.foundry.tile.name";
+        return "machine.foundry.tile.name";
     }
 
     @Override

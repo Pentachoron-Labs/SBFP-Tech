@@ -10,7 +10,6 @@ public class ContainerCrusher extends ContainerSB{
 
     public ContainerCrusher(InventoryPlayer inv, IInventory tileEntity) {
         super(inv, tileEntity);
-        
         this.addSlotToContainer(new SlotCrusher(tileEntity, 0, 8, 24));
         this.addSlotToContainer(new SlotCrusher(tileEntity, 1, 26, 24));
         this.addSlotToContainer(new SlotCrusher(tileEntity, 2, 8, 42));

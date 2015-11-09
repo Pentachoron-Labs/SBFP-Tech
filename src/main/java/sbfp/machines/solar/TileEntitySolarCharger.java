@@ -36,17 +36,19 @@ public class TileEntitySolarCharger extends TileEntity implements IProcessor, IF
 
     @Override
     public void mergeOutputs() {
+        boolean failed = false;
         if (this.inventory[8] != null) {
             if (((IFluxStorageItem) this.inventory[8].getItem()).canStackAcceptFlux(this.inventory[8], 10)) {
-                this.addFluxToSlot(8, 10);
+                failed = this.addFluxToSlot(8, 10)>0;
             }
         } else if (this.inventory[9] != null) {
             if (((IFluxStorageItem) this.inventory[9].getItem()).canStackAcceptFlux(this.inventory[9], 10)) {
-                this.addFluxToSlot(9, 10);
+                failed = this.addFluxToSlot(9, 10)>0;
             }
         } else {
-            this.container.mergeItemStack(this.waitingOutputs.get(0), 40, 44, false, false);
+            failed = true;
         }
+        if(failed) this.container.mergeItemStack(this.waitingOutputs.get(0), 40, 44, false, false);
     }
 
     @Override

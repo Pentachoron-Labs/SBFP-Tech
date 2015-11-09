@@ -6,8 +6,8 @@ import java.util.HashMap;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import net.minecraftforge.fml.common.Mod;
@@ -18,8 +18,6 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 import sbfp.chemistry.DyeTypes;
 import sbfp.chemistry.ItemDye;
@@ -173,20 +171,15 @@ public class modsbfp {
         GameRegistry.addRecipe(new ItemStack(blockMachine, 1, MachineTypes.SOLARCHARGER.getMeta()), new Object[]{"GGG", "IAI", "IRI", 'G', Blocks.glass, 'I', Items.iron_ingot, 'R', Items.redstone, 'A', new ItemStack(itemFluxDevice, 1, FluxDeviceTypes.AMPLIFIER.getMeta())});
         //Crusher
         GameRegistry.addRecipe(new ItemStack(blockMachine, 1, MachineTypes.CRUSHER.getMeta()), new Object[]{" I ", "PAP", "RaR", 'I', Blocks.iron_block, 'P', Blocks.piston, 'A', new ItemStack(itemFluxDevice, 1, FluxDeviceTypes.ABSORBER.getMeta()), 'a', Blocks.anvil, 'R', Items.redstone});
-        //
+        //Empty Flux Cell -- Capacity 100
         GameRegistry.addRecipe(new ItemStack(itemLowFluxCell, 1), new Object[]{" I ", "IAI", "IRI", 'I', Items.iron_ingot, 'A', new ItemStack(itemFluxDevice, 1, FluxDeviceTypes.ABSORBER.getMeta()), 'R', Items.redstone});
-    }
-
-    private static int getBlockID(String name, int defaultid) {
-        config.load();
-        Property q = config.get(Configuration.CATEGORY_GENERAL, name, defaultid);
-        return q.getInt(defaultid);
-    }
-
-    private static int getItemID(String name, int defaultid) {
-        config.load();
-        Property q = config.get(Configuration.CATEGORY_GENERAL, name, defaultid);
-        return q.getInt(defaultid);
+        //Partially Charged Flux Cell -- Capacity 100
+        ItemStack stack = new ItemStack(itemLowFluxCell, 1);
+        stack.setTagCompound(new NBTTagCompound());
+        stack.getTagCompound().setInteger("charge", 10);
+        stack.setItemDamage(90);
+        GameRegistry.addRecipe(stack, new Object[]{" I ", "IAI", "IRI", 'I', Items.iron_ingot, 'A', new ItemStack(itemFluxDevice, 1, FluxDeviceTypes.ABSORBER.getMeta()), 'R', new ItemStack(itemFluxDevice, 1, FluxDeviceTypes.CHARGEDREDSTONE.getMeta())});
+        
     }
 
     public static modsbfp getInstance() {

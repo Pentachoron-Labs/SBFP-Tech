@@ -13,7 +13,7 @@ public class ItemDye extends Item {
     public ItemDye(String name) {
         super();
         this.setUnlocalizedName(name);
-        this.setCreativeTab(CreativeTabs.tabRedstone);
+        this.setCreativeTab(CreativeTabs.tabDecorations);
         this.setHasSubtypes(true);
         this.setMaxDamage(0);
     }

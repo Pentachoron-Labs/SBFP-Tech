@@ -27,7 +27,7 @@ public class TileEntityCrusher extends TileEntity implements IProcessor, IFluxIn
     public final Set<EntityPlayer> playersUsing = new HashSet<EntityPlayer>();
     protected IMaterialProcess activeProcess;
     protected List<ItemStack> waitingOutputs;
-    protected boolean hasItem;
+    protected boolean isWorking;
     private ItemStack[] inventory = new ItemStack[10];
     
     public static final int maxFluxLevel = 200; // FOR NOW
@@ -36,15 +36,29 @@ public class TileEntityCrusher extends TileEntity implements IProcessor, IFluxIn
 
     @Override
     public void update() {
+        if (this.ticks >= Long.MAX_VALUE) {
+            this.ticks = 1;
+        }
+        this.ticks++;
+        if (this.isWorking) {
+            this.workTicks++;
+            if (this.workTicks == this.activeProcess.getDuration()) {
+                this.workTicks = 0;
+                this.mergeOutputs();
+                this.isWorking = false;
+            }
+        } else if (this.container != null) {
+            this.isWorking = this.dryMergeAndFeed();
+        }
         if (this.inventory[8] != null && this.fluxLevel < maxFluxLevel) {
-            this.fluxLevel += this.drainFluxFromSlot(8, maxFluxLevel - this.fluxLevel);
+            this.fluxLevel += this.drainFluxFromSlot(8, 2);
         } else if (this.inventory[9] != null && this.fluxLevel < maxFluxLevel) {
-            this.fluxLevel += this.drainFluxFromSlot(9, maxFluxLevel - fluxLevel);
+            this.fluxLevel += this.drainFluxFromSlot(9, 2);
         }
         if (this.fluxLevel >= maxFluxLevel) {
             this.fluxLevel = maxFluxLevel;
         }
-        
+
     }
 
     @Override
