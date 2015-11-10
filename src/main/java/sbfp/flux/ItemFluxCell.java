@@ -36,13 +36,6 @@ public class ItemFluxCell extends Item implements IFluxSourceItem, IFluxStorageI
     }
     
     @Override
-    public boolean updateItemStackNBT(NBTTagCompound nbt)
-    {
-        if(!nbt.hasKey("charge")) nbt.setInteger("charge", 0);
-        return false;
-    }
-    
-    @Override
     public CreativeTabs[] getCreativeTabs() {
         return new CreativeTabs[]{modsbfp.tabSBFP, this.getCreativeTab()};
     }
@@ -52,13 +45,15 @@ public class ItemFluxCell extends Item implements IFluxSourceItem, IFluxStorageI
     public void getSubItems(Item itemIn, CreativeTabs tab, List subItems)
     {
         ItemStack stack = new ItemStack(itemIn, 1);
-        stack.setTagCompound(new NBTTagCompound());
-        stack.getTagCompound().setInteger("charge",  stack.getMaxDamage());
+        NBTTagCompound data = stack.getSubCompound("sbfp", true);
+        data.setInteger("fluxLevel",  stack.getMaxDamage());
         stack.setItemDamage(fluxToDamage(stack, stack.getMaxDamage()));
         subItems.add(stack);
+        
         stack = new ItemStack(itemIn, 1);
-        stack.setTagCompound(new NBTTagCompound());
-        stack.getTagCompound().setInteger("charge", 0);
+        data = stack.getSubCompound("sbfp", true);
+        data.setInteger("fluxLevel", 0);
+        stack.setItemDamage(fluxToDamage(stack, 0));
         subItems.add(stack);
         
     }
@@ -71,34 +66,35 @@ public class ItemFluxCell extends Item implements IFluxSourceItem, IFluxStorageI
     @Override
     public boolean showDurabilityBar(ItemStack stack)
     {
-        return stack.getTagCompound() != null ? (stack.getTagCompound().hasKey("charge") && stack.getItemDamage() != 0): false;
+        NBTTagCompound data = stack.getSubCompound("sbfp", true);
+        return data.hasKey("fluxLevel") ? data.getInteger("fluxLevel") != stack.getMaxDamage() : false;
     }
     
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack cell, EntityPlayer playerIn, List tooltip, boolean advanced) 
     {
-        if(!cell.hasTagCompound()){
-            cell.setTagCompound(new NBTTagCompound());
-            cell.getTagCompound().setInteger("charge", 0);
+        NBTTagCompound data = cell.getSubCompound("sbfp", true);
+        if(!data.hasKey("fluxLevel")){
+            data.setInteger("fluxLevel", 0);
             cell.setItemDamage(fluxToDamage(cell, 0));
         }
         
-        tooltip.add("Flux Level: "+cell.getTagCompound().getInteger("charge")+ "/" + cell.getMaxDamage());
+        tooltip.add("Flux Level: "+data.getInteger("fluxLevel")+ "/" + cell.getMaxDamage());
     }
     
     @Override
     public int addFlux(ItemStack cell, int deltaF){
         if (deltaF < 0) return 0;
-        if(!cell.hasTagCompound()){
-            cell.setTagCompound(new NBTTagCompound());
-            cell.getTagCompound().setInteger("charge", 0);
+        NBTTagCompound data = cell.getSubCompound("sbfp", true);
+        if(!data.hasKey("fluxLevel")){
+            data.setInteger("fluxLevel", 0);
             cell.setItemDamage(fluxToDamage(cell, 0));
         }
-        int currentFlux = cell.getTagCompound().getInteger("charge");
+        int currentFlux = data.getInteger("fluxLevel");
         int overflow = deltaF + currentFlux - cell.getMaxDamage();
         int finalFlux = overflow <= 0 ? deltaF+currentFlux : cell.getMaxDamage();
-        cell.getTagCompound().setInteger("charge", finalFlux);
+        data.setInteger("fluxLevel", finalFlux);
         cell.setItemDamage(fluxToDamage(cell,finalFlux));
         return overflow < 0 ? 0 : overflow;
     }
@@ -106,22 +102,22 @@ public class ItemFluxCell extends Item implements IFluxSourceItem, IFluxStorageI
     @Override
     public int drainFlux(ItemStack cell, int deltaF){
         if(deltaF < 0) return 0;
-        if(!cell.hasTagCompound()){
-            cell.setTagCompound(new NBTTagCompound());
-            cell.getTagCompound().setInteger("charge", 0);
+        NBTTagCompound data = cell.getSubCompound("sbfp", true);
+        if(!data.hasKey("fluxLevel")){
+            data.setInteger("fluxLevel", 0);
             cell.setItemDamage(fluxToDamage(cell, 0));
         }
-        int currentFlux = cell.getTagCompound().getInteger("charge");
+        int currentFlux = data.getInteger("fluxLevel");
         if (currentFlux == 0) return 0;
         int fluxDrained, finalFlux;
-        if(currentFlux < deltaF){
+        if(currentFlux <= deltaF){
             fluxDrained = currentFlux;
             finalFlux = 0;
         }else{
             fluxDrained = deltaF;
             finalFlux = currentFlux - deltaF;
         }
-        cell.getTagCompound().setInteger("charge", finalFlux);
+        data.setInteger("fluxLevel", finalFlux);
         cell.setItemDamage(fluxToDamage(cell, finalFlux));
         return fluxDrained;
     }

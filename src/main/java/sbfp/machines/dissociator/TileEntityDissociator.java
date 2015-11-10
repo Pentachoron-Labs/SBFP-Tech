@@ -156,11 +156,12 @@ public class TileEntityDissociator extends TileEntity implements IProcessor, IFl
     public IMaterialProcess getActiveProcess() {
         return this.activeProcess;
     }
-
+    
     @Override
-    public void activate() {
+    public void activate(Object... args){
+        
     }
-
+    
     @Override
     public int getWorkTicks() {
         return this.workTicks;

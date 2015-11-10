@@ -28,8 +28,9 @@ public interface IProcessor{
     
     /**
      * Called on the first tick the processor ticks on
+     * @param args Any data that needs to be sent to the processor on its first tick
      */
-    public abstract void activate();
+    public abstract void activate(Object... args);
     
     /**
      * 

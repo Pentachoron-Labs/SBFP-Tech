@@ -1,8 +1,7 @@
 package sbfp.machines.foundry;
 
-import java.util.HashSet;
+import com.google.common.collect.Lists;
 import java.util.List;
-import java.util.Set;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.gui.IUpdatePlayerListBox;
@@ -13,28 +12,22 @@ import net.minecraft.util.IChatComponent;
 import sbfp.flux.IFluxSourceItem;
 import sbfp.machines.ContainerSB;
 import sbfp.machines.IFluxInventory;
-import sbfp.machines.IMaterialProcess;
-import sbfp.machines.IProcessor;
 
 /**
  *
  *
  */
-public class TileEntityFoundry extends TileEntity implements IProcessor, IFluxInventory, IUpdatePlayerListBox {
+public class TileEntityFoundry extends TileEntity implements IFluxInventory, IUpdatePlayerListBox {
 
     private static final int maxFluxLevel = 400;
     
-    private int workTicks = 0;
     private long ticks = 0;
     private int fluxLevel = 0;
     
-    private ContainerSB container;
-    public final Set<EntityPlayer> playersUsing = new HashSet<EntityPlayer>();
-    private FoundryStates state;
+    private List<Foundry> smelters = Lists.newArrayList();
     
-    private IMaterialProcess activeProcess;
-    private List<ItemStack> waitingOutputs;
-    private boolean hasItem;
+    private ContainerSB container;
+    private FoundryStates state;
     
     private ItemStack[] inventory = new ItemStack[10]; //0-3 = inputs, 4-7 = outputs, 8&9 = flux slots
 
@@ -60,36 +53,11 @@ public class TileEntityFoundry extends TileEntity implements IProcessor, IFluxIn
         }
     }
 
-    @Override
-    public void mergeOutputs() {
-
-    }
-
-    @Override
-    public IMaterialProcess getActiveProcess() {
-        return this.activeProcess;
-    }
-
-    @Override
-    public void activate() {
-        this.state = (FoundryStates) this.worldObj.getBlockState(this.pos).getValue(BlockFoundry.STATE);
-    }
-
-    @Override
-    public int getWorkTicks() {
-        return this.workTicks;
-    }
-
-    @Override
-    public boolean dryMergeAndFeed() {
-        return false;
-    }
-
     public int getFluxLevel() {
         return this.fluxLevel;
     }
 
-    @Override
+    // Still need this
     public ContainerSB setContainer(ContainerSB c) {
         this.container = c;
         return this.container;

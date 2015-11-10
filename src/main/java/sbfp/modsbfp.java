@@ -2,19 +2,21 @@ package sbfp;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.common.config.Property;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -31,6 +33,7 @@ import sbfp.machines.MaterialProcessRegistry;
 import sbfp.machines.crusher.CrusherProcess;
 import sbfp.machines.crusher.TileEntityCrusher;
 import sbfp.machines.foundry.BlockFoundry;
+import sbfp.machines.foundry.FoundryProcess;
 import sbfp.machines.foundry.ItemBlockFoundry;
 import sbfp.machines.foundry.TileEntityFoundry;
 import sbfp.machines.solar.SolarInfusionProcess;
@@ -79,6 +82,7 @@ public class modsbfp {
 //	public static final ItemTractor itemTractor = new ItemTractor(getItemID("itemTractorID",0x4c02),"itemTractor");
     public static final MaterialProcessRegistry<CrusherProcess> crushingRegistry = new MaterialProcessRegistry<CrusherProcess>();
     public static final MaterialProcessRegistry<SolarInfusionProcess> solarInfusionRegistry = new MaterialProcessRegistry<SolarInfusionProcess>();
+    public static final MaterialProcessRegistry<FoundryProcess> foundrySmeltingRegistry = new MaterialProcessRegistry<FoundryProcess>();
 
     //For setting harvest levels of various blocks.
     public enum HarvestLevels {
@@ -125,30 +129,12 @@ public class modsbfp {
 
         proxy.init(event);
     }
-
-//	private void loadLang(){
-//		for(String i:(Set<String>) StringTranslate.getInstance().getLanguageList().keySet()){
-//			lang.put(i,new HashMap<String,String>());
-//		}
-//		BufferedReader br = new BufferedReader(new InputStreamReader(modsbfp.class.getResourceAsStream("/mods/sbfp/lang/sbfp.lang")));
-//		try{
-//			String q, l = null;
-//			while((q = br.readLine())!=null){
-//				if(q.equals("")||q.charAt(0)=='#'){
-//					continue;
-//				}
-//				if(q.contains("=")){
-//					String key = q.substring(0,q.indexOf("="));
-//					String value = q.substring(q.indexOf("=")+1);
-//					LanguageRegistry.instance().addStringLocalization(key,l,value);
-//				}else{
-//					l = q;
-//				}
-//			}
-//		}catch(IOException e){
-//			e.printStackTrace();
-//		}
-//	}
+    
+    @EventHandler
+    public void postInit(FMLPostInitializationEvent post){
+        this.fillFoundryRegistry();
+    }
+    
     private void addRecipes() {
 //        GameRegistry.addShapelessRecipe(new ItemStack(itemDye, 2, 5), new ItemStack(itemDye, 1, 2), new ItemStack(itemDye, 1, 3));
 //        GameRegistry.addShapelessRecipe(new ItemStack(itemDye, 2, 6), new ItemStack(itemDye, 1, 1), new ItemStack(itemDye, 1, 3));
@@ -175,11 +161,20 @@ public class modsbfp {
         GameRegistry.addRecipe(new ItemStack(itemLowFluxCell, 1), new Object[]{" I ", "IAI", "IRI", 'I', Items.iron_ingot, 'A', new ItemStack(itemFluxDevice, 1, FluxDeviceTypes.ABSORBER.getMeta()), 'R', Items.redstone});
         //Partially Charged Flux Cell -- Capacity 100
         ItemStack stack = new ItemStack(itemLowFluxCell, 1);
-        stack.setTagCompound(new NBTTagCompound());
-        stack.getTagCompound().setInteger("charge", 10);
+        stack.getSubCompound("sbfp", true).setInteger("fluxLevel", 10);
         stack.setItemDamage(90);
         GameRegistry.addRecipe(stack, new Object[]{" I ", "IAI", "IRI", 'I', Items.iron_ingot, 'A', new ItemStack(itemFluxDevice, 1, FluxDeviceTypes.ABSORBER.getMeta()), 'R', new ItemStack(itemFluxDevice, 1, FluxDeviceTypes.CHARGEDREDSTONE.getMeta())});
         
+    }
+    
+    private void fillFoundryRegistry(){
+        Set recipeSet = FurnaceRecipes.instance().getSmeltingList().entrySet();
+        for(Object o : recipeSet){
+            Entry<ItemStack, ItemStack> recipe = (Entry<ItemStack, ItemStack>) o;
+            FoundryProcess f = new FoundryProcess(recipe.getKey().getUnlocalizedName() + "_to_" + recipe.getValue().getUnlocalizedName(), 
+            recipe.getKey(), recipe.getValue(), 60, 15);
+            foundrySmeltingRegistry.addProcess(f);
+        } 
     }
 
     public static modsbfp getInstance() {

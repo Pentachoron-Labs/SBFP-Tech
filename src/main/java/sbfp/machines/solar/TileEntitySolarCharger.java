@@ -251,9 +251,9 @@ public class TileEntitySolarCharger extends TileEntity implements IProcessor, IF
     public IMaterialProcess getActiveProcess() {
         return this.activeProcess;
     }
-
+   
     @Override
-    public void activate() {
+    public void activate(Object... args){
         
     }
 

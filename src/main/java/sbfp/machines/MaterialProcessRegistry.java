@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import net.minecraft.item.ItemStack;
 
 /**
@@ -12,7 +13,7 @@ import net.minecraft.item.ItemStack;
  */
 public class MaterialProcessRegistry<E extends IMaterialProcess> {
     
-    private HashMap<String, E> processes;
+    private Map<String, E> processes;
     
     public MaterialProcessRegistry(E... things){
         this();
