@@ -30,10 +30,16 @@ public class TileEntityFoundry extends TileEntity implements IFluxInventory, IUp
     private FoundryStates state;
     
     private ItemStack[] inventory = new ItemStack[10]; //0-3 = inputs, 4-7 = outputs, 8&9 = flux slots
-
+    
+    public void activate(){
+        for(int i = 0; i<3; i++){
+            this.smelters.add(new Foundry(this.inventory[i], this.inventory[i+4], i, i+4));
+        }
+    }
+    
     @Override
     public void update() {
-        if (this.ticks % 60 == 0) {
+        if (this.ticks % 20 == 0) {
             this.worldObj.markBlockForUpdate(this.pos);
             this.state = (FoundryStates) this.worldObj.getBlockState(this.pos).getValue(BlockFoundry.STATE);
         }
@@ -51,8 +57,9 @@ public class TileEntityFoundry extends TileEntity implements IFluxInventory, IUp
         if (this.fluxLevel >= maxFluxLevel) {
             this.fluxLevel = maxFluxLevel;
         }
+        this.ticks++;
     }
-
+    
     public int getFluxLevel() {
         return this.fluxLevel;
     }

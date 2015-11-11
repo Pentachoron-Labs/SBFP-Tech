@@ -26,6 +26,13 @@ public class Foundry implements IProcessor{
     private List<ItemStack> waitingOutputs;
     private boolean hasItem;
     
+    public Foundry(ItemStack in, ItemStack out, int inIndex, int outIndex){
+        this.input = in;
+        this.output = out;
+        this.inIndex = inIndex;
+        this.outIndex = outIndex;
+    }
+    
     @Override
     public IMaterialProcess getActiveProcess() {
         return this.activeProcess;
@@ -42,24 +49,8 @@ public class Foundry implements IProcessor{
     }
 
     @Override
-    /**
-     * Formate for this is is : input stack, input index, output stack, output index
-     */
     public void activate(Object... args) {
-        try{
-            this.input = (ItemStack) args[0];
-            this.inIndex = (Integer) args[1];
-            this.output = (ItemStack) args[2];
-            this.outIndex = (Integer) args[3];
-        }catch(ClassCastException ce){
-            FMLLog.bigWarning("Foundry was initialized wrong, data list format incorrect");
-            throw ce;
-        }catch(IndexOutOfBoundsException iobe){
-            FMLLog.bigWarning("Foundry was initalized wrong, not enough data in input list");
-            throw iobe;
-        }catch(Exception e){
-            FMLLog.bigWarning("You fucked up");
-        }
+        
     }
 
     @Override
