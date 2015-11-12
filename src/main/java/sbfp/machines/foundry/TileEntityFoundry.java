@@ -12,62 +12,92 @@ import net.minecraft.util.IChatComponent;
 import sbfp.flux.IFluxSourceItem;
 import sbfp.machines.ContainerSB;
 import sbfp.machines.IFluxInventory;
+import sbfp.machines.IMaterialProcess;
+import sbfp.machines.IProcessor;
+import sbfp.machines.ISubUnitProcessor;
+import sbfp.modsbfp;
 
 /**
  *
  *
  */
-public class TileEntityFoundry extends TileEntity implements IFluxInventory, IUpdatePlayerListBox {
+public class TileEntityFoundry extends TileEntity implements ISubUnitProcessor, IFluxInventory, IUpdatePlayerListBox {
 
     private static final int maxFluxLevel = 400;
-    
+
     private long ticks = 0;
     private int fluxLevel = 0;
-    
+
     private List<Foundry> smelters = Lists.newArrayList();
-    
+    private boolean renderSmelters = false;
+
     private ContainerSB container;
     private FoundryStates state;
-    
+
     private ItemStack[] inventory = new ItemStack[10]; //0-3 = inputs, 4-7 = outputs, 8&9 = flux slots
-    
-    public void activate(){
-        for(int i = 0; i<3; i++){
-            this.smelters.add(new Foundry(this.inventory[i], this.inventory[i+4], i, i+4));
+
+    public void activate() {
+        for (int i = 0; i < 4; i++) {
+            this.smelters.add(new Foundry(i, i + 4));
         }
     }
-    
+
     @Override
     public void update() {
         if (this.ticks % 20 == 0) {
             this.worldObj.markBlockForUpdate(this.pos);
             this.state = (FoundryStates) this.worldObj.getBlockState(this.pos).getValue(BlockFoundry.STATE);
         }
-        switch(this.state){
+        switch (this.state) {
             case CONNECTED:
+                for (Foundry f : this.smelters) {
+                    f.tick();
+                }
+                if(!this.renderSmelters){
+                    for(int i = 0; i<8; i++){
+                        //Update the slots to render, somehow
+                    }
+                }
                 break;
             case DISCONNECTED:
+                for (Foundry f : this.smelters) {
+                    f.reset();
+                    if(this.renderSmelters){
+                        for(int i = 0; i<8; i++){
+                            //Update the slots to not render, somehow
+                        }
+                    }
+                }
                 break;
         }
         if (this.inventory[8] != null && this.fluxLevel < maxFluxLevel) {
-            this.fluxLevel += this.drainFluxFromSlot(8, maxFluxLevel - this.fluxLevel);
+            this.fluxLevel += this.drainFluxFromSlot(8, 2);
         } else if (this.inventory[9] != null && this.fluxLevel < maxFluxLevel) {
-            this.fluxLevel += this.drainFluxFromSlot(9, maxFluxLevel - this.fluxLevel);
+            this.fluxLevel += this.drainFluxFromSlot(9, 2);
         }
         if (this.fluxLevel >= maxFluxLevel) {
             this.fluxLevel = maxFluxLevel;
         }
         this.ticks++;
     }
-    
+
     public int getFluxLevel() {
         return this.fluxLevel;
     }
 
-    // Still need this
+    @Override
     public ContainerSB setContainer(ContainerSB c) {
         this.container = c;
         return this.container;
+    }
+    
+    @Override
+    public List<IProcessor> getSubUnits(){
+        List<IProcessor> subs = Lists.newArrayList();
+        for(Foundry f : this.smelters){
+            subs.add(f);
+        }
+        return subs;
     }
 
     @Override
@@ -194,6 +224,86 @@ public class TileEntityFoundry extends TileEntity implements IFluxInventory, IUp
     @Override
     public boolean isUseableByPlayer(EntityPlayer player) {
         return this.worldObj.getTileEntity(this.getPos()) != this ? false : player.getDistanceSq(this.getPos().add(0.5D, 0.5D, 0.5D)) <= 64.0D;
+    }
+
+    private class Foundry implements IProcessor {
+
+        private static final int maxFluxLevel = 400;
+
+        private int workTicks = 0;
+
+        private ContainerSB container;
+
+        private int outIndex;
+        private int inIndex;
+
+        private IMaterialProcess activeProcess;
+        private List<ItemStack> waitingOutputs;
+        private boolean isWorking;
+
+        public Foundry(int inIndex, int outIndex) {
+            this.outIndex = outIndex;
+            this.inIndex = inIndex;
+        }
+
+        @Override
+        public IMaterialProcess getActiveProcess() {
+            return this.activeProcess;
+        }
+
+        @Override
+        public boolean dryMergeAndFeed() {
+            if (inventory[this.inIndex] != null) {
+                this.activeProcess = modsbfp.foundrySmeltingRegistry.getProcessesByInputs(inventory[inIndex]).get(0);
+                if (this.activeProcess != null) {
+                    this.waitingOutputs = this.activeProcess.getOutputs();
+                    if (this.container.dryMerge(this.waitingOutputs.get(0), 36 + this.outIndex, 36 + this.outIndex + 1, false) >= this.waitingOutputs.get(0).stackSize) {
+                        decrStackSize(inIndex, this.activeProcess.getInputs().get(0).stackSize);
+                        return true;
+                    }
+                }
+            }
+            this.activeProcess = null;
+            this.waitingOutputs = null;
+            return false;
+        }
+
+        @Override
+        public void mergeOutputs() {
+            container.mergeItemStack(this.waitingOutputs.get(0), 36 + this.outIndex, 36 + this.outIndex + 1, false, false);
+        }
+
+        @Override
+        public void activate(Object... args) {
+
+        }
+
+        @Override
+        public int getWorkTicks() {
+            return this.workTicks;
+        }
+
+        @Override
+        public ContainerSB setContainer(ContainerSB container) {
+            return container;
+        }
+
+        private void tick() {
+            if (this.isWorking) {
+                this.workTicks++;
+                if (this.workTicks == this.activeProcess.getDuration()) {
+                    this.workTicks = 0;
+                    this.mergeOutputs();
+                    this.isWorking = false;
+                }
+            } else if (this.container != null) {
+                this.isWorking = this.dryMergeAndFeed();
+            }
+        }
+
+        private void reset() {
+
+        }
     }
 
 }

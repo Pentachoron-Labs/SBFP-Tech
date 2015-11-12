@@ -1,15 +1,3 @@
-/*
-GUI COORDINATES
-SMELTING: Source(0, 222)
-SMELTING OUTS: (7, [13, 37, 61, 85])
-BAR 1 SOURCE: (188, 0)
-BAR 2 SOURCE: (192, 0)
-BAR 1 GUI: (145, 107) (LL Corner)
-BAR 2 GUI: (155, 107) (LL Corner)
-Charge Indicator Source (176, [0, 11, 22])
-Charge Indicator GUI: (146, 5)
-*/
-
 package sbfp.client;
 
 import net.minecraft.client.Minecraft;
@@ -45,10 +33,24 @@ public class GUIFoundry extends GuiContainer{
         originX = (this.width-this.xSize)/2;
 	originY = (this.height-this.ySize)/2;
         this.drawTexturedModalRect(originX,originY,0,0,this.xSize,this.ySize);
+        /*
+         GUI COORDINATES
+         SMELTING: Source(0, 222)
+         SMELTING OUTS: (7, [13, 37, 61, 85])
+         BAR 1 SOURCE: (188, 0)
+         BAR 2 SOURCE: (192, 0)
+         BAR 1 GUI: (145, 107) (LL Corner)
+         BAR 2 GUI: (155, 107) (LL Corner)
+         Charge Indicator Source (176, [0, 11, 22])
+         Charge Indicator GUI: (146, 5)
+        */
         if(this.tileEntity.getFluxLevel() > 100){
-            
+            this.drawTexturedModalRect(originX + 145, originY+17, 188, 0, 191, 90);
         }else{
             
+        }
+        for(int i = 0; i<4; i++){
+            this.drawTexturedModalRect(originX +7, originY+13+24*i, 0, 222, 99, 239);
         }
     }
 

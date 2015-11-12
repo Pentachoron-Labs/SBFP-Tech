@@ -14,7 +14,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import sbfp.SBCommonProxy;
+import sbfp.SBProxy;
 import sbfp.chemistry.DyeTypes;
 import sbfp.flux.FluxDeviceTypes;
 import sbfp.machines.MachineTypes;
@@ -26,7 +26,7 @@ import sbfp.machines.solar.TileEntitySolarCharger;
 import sbfp.world.OreTypes;
 
 @SideOnly(Side.CLIENT)
-public class SBClientProxy extends SBCommonProxy {
+public class SBClientProxy extends SBProxy {
 
     @Override
     public void preInit(FMLPreInitializationEvent event) {

@@ -6,6 +6,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import sbfp.modsbfp;
@@ -28,6 +29,17 @@ public class ItemFluxCell extends Item implements IFluxSourceItem, IFluxStorageI
      */
     private static int fluxToDamage(ItemStack stack, int flux){
         return stack.getMaxDamage() - flux;
+    }
+    
+     public boolean updateItemStackNBT(NBTTagCompound nbt)
+    {
+        if(nbt.hasKey("sbfp", 10)){
+            FMLLog.info("Has SBFP");
+            if(nbt.getCompoundTag("sbfp").hasKey("fluxLevel")){
+                FMLLog.info("Has Flux Level");
+            }
+        }
+        return false;
     }
     
     @Override
@@ -78,6 +90,7 @@ public class ItemFluxCell extends Item implements IFluxSourceItem, IFluxStorageI
         if(!data.hasKey("fluxLevel")){
             data.setInteger("fluxLevel", 0);
             cell.setItemDamage(fluxToDamage(cell, 0));
+            FMLLog.info("Created fluxLevel tag");
         }
         
         tooltip.add("Flux Level: "+data.getInteger("fluxLevel")+ "/" + cell.getMaxDamage());
@@ -89,6 +102,7 @@ public class ItemFluxCell extends Item implements IFluxSourceItem, IFluxStorageI
         NBTTagCompound data = cell.getSubCompound("sbfp", true);
         if(!data.hasKey("fluxLevel")){
             data.setInteger("fluxLevel", 0);
+            FMLLog.info("Created fluxLevel tag");
             cell.setItemDamage(fluxToDamage(cell, 0));
         }
         int currentFlux = data.getInteger("fluxLevel");
@@ -106,6 +120,7 @@ public class ItemFluxCell extends Item implements IFluxSourceItem, IFluxStorageI
         if(!data.hasKey("fluxLevel")){
             data.setInteger("fluxLevel", 0);
             cell.setItemDamage(fluxToDamage(cell, 0));
+            FMLLog.info("Created fluxLevel tag");
         }
         int currentFlux = data.getInteger("fluxLevel");
         if (currentFlux == 0) return 0;
@@ -139,7 +154,11 @@ public class ItemFluxCell extends Item implements IFluxSourceItem, IFluxStorageI
 
     @Override
     public boolean canStackAcceptFlux(ItemStack stack, int amount) {
-        return stack.getMaxDamage() - stack.getItemDamage() >= amount;
+        NBTTagCompound data = stack.getSubCompound("sbfp", false);
+        if(data == null || !data.hasKey("fluxLevel")){
+            return false;
+        }
+        return data.getInteger("fluxLevel") <= stack.getMaxDamage() - amount;
     }
     
     

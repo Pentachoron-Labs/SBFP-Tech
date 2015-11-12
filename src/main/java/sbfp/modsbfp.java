@@ -68,7 +68,7 @@ public class modsbfp {
     private static final HashMap<String, HashMap<String, String>> lang = new HashMap<String, HashMap<String, String>>();
 
     @SidedProxy(clientSide = "sbfp.client.SBClientProxy", serverSide = "sbfp.SBCommonProxy")
-    public static SBCommonProxy proxy;
+    public static SBProxy proxy;
 
     // blocks and items
     public static final BlockOre blockOre = new BlockOre("blockOre");
@@ -171,9 +171,7 @@ public class modsbfp {
         Set recipeSet = FurnaceRecipes.instance().getSmeltingList().entrySet();
         for(Object o : recipeSet){
             Entry<ItemStack, ItemStack> recipe = (Entry<ItemStack, ItemStack>) o;
-            FoundryProcess f = new FoundryProcess(recipe.getKey().getUnlocalizedName() + "_to_" + recipe.getValue().getUnlocalizedName(), 
-            recipe.getKey(), recipe.getValue(), 60, 15);
-            foundrySmeltingRegistry.addProcess(f);
+            foundrySmeltingRegistry.addProcess(new FoundryProcess(recipe));
         } 
     }
 

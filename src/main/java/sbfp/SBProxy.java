@@ -16,7 +16,7 @@ import sbfp.machines.foundry.TileEntityFoundry;
 import sbfp.machines.solar.ContainerSolarCharger;
 import sbfp.machines.solar.TileEntitySolarCharger;
 
-public class SBCommonProxy implements IGuiHandler {
+public class SBProxy implements IGuiHandler {
 
     public void preInit(FMLPreInitializationEvent event) {
 
@@ -29,7 +29,7 @@ public class SBCommonProxy implements IGuiHandler {
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         TileEntity tileEntity = world.getTileEntity(new BlockPos(x, y, z));
-        if (tileEntity != null && tileEntity instanceof IProcessor) {
+        if (tileEntity != null) {
             if (tileEntity instanceof TileEntitySolarCharger) {
                 return ((IProcessor) tileEntity).setContainer(new ContainerSolarCharger(player.inventory, (TileEntitySolarCharger) tileEntity));
             }
@@ -37,7 +37,7 @@ public class SBCommonProxy implements IGuiHandler {
                 return ((IProcessor) tileEntity).setContainer(new ContainerCrusher(player.inventory, (TileEntityCrusher) tileEntity));
             }
             if (tileEntity instanceof TileEntityFoundry) {
-                return ((IProcessor) tileEntity).setContainer(new ContainerFoundry(player.inventory, (TileEntityFoundry) tileEntity));
+                return ((TileEntityFoundry) tileEntity).setContainer(new ContainerFoundry(player.inventory, (TileEntityFoundry) tileEntity));
             }
             FMLLog.info("An unrecognized TE ('%s') inhabits machine '%s'. Update the Common Proxy.", tileEntity.getClass().getName());
             FMLLog.info("This warning is for side: server");

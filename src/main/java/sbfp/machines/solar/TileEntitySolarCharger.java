@@ -13,6 +13,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.IChatComponent;
+import net.minecraftforge.fml.common.FMLLog;
 import sbfp.flux.IFluxStorageItem;
 import sbfp.machines.ContainerSB;
 import sbfp.machines.IFluxInventory;
@@ -24,7 +25,7 @@ public class TileEntitySolarCharger extends TileEntity implements IProcessor, IF
 
     private final int INPUT_STACK_NUMBER = 4;
     private final int OUTPUT_STACK_NUMBER = 4;
-    
+
     private int workTicks = 0;
     private long ticks = 0;
     private ContainerSB container;
@@ -39,23 +40,25 @@ public class TileEntitySolarCharger extends TileEntity implements IProcessor, IF
         boolean failed = false;
         if (this.inventory[8] != null) {
             if (((IFluxStorageItem) this.inventory[8].getItem()).canStackAcceptFlux(this.inventory[8], 10)) {
-                failed = this.addFluxToSlot(8, 10)>0;
+                failed = this.addFluxToSlot(8, 10) > 0;
             }
         } else if (this.inventory[9] != null) {
             if (((IFluxStorageItem) this.inventory[9].getItem()).canStackAcceptFlux(this.inventory[9], 10)) {
-                failed = this.addFluxToSlot(9, 10)>0;
+                failed = this.addFluxToSlot(9, 10) > 0;
             }
         } else {
             failed = true;
         }
-        if(failed) this.container.mergeItemStack(this.waitingOutputs.get(0), 40, 44, false, false);
+        if (failed) {
+            this.container.mergeItemStack(this.waitingOutputs.get(0), 40, 44, false, false);
+        }
     }
 
     @Override
     public boolean dryMergeAndFeed() {
         for (int i = 0; i < INPUT_STACK_NUMBER; i++) {
             if (this.inventory[i] != null) {
-                this.activeProcess = modsbfp.solarInfusionRegistry.getProcessesByInputs(this.inventory[i]).get(0);               
+                this.activeProcess = modsbfp.solarInfusionRegistry.getProcessesByInputs(this.inventory[i]).get(0);
                 if (this.activeProcess != null) {
                     this.waitingOutputs = this.activeProcess.getOutputs();
                     if (this.container.dryMerge(this.waitingOutputs.get(0), 40, 44, false) >= this.waitingOutputs.get(0).stackSize) {
@@ -73,18 +76,18 @@ public class TileEntitySolarCharger extends TileEntity implements IProcessor, IF
     @Override
     public void update() {
         if (this.worldObj.canBlockSeeSky(this.getPos()) && this.worldObj.isDaytime() && !this.worldObj.isRaining()) {
-            if(this.ticks >= Long.MAX_VALUE){
+            if (this.ticks >= Long.MAX_VALUE) {
                 this.ticks = 1;
             }
             this.ticks++;
-            if(this.isWorking){
+            if (this.isWorking) {
                 this.workTicks++;
-                if(this.workTicks == this.activeProcess.getDuration()){
+                if (this.workTicks == this.activeProcess.getDuration()) {
                     this.workTicks = 0;
                     this.mergeOutputs();
                     this.isWorking = false;
                 }
-            }else if(this.container != null){
+            } else if (this.container != null) {
                 this.isWorking = this.dryMergeAndFeed();
             }
         }
@@ -94,9 +97,9 @@ public class TileEntitySolarCharger extends TileEntity implements IProcessor, IF
     public int getSizeInventory() {
         return this.inventory.length;
     }
-    
+
     @Override
-    public int getWorkTicks(){
+    public int getWorkTicks() {
         return this.workTicks;
     }
 
@@ -181,7 +184,9 @@ public class TileEntitySolarCharger extends TileEntity implements IProcessor, IF
     @Override
     public void readFromNBT(NBTTagCompound tagCompound) {
         super.readFromNBT(tagCompound);
-        if(tagCompound.hasKey("activeRecipe")) this.activeProcess = modsbfp.solarInfusionRegistry.getProcessByName(tagCompound.getString("activeRecipe"));
+        if (tagCompound.hasKey("activeRecipe")) {
+            this.activeProcess = modsbfp.solarInfusionRegistry.getProcessByName(tagCompound.getString("activeRecipe"));
+        }
         NBTTagCompound tag;
         NBTTagList items = tagCompound.getTagList("items", 10);
         for (int i = 0; i < items.tagCount(); i++) {
@@ -251,10 +256,10 @@ public class TileEntitySolarCharger extends TileEntity implements IProcessor, IF
     public IMaterialProcess getActiveProcess() {
         return this.activeProcess;
     }
-   
+
     @Override
-    public void activate(Object... args){
-        
+    public void activate(Object... args) {
+
     }
 
     @Override
@@ -264,11 +269,11 @@ public class TileEntitySolarCharger extends TileEntity implements IProcessor, IF
 
     @Override
     public int addFluxToSlot(int index, int deltaFlux) {
-        if(this.inventory[index] == null){
+        if (this.inventory[index] == null) {
             return 0;
         }
         IFluxStorageItem fluxItem = (IFluxStorageItem) this.inventory[index].getItem();
-        
+        FMLLog.info("Adding Flux");
         return fluxItem.addFlux(this.inventory[index], deltaFlux);
     }
 
@@ -277,5 +282,5 @@ public class TileEntitySolarCharger extends TileEntity implements IProcessor, IF
         this.container = container;
         return this.container;
     }
-    
+
 }
