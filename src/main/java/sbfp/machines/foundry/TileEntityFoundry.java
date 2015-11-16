@@ -29,7 +29,8 @@ public class TileEntityFoundry extends TileEntity implements ISubUnitProcessor, 
     private int fluxLevel = 0;
 
     private List<Foundry> smelters = Lists.newArrayList();
-    private boolean renderSmelters = false;
+
+    private boolean canSmelt = false;
 
     private ContainerSB container;
     private FoundryStates state;
@@ -53,22 +54,23 @@ public class TileEntityFoundry extends TileEntity implements ISubUnitProcessor, 
                 for (Foundry f : this.smelters) {
                     f.tick();
                 }
-                if(!this.renderSmelters){
-                    for(int i = 0; i<8; i++){
-                        //Update the slots to render, somehow
+                if (!this.canSmelt) {
+                    for (int i = 0; i < 8; i++) {
+                        ((SlotFoundry) this.container.getSlot(37 + i)).setIsUsable(true);
                     }
-                    this.renderSmelters = true;
+                    this.canSmelt = true;
                 }
                 break;
             case DISCONNECTED:
                 for (Foundry f : this.smelters) {
                     f.reset();
-                    if(this.renderSmelters){
-                        for(int i = 0; i<8; i++){
-                            //Update the slots to not render, somehow
-                        }
-                        this.renderSmelters = false;
+
+                }
+                if (this.canSmelt) {
+                    for (int i = 0; i < 8; i++) {
+                        ((SlotFoundry) this.container.getSlot(37 + i)).setIsUsable(false);
                     }
+                    this.canSmelt = false;
                 }
                 break;
         }
@@ -87,9 +89,9 @@ public class TileEntityFoundry extends TileEntity implements ISubUnitProcessor, 
     public int getFluxLevel() {
         return this.fluxLevel;
     }
-    
+
     @Override
-    public int getMaxFluxLevel(){
+    public int getMaxFluxLevel() {
         return maxFluxLevel;
     }
 
@@ -98,11 +100,11 @@ public class TileEntityFoundry extends TileEntity implements ISubUnitProcessor, 
         this.container = c;
         return this.container;
     }
-    
+
     @Override
-    public List<IProcessor> getSubUnits(){
+    public List<IProcessor> getSubUnits() {
         List<IProcessor> subs = Lists.newArrayList();
-        for(Foundry f : this.smelters){
+        for (Foundry f : this.smelters) {
             subs.add(f);
         }
         return subs;
