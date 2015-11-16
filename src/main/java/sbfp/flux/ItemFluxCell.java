@@ -31,17 +31,6 @@ public class ItemFluxCell extends Item implements IFluxSourceItem, IFluxStorageI
         return stack.getMaxDamage() - flux;
     }
     
-     public boolean updateItemStackNBT(NBTTagCompound nbt)
-    {
-        if(nbt.hasKey("sbfp", 10)){
-            FMLLog.info("Has SBFP");
-            if(nbt.getCompoundTag("sbfp").hasKey("fluxLevel")){
-                FMLLog.info("Has Flux Level");
-            }
-        }
-        return false;
-    }
-    
     @Override
     public String getUnlocalizedName(ItemStack i){
         return "fluxCell";

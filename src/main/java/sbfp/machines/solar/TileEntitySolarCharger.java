@@ -283,4 +283,14 @@ public class TileEntitySolarCharger extends TileEntity implements IProcessor, IF
         return this.container;
     }
 
+    @Override
+    public int getFluxLevel() {
+       return 0;
+    }
+
+    @Override
+    public int getMaxFluxLevel() {
+        return 0;
+    }
+
 }

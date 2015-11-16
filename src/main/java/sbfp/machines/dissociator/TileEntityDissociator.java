@@ -191,4 +191,14 @@ public class TileEntityDissociator extends TileEntity implements IProcessor, IFl
         return 0;
     }
 
+    @Override
+    public int getFluxLevel() {
+        return 0;
+    }
+
+    @Override
+    public int getMaxFluxLevel() {
+        return 0;
+    }
+
 }

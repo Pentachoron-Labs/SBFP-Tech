@@ -1,4 +1,4 @@
-package sbfp.client;
+package sbfp.client.gui;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;

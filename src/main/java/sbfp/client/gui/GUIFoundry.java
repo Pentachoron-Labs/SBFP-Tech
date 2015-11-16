@@ -1,4 +1,4 @@
-package sbfp.client;
+package sbfp.client.gui;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -10,6 +10,7 @@ import sbfp.machines.foundry.TileEntityFoundry;
 
 
 public class GUIFoundry extends GuiContainer{
+    
     private TileEntityFoundry tileEntity;
     
     private int originY;
@@ -33,6 +34,7 @@ public class GUIFoundry extends GuiContainer{
         originX = (this.width-this.xSize)/2;
 	originY = (this.height-this.ySize)/2;
         this.drawTexturedModalRect(originX,originY,0,0,this.xSize,this.ySize);
+        int maxFlux = this.tileEntity.getMaxFluxLevel();
         /*
          GUI COORDINATES
          SMELTING: Source(0, 222)
@@ -44,13 +46,22 @@ public class GUIFoundry extends GuiContainer{
          Charge Indicator Source (176, [0, 11, 22])
          Charge Indicator GUI: (146, 5)
         */
+        if(this.tileEntity.getFluxLevel() == 0){
+            
+        }else if(this.tileEntity.getFluxLevel() <= maxFlux / 3){
+            this.drawTexturedModalRect(originX + 146, originY+5, 176, 0, 12, 11);
+        }else if(this.tileEntity.getFluxLevel() <= (maxFlux*2)/3){
+            this.drawTexturedModalRect(originX + 146, originY+5, 176, 11, 12, 11);
+        }else{
+            this.drawTexturedModalRect(originX + 146, originY+5, 176, 22, 12, 11);
+        }
         if(this.tileEntity.getFluxLevel() > 100){
-            this.drawTexturedModalRect(originX + 145, originY+17, 188, 0, 191, 90);
+            this.drawTexturedModalRect(originX + 145, originY+18, 188, 0, 4, 90);
         }else{
             
         }
         for(int i = 0; i<4; i++){
-            this.drawTexturedModalRect(originX +7, originY+13+24*i, 0, 222, 99, 239);
+            this.drawTexturedModalRect(originX +7, originY+13+24*i, 0, 222, 100, 18);
         }
     }
 

@@ -1,5 +1,8 @@
 package sbfp.client;
 
+import sbfp.client.gui.GUISolarCharger;
+import sbfp.client.gui.GUICrusher;
+import sbfp.client.gui.GUIFoundry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelResourceLocation;

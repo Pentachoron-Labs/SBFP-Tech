@@ -30,7 +30,7 @@ public class TileEntityCrusher extends TileEntity implements IProcessor, IFluxIn
     protected boolean isWorking;
     private ItemStack[] inventory = new ItemStack[10];
     
-    public static final int maxFluxLevel = 200; // FOR NOW
+    private static final int maxFluxLevel = 200; // FOR NOW
 
     private int fluxLevel = 0;
 
@@ -281,5 +281,10 @@ public class TileEntityCrusher extends TileEntity implements IProcessor, IFluxIn
     @Override
     public int getWorkTicks() {
         return this.workTicks;
+    }
+
+    @Override
+    public int getMaxFluxLevel() {
+        return maxFluxLevel;
     }
 }

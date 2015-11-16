@@ -57,6 +57,7 @@ public class TileEntityFoundry extends TileEntity implements ISubUnitProcessor, 
                     for(int i = 0; i<8; i++){
                         //Update the slots to render, somehow
                     }
+                    this.renderSmelters = true;
                 }
                 break;
             case DISCONNECTED:
@@ -66,6 +67,7 @@ public class TileEntityFoundry extends TileEntity implements ISubUnitProcessor, 
                         for(int i = 0; i<8; i++){
                             //Update the slots to not render, somehow
                         }
+                        this.renderSmelters = false;
                     }
                 }
                 break;
@@ -81,8 +83,14 @@ public class TileEntityFoundry extends TileEntity implements ISubUnitProcessor, 
         this.ticks++;
     }
 
+    @Override
     public int getFluxLevel() {
         return this.fluxLevel;
+    }
+    
+    @Override
+    public int getMaxFluxLevel(){
+        return maxFluxLevel;
     }
 
     @Override
@@ -227,8 +235,6 @@ public class TileEntityFoundry extends TileEntity implements ISubUnitProcessor, 
     }
 
     private class Foundry implements IProcessor {
-
-        private static final int maxFluxLevel = 400;
 
         private int workTicks = 0;
 

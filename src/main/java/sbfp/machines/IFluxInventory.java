@@ -8,6 +8,9 @@ import net.minecraft.inventory.IInventory;
  */
 public interface IFluxInventory extends IInventory {
     
+    public abstract int getFluxLevel();
+    
+    public abstract int getMaxFluxLevel();
     /**
      * Drain flux from a slot in the inventory.
      * @param index The slot to drain from
