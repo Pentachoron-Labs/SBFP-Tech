@@ -8,9 +8,11 @@ import java.util.Set;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -158,19 +160,32 @@ public class modsbfp {
         //Crusher
         GameRegistry.addRecipe(new ItemStack(blockMachine, 1, MachineTypes.CRUSHER.getMeta()), new Object[]{" I ", "PAP", "RaR", 'I', Blocks.iron_block, 'P', Blocks.piston, 'A', new ItemStack(itemFluxDevice, 1, FluxDeviceTypes.ABSORBER.getMeta()), 'a', Blocks.anvil, 'R', Items.redstone});
         //Empty Flux Cell -- Capacity 100
-        GameRegistry.addRecipe(new ItemStack(itemLowFluxCell, 1), new Object[]{" I ", "IAI", "IRI", 'I', Items.iron_ingot, 'A', new ItemStack(itemFluxDevice, 1, FluxDeviceTypes.ABSORBER.getMeta()), 'R', Items.redstone});
+        GameRegistry.addRecipe(addNBTInt(addNBTInt(new ItemStack(itemLowFluxCell, 1), "fluxLevel", 0), "fluxCapacity", 100), 
+                new Object[]{" I ", "IAI", "IRI", 'I', Items.iron_ingot, 'A', new ItemStack(itemFluxDevice, 1, FluxDeviceTypes.ABSORBER.getMeta()), 'R', Items.redstone});
         //Partially Charged Flux Cell -- Capacity 100
         ItemStack stack = new ItemStack(itemLowFluxCell, 1);
-        stack.getSubCompound("sbfp", true).setInteger("fluxLevel", 10);
+        addNBTInt(stack, "fluxLevel", 10);
+        addNBTInt(stack, "fluxCapacity", 100);
         stack.setItemDamage(90);
         GameRegistry.addRecipe(stack, new Object[]{" I ", "IAI", "IRI", 'I', Items.iron_ingot, 'A', new ItemStack(itemFluxDevice, 1, FluxDeviceTypes.ABSORBER.getMeta()), 'R', new ItemStack(itemFluxDevice, 1, FluxDeviceTypes.CHARGEDREDSTONE.getMeta())});
         
+    }
+    
+    private ItemStack addNBTInt(ItemStack stack, String tagName, int tagValue){
+        stack.getSubCompound("sbfp", true).setInteger(tagName, tagValue);
+        return stack;
+    }
+    
+    private ItemStack addNBTString(ItemStack stack, String tagName, String tagValue){
+        stack.getSubCompound("sbfp", true).setString(tagName, tagValue);
+        return stack;
     }
     
     private void fillFoundryRegistry(){
         Set recipeSet = FurnaceRecipes.instance().getSmeltingList().entrySet();
         for(Object o : recipeSet){
             Entry<ItemStack, ItemStack> recipe = (Entry<ItemStack, ItemStack>) o;
+            FMLLog.info(recipe.getKey().getDisplayName() + " to " + recipe.getValue().getDisplayName());
             foundrySmeltingRegistry.addProcess(new FoundryProcess(recipe));
         } 
     }

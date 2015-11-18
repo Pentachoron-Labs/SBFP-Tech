@@ -12,8 +12,8 @@ import net.minecraft.item.ItemStack;
 public interface IMaterialProcess {
 
     /**
-    * Gets the id of the recipe
-    * @return the ID
+    * Gets the name of the recipe
+    * @return the name
     */
     public abstract String getName();
 

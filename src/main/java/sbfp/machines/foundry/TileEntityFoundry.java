@@ -9,6 +9,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.IChatComponent;
+import net.minecraftforge.fml.common.FMLLog;
 import sbfp.flux.IFluxSourceItem;
 import sbfp.machines.ContainerSB;
 import sbfp.machines.IFluxInventory;
@@ -30,8 +31,6 @@ public class TileEntityFoundry extends TileEntity implements ISubUnitProcessor, 
 
     private List<Foundry> smelters = Lists.newArrayList();
 
-    private boolean canSmelt = false;
-
     private ContainerSB container;
     private FoundryStates state;
 
@@ -47,31 +46,20 @@ public class TileEntityFoundry extends TileEntity implements ISubUnitProcessor, 
     public void update() {
         if (this.ticks % 20 == 0) {
             this.worldObj.markBlockForUpdate(this.pos);
-            this.state = (FoundryStates) this.worldObj.getBlockState(this.pos).getValue(BlockFoundry.STATE);
         }
+        this.state = (FoundryStates) this.worldObj.getBlockState(this.pos).getValue(BlockFoundry.STATE);
         switch (this.state) {
             case CONNECTED:
+                FMLLog.info(this.state.toString());
                 for (Foundry f : this.smelters) {
-                    f.tick();
-                }
-                if (!this.canSmelt) {
-                    for (int i = 0; i < 8; i++) {
-                        ((SlotFoundry) this.container.getSlot(37 + i)).setIsUsable(true);
-                    }
-                    this.canSmelt = true;
+                    f.tick();                   
                 }
                 break;
             case DISCONNECTED:
+                FMLLog.info(this.state.toString());
                 for (Foundry f : this.smelters) {
                     f.reset();
-
-                }
-                if (this.canSmelt) {
-                    for (int i = 0; i < 8; i++) {
-                        ((SlotFoundry) this.container.getSlot(37 + i)).setIsUsable(false);
-                    }
-                    this.canSmelt = false;
-                }
+                }  
                 break;
         }
         if (this.inventory[8] != null && this.fluxLevel < maxFluxLevel) {
@@ -97,8 +85,10 @@ public class TileEntityFoundry extends TileEntity implements ISubUnitProcessor, 
 
     @Override
     public ContainerSB setContainer(ContainerSB c) {
-        this.container = c;
-        return this.container;
+        for(Foundry f : this.smelters){
+            f.setContainer(c);
+        }
+        return c;
     }
 
     @Override
@@ -239,7 +229,7 @@ public class TileEntityFoundry extends TileEntity implements ISubUnitProcessor, 
     private class Foundry implements IProcessor {
 
         private int workTicks = 0;
-
+        
         private ContainerSB container;
 
         private int outIndex;
@@ -292,8 +282,9 @@ public class TileEntityFoundry extends TileEntity implements ISubUnitProcessor, 
         }
 
         @Override
-        public ContainerSB setContainer(ContainerSB container) {
-            return container;
+        public ContainerSB setContainer(ContainerSB c) {
+            this.container = c;
+            return this.container;
         }
 
         private void tick() {
@@ -310,7 +301,10 @@ public class TileEntityFoundry extends TileEntity implements ISubUnitProcessor, 
         }
 
         private void reset() {
-
+            this.workTicks = 0;
+            this.waitingOutputs = null;
+            this.activeProcess = null;
+            this.isWorking = false;
         }
     }
 

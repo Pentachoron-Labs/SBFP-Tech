@@ -22,10 +22,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumWorldBlockLayer;
-import net.minecraft.util.IStringSerializable;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.FMLLog;
 import sbfp.BlockSB;
 import sbfp.modsbfp;
 
@@ -191,14 +189,18 @@ public class BlockFoundry extends BlockSB implements ITileEntityProvider {
         }
         boolean invalid;
         BlockPos check;
-        for(int dx = 0; dx < 3; dx++){
-            for(int dy = 0; dy < 3; dy++){
-                for(int dz = 0; dz < 3; dz++){
+        for (int dx = 0; dx < 3; dx++) {
+            for (int dy = 0; dy < 3; dy++) {
+                for (int dz = 0; dz < 3; dz++) {
                     check = posLL.offset(direction, dx).offset(direction.rotateY(), dz).up(dy);
-                    invalid = !(worldIn.getBlockState(check).getBlock() == Blocks.iron_block || (check.equals(pos.offset(direction)) && worldIn.getBlockState(check).getBlock() == Blocks.air));
-                    if(check.equals(pos)) invalid = false;
-                    //FMLLog.info("Checked Position %d, %d, %d, value was %b", check.getX(), check.getY(), check.getZ(), invalid);
-                    if(invalid) return false;
+                    invalid = !(worldIn.getBlockState(check).getBlock() == Blocks.iron_block || (check.equals(pos.offset(direction))
+                            && worldIn.getBlockState(check).getBlock() == Blocks.air));
+                    if (check.equals(pos)) {
+                        invalid = false;
+                    }
+                    if (invalid) {
+                        return false;
+                    }
                 }
             }
         }
